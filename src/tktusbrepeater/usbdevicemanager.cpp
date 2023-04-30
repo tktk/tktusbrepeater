@@ -39,14 +39,12 @@ UsbDeviceManagerUnique newUsbDeviceManager(
 {
     auto    managerUnique = UsbDeviceManagerUnique( new UsbDeviceManager() );
 
-/*
     registerUsbHotplugCallback(
         _context
         , _VENDOR_ID
         , _PRODUCT_ID
         , managerUnique.get()
     );
-*/
 
     return managerUnique;
 }
