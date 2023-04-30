@@ -1,4 +1,5 @@
 #include "tktusbrepeater/usbdevicemanager.h"
+#include <stdexcept>
 
 UsbDeviceManager::UsbDeviceManager(
 )
@@ -43,7 +44,7 @@ UsbDeviceManagerUnique newUsbDeviceManager(
         , _PRODUCT_ID
         , managerUnique.get()
     ) != 0 ) {
-        return nullptr;
+        throw std::runtime_error( "registerUsbHotplugCallback()が失敗" );
     }
 
     return managerUnique;
