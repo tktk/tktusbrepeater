@@ -4,11 +4,18 @@ int calledCountRegisterUsbHotplugCallback;
 
 ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
 
+void closeUsbDeviceHandleImpl(
+    UsbDeviceHandleImpl *
+)
+{
+}
+
 void registerUsbHotplugCallback(
-    UsbContextImpl *    _context
-    , int               _vendorId
-    , int               _productId
-    , void *            _userData
+    UsbContextImpl *        _context
+    , int                   _vendorId
+    , int                   _productId
+    , CallbackUsbHotplug    _callback
+    , void *                _userData
 )
 {
     calledCountRegisterUsbHotplugCallback++;
@@ -16,13 +23,22 @@ void registerUsbHotplugCallback(
     argsRegisterUsbHotplugCallback.context = _context;
     argsRegisterUsbHotplugCallback.vendorId = _vendorId;
     argsRegisterUsbHotplugCallback.productId = _productId;
+    argsRegisterUsbHotplugCallback.callback = _callback;
     argsRegisterUsbHotplugCallback.userData = _userData;
 }
 
-void closeUsbDeviceHandleImpl(
-    UsbDeviceHandleImpl *
+UsbContextImpl * returnsInitializeUsbContextImpl;
+
+void exitUsbContextImpl(
+    UsbContextImpl *
 )
 {
+}
+
+UsbContextImplUnique initializeUsbContextImpl(
+)
+{
+    return UsbContextImplUnique( returnsInitializeUsbContextImpl );
 }
 
 namespace {
@@ -32,10 +48,17 @@ namespace {
         calledCountRegisterUsbHotplugCallback = 0;
         argsRegisterUsbHotplugCallback = ArgsRegisterUsbHotplugCallback();
     }
+
+    void initializeMockInitializeUsbContextImpl(
+    )
+    {
+        returnsInitializeUsbContextImpl = nullptr;
+    }
 }
 
 void initializeUsbMock(
 )
 {
     initializeMockRegisterUsbHotplugCallback();
+    initializeMockInitializeUsbContextImpl();
 }

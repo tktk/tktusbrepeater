@@ -8,12 +8,15 @@ struct ArgsRegisterUsbHotplugCallback
     UsbContextImpl *    context = nullptr;
     int                 vendorId = 0;
     int                 productId = 0;
+    CallbackUsbHotplug  callback = nullptr;
     void *              userData = nullptr;
 };
 
 extern int  calledCountRegisterUsbHotplugCallback;
 
 extern ArgsRegisterUsbHotplugCallback   argsRegisterUsbHotplugCallback;
+
+extern UsbContextImpl * returnsInitializeUsbContextImpl;
 
 void initializeUsbMock(
 );

@@ -3,6 +3,16 @@
 #include "tktusbrepeater/impl/usb_mock.h"
 
 namespace {
+    struct UsbDeviceManagerImpl
+    {
+        UsbContextImplUnique    usbContextUnique;
+
+        UsbDeviceImpl * usbDevicePtr;
+
+        std::shared_mutex           usbDeviceMutex;
+        UsbDeviceHandleImplUnique   usbDeviceHandleUnique;
+    };
+
     class NewUsbDeviceManagerTest : public ::testing::Test
     {
     protected:
@@ -20,11 +30,10 @@ namespace {
             auto    dummyVendorId = 20;
             auto    dummyProductId = 30;
 
-            auto    usbDeviceManagerUnique = UsbDeviceManagerUnique();
+            returnsInitializeUsbContextImpl = dummyContext;
 
-            usbDeviceManagerUnique = newUsbDeviceManager(
-                dummyContext
-                , dummyVendorId
+            auto    usbDeviceManagerUnique = newUsbDeviceManager(
+                dummyVendorId
                 , dummyProductId
             );
 
@@ -32,7 +41,13 @@ namespace {
             EXPECT_EQ( dummyContext, argsRegisterUsbHotplugCallback.context );
             EXPECT_EQ( dummyVendorId, argsRegisterUsbHotplugCallback.vendorId );
             EXPECT_EQ( dummyProductId, argsRegisterUsbHotplugCallback.productId );
+            EXPECT_EQ( callbackUsbHotplug, argsRegisterUsbHotplugCallback.callback );
             EXPECT_EQ( usbDeviceManagerUnique.get(), argsRegisterUsbHotplugCallback.userData );
+
+            auto &  usbDeviceManagerImpl = reinterpret_cast< UsbDeviceManagerImpl & >( *usbDeviceManagerUnique );
+            EXPECT_EQ( dummyContext, usbDeviceManagerImpl.usbContextUnique.get() );
+            EXPECT_EQ( nullptr, usbDeviceManagerImpl.usbDevicePtr );
+            EXPECT_EQ( nullptr, usbDeviceManagerImpl.usbDeviceHandleUnique.get() );
         }
     };
 }

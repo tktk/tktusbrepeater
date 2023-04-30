@@ -5,8 +5,17 @@
 #include <shared_mutex>
 #include <memory>
 
+int callbackUsbHotplug(
+    UsbContextImpl *
+    , UsbDeviceImpl *
+    , UsbHotplugEvent
+    , void *
+);
+
 class UsbDeviceManager
 {
+    UsbContextImplUnique    usbContextUnique;
+
     UsbDeviceImpl * usbDevicePtr;
 
     std::shared_mutex           usbDeviceMutex;
@@ -16,7 +25,7 @@ public:
     UsbDeviceManager(
     );
 
-    void procEvents(
+    void handleEvents(
     );
 
     int readData(
@@ -32,9 +41,15 @@ public:
 
 using UsbDeviceManagerUnique = std::unique_ptr< UsbDeviceManager >;
 
+//REMOVEME
 UsbDeviceManagerUnique newUsbDeviceManager(
     UsbContextImpl *
     , int
+    , int
+);
+
+UsbDeviceManagerUnique newUsbDeviceManager(
+    int
     , int
 );
 
