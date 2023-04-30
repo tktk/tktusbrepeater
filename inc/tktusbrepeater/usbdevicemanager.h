@@ -23,6 +23,7 @@ class UsbDeviceManager
 
 public:
     UsbDeviceManager(
+        UsbContextImplUnique
     );
 
     void handleEvents(

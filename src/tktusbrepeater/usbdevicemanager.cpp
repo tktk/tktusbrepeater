@@ -14,8 +14,10 @@ int callbackUsbHotplug(
 }
 
 UsbDeviceManager::UsbDeviceManager(
+    UsbContextImplUnique    _contextUnique
 )
-    : usbDevicePtr( nullptr )
+    : usbContextUnique( std::move( _contextUnique ) )
+    , usbDevicePtr( nullptr )
 {
 }
 
@@ -50,18 +52,19 @@ UsbDeviceManagerUnique newUsbDeviceManager(
     , int               _PRODUCT_ID
 )
 {
+/*
     auto    managerUnique = UsbDeviceManagerUnique( new UsbDeviceManager() );
 
-/*
     registerUsbHotplugCallback(
         _context
         , _VENDOR_ID
         , _PRODUCT_ID
         , managerUnique.get()
     );
-*/
 
     return managerUnique;
+*/
+    return nullptr;
 }
 
 UsbDeviceManagerUnique newUsbDeviceManager(
@@ -69,6 +72,22 @@ UsbDeviceManagerUnique newUsbDeviceManager(
     , int   _PRODUCT_ID
 )
 {
-    //TODO
-    return nullptr;
+    auto    contextUnique = initializeUsbContextImpl();
+    auto    contextPtr = contextUnique.get();
+
+    auto    managerUnique = UsbDeviceManagerUnique(
+        new UsbDeviceManager(
+            std::move( contextUnique )
+        )
+    );
+
+    registerUsbHotplugCallback(
+        contextPtr
+        , _VENDOR_ID
+        , _PRODUCT_ID
+        , callbackUsbHotplug
+        , managerUnique.get()
+    );
+
+    return managerUnique;
 }
