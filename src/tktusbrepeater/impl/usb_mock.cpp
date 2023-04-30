@@ -2,11 +2,9 @@
 
 int calledCountRegisterUsbHotplugCallback;
 
-int returnsRegisterUsbHotplugCallback;
-
 ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
 
-int registerUsbHotplugCallback(
+void registerUsbHotplugCallback(
     UsbContextImpl *    _context
     , int               _vendorId
     , int               _productId
@@ -19,8 +17,6 @@ int registerUsbHotplugCallback(
     argsRegisterUsbHotplugCallback.vendorId = _vendorId;
     argsRegisterUsbHotplugCallback.productId = _productId;
     argsRegisterUsbHotplugCallback.userData = _userData;
-
-    return returnsRegisterUsbHotplugCallback;
 }
 
 void closeUsbDeviceHandleImpl(
@@ -34,7 +30,6 @@ namespace {
     )
     {
         calledCountRegisterUsbHotplugCallback = 0;
-        returnsRegisterUsbHotplugCallback = 0;
         argsRegisterUsbHotplugCallback = ArgsRegisterUsbHotplugCallback();
     }
 }

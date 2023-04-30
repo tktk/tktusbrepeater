@@ -3,6 +3,7 @@
 
 UsbDeviceManager::UsbDeviceManager(
 )
+    : usbDevicePtr( nullptr )
 {
 }
 
@@ -38,14 +39,14 @@ UsbDeviceManagerUnique newUsbDeviceManager(
 {
     auto    managerUnique = UsbDeviceManagerUnique( new UsbDeviceManager() );
 
-    if( registerUsbHotplugCallback(
+/*
+    registerUsbHotplugCallback(
         _context
         , _VENDOR_ID
         , _PRODUCT_ID
         , managerUnique.get()
-    ) != 0 ) {
-        throw std::runtime_error( "registerUsbHotplugCallback()が失敗" );
-    }
+    );
+*/
 
     return managerUnique;
 }

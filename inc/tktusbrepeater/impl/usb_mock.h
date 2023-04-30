@@ -13,8 +13,6 @@ struct ArgsRegisterUsbHotplugCallback
 
 extern int  calledCountRegisterUsbHotplugCallback;
 
-extern int  returnsRegisterUsbHotplugCallback;
-
 extern ArgsRegisterUsbHotplugCallback   argsRegisterUsbHotplugCallback;
 
 void initializeUsbMock(

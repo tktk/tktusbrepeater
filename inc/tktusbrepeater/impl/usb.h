@@ -27,7 +27,7 @@ using UsbContextImplUnique = std::unique_ptr<
 UsbContextImplUnique initializeUsbContextImpl(
 );
 
-int registerUsbHotplugCallback(
+void registerUsbHotplugCallback(
     UsbContextImpl *
     , int
     , int
