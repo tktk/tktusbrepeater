@@ -1,22 +1,9 @@
 #include "tktusbrepeater/test.h"
 #include "tktusbrepeater/usbdevicemanager.h"
 #include "tktusbrepeater/impl/usb_mock.h"
-#include <functional>
+#include <stdexcept>
 
 namespace {
-    using AssertManager = std::function<
-        void (
-            const UsbDeviceManager *
-        )
-    >;
-
-    using AssertUserData = std::function<
-        void (
-            const void *
-            , const UsbDeviceManager *
-        )
-    >;
-
     class NewUsbDeviceManagerTest : public ::testing::Test
     {
     protected:
@@ -28,9 +15,8 @@ namespace {
 
     public:
         void test(
-            int                 _RETURNS_REGISTER_USB_HOTPLUG_CALLBACK
-            , AssertManager     _ASSERT_MANAGER
-            , AssertUserData    _ASSERT_USER_DATA
+            int     _RETURNS_REGISTER_USB_HOTPLUG_CALLBACK
+            , bool  _EXPECTED_THROW_EXCEPTION
         ) const
         {
             auto    dummyContext = reinterpret_cast< UsbContextImpl * >( 10 );
@@ -39,22 +25,23 @@ namespace {
 
             returnsRegisterUsbHotplugCallback = _RETURNS_REGISTER_USB_HOTPLUG_CALLBACK;
 
-            auto    usbDeviceManagerUnique = newUsbDeviceManager(
-                dummyContext
-                , dummyVendorId
-                , dummyProductId
-            );
-            _ASSERT_MANAGER( usbDeviceManagerUnique.get() );
+            auto    usbDeviceManagerUnique = UsbDeviceManagerUnique();
 
-            EXPECT_EQ( 1, calledCountRegisterUsbHotplugCallback );
-            EXPECT_EQ( dummyContext, argsRegisterUsbHotplugCallback.context );
-            EXPECT_EQ( dummyVendorId, argsRegisterUsbHotplugCallback.vendorId );
-            EXPECT_EQ( dummyProductId, argsRegisterUsbHotplugCallback.productId );
+            try {
+                usbDeviceManagerUnique = newUsbDeviceManager(
+                    dummyContext
+                    , dummyVendorId
+                    , dummyProductId
+                );
 
-            _ASSERT_USER_DATA(
-                argsRegisterUsbHotplugCallback.userData
-                , usbDeviceManagerUnique.get()
-            );
+                ASSERT_FALSE( _EXPECTED_THROW_EXCEPTION );
+
+                EXPECT_EQ( 1, calledCountRegisterUsbHotplugCallback );
+                EXPECT_EQ( dummyContext, argsRegisterUsbHotplugCallback.context );
+                EXPECT_EQ( dummyVendorId, argsRegisterUsbHotplugCallback.vendorId );
+                EXPECT_EQ( dummyProductId, argsRegisterUsbHotplugCallback.productId );
+                EXPECT_EQ( usbDeviceManagerUnique.get(), argsRegisterUsbHotplugCallback.userData );
+            } catch( const std::runtime_error & ) {}
         }
     };
 }
@@ -66,19 +53,7 @@ TEST_F(
 {
     this->test(
         0
-        , [](
-            const UsbDeviceManager *    _MANAGER_PTR
-        )
-        {
-            EXPECT_NE( nullptr, _MANAGER_PTR );
-        }
-        , [](
-            const void *                _USER_DATA
-            , const UsbDeviceManager *  _MANAGER_PTR
-        )
-        {
-            EXPECT_EQ( _MANAGER_PTR, _USER_DATA );
-        }
+        , false
     );
 }
 
@@ -89,18 +64,6 @@ TEST_F(
 {
     this->test(
         -1
-        , [](
-            const UsbDeviceManager *    _MANAGER_PTR
-        )
-        {
-            EXPECT_EQ( nullptr, _MANAGER_PTR );
-        }
-        , [](
-            const void *                _USER_DATA
-            , const UsbDeviceManager *
-        )
-        {
-            EXPECT_NE( nullptr, _USER_DATA );
-        }
+        , true
     );
 }
