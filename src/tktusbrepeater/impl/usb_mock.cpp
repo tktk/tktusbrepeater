@@ -1,10 +1,10 @@
 #include "tktusbrepeater/impl/usb_mock.h"
 
-int registerUsbHotplugCallbackCalledCount;
+int calledCountRegisterUsbHotplugCallback;
 
-int registerUsbHotplugCallbackReturns;
+int returnsRegisterUsbHotplugCallback;
 
-RegisterUsbHotplugCallbackArgs  registerUsbHotplugCallbackArgs;
+ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
 
 int registerUsbHotplugCallback(
     UsbContextImpl *    _context
@@ -13,14 +13,14 @@ int registerUsbHotplugCallback(
     , void *            _userData
 )
 {
-    registerUsbHotplugCallbackCalledCount++;
+    calledCountRegisterUsbHotplugCallback++;
 
-    registerUsbHotplugCallbackArgs.context = _context;
-    registerUsbHotplugCallbackArgs.vendorId = _vendorId;
-    registerUsbHotplugCallbackArgs.productId = _productId;
-    registerUsbHotplugCallbackArgs.userData = _userData;
+    argsRegisterUsbHotplugCallback.context = _context;
+    argsRegisterUsbHotplugCallback.vendorId = _vendorId;
+    argsRegisterUsbHotplugCallback.productId = _productId;
+    argsRegisterUsbHotplugCallback.userData = _userData;
 
-    return registerUsbHotplugCallbackReturns;
+    return returnsRegisterUsbHotplugCallback;
 }
 
 void closeUsbDeviceHandleImpl(
@@ -30,17 +30,17 @@ void closeUsbDeviceHandleImpl(
 }
 
 namespace {
-    void initializeRegisterUsbHotplugCallbackMock(
+    void initializeMockRegisterUsbHotplugCallback(
     )
     {
-        registerUsbHotplugCallbackCalledCount = 0;
-        registerUsbHotplugCallbackReturns = 0;
-        registerUsbHotplugCallbackArgs = RegisterUsbHotplugCallbackArgs();
+        calledCountRegisterUsbHotplugCallback = 0;
+        returnsRegisterUsbHotplugCallback = 0;
+        argsRegisterUsbHotplugCallback = ArgsRegisterUsbHotplugCallback();
     }
 }
 
 void initializeUsbMock(
 )
 {
-    initializeRegisterUsbHotplugCallbackMock();
+    initializeMockRegisterUsbHotplugCallback();
 }

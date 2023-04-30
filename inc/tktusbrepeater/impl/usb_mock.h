@@ -3,7 +3,7 @@
 
 #include "tktusbrepeater/impl/usb.h"
 
-struct RegisterUsbHotplugCallbackArgs
+struct ArgsRegisterUsbHotplugCallback
 {
     UsbContextImpl *    context = nullptr;
     int                 vendorId = 0;
@@ -11,11 +11,11 @@ struct RegisterUsbHotplugCallbackArgs
     void *              userData = nullptr;
 };
 
-extern int  registerUsbHotplugCallbackCalledCount;
+extern int  calledCountRegisterUsbHotplugCallback;
 
-extern int  registerUsbHotplugCallbackReturns;
+extern int  returnsRegisterUsbHotplugCallback;
 
-extern RegisterUsbHotplugCallbackArgs   registerUsbHotplugCallbackArgs;
+extern ArgsRegisterUsbHotplugCallback   argsRegisterUsbHotplugCallback;
 
 void initializeUsbMock(
 );
