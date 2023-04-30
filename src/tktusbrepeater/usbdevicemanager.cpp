@@ -35,6 +35,14 @@ UsbDeviceManagerUnique newUsbDeviceManager(
     , int               _PRODUCT_ID
 )
 {
-    //TODO
-    return nullptr;
+    auto    managerUnique = UsbDeviceManagerUnique( new UsbDeviceManager() );
+
+    registerUsbHotplugCallback(
+        _context
+        , _VENDOR_ID
+        , _PRODUCT_ID
+        , managerUnique.get()
+    );
+
+    return managerUnique;
 }
