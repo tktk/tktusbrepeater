@@ -5,13 +5,6 @@
 #include <shared_mutex>
 #include <memory>
 
-int callbackUsbHotplug(
-    UsbContextImpl *
-    , UsbDeviceImpl *
-    , UsbHotplugEvent
-    , void *
-);
-
 class UsbDeviceManager
 {
 

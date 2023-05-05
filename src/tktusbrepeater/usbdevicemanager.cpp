@@ -2,17 +2,6 @@
 #include "tktusbrepeater/impl/usb.h"
 #include <stdexcept>
 
-int callbackUsbHotplug(
-    UsbContextImpl *
-    , UsbDeviceImpl *
-    , UsbHotplugEvent
-    , void *
-)
-{
-    //TODO
-    return 0;
-}
-
 int UsbDeviceManager::callbackUsbHotplug(
     UsbContextImpl *
     , UsbDeviceImpl *
@@ -74,7 +63,7 @@ UsbDeviceManagerUnique newUsbDeviceManager(
         contextPtr
         , _VENDOR_ID
         , _PRODUCT_ID
-        , callbackUsbHotplug
+        , UsbDeviceManager::callbackUsbHotplug
         , managerUnique.get()
     );
 
