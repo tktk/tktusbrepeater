@@ -13,6 +13,17 @@ int callbackUsbHotplug(
     return 0;
 }
 
+int UsbDeviceManager::callbackUsbHotplug(
+    UsbContextImpl *
+    , UsbDeviceImpl *
+    , UsbHotplugEvent
+    , void *
+)
+{
+    //TODO
+    return 0;
+}
+
 UsbDeviceManager::UsbDeviceManager(
     UsbContextImplUnique    _contextUnique
 )
@@ -43,28 +54,6 @@ int UsbDeviceManager::writeData(
 {
     //TODO
     return -1;
-}
-
-//REMOVEME
-UsbDeviceManagerUnique newUsbDeviceManager(
-    UsbContextImpl *    _context
-    , int               _VENDOR_ID
-    , int               _PRODUCT_ID
-)
-{
-/*
-    auto    managerUnique = UsbDeviceManagerUnique( new UsbDeviceManager() );
-
-    registerUsbHotplugCallback(
-        _context
-        , _VENDOR_ID
-        , _PRODUCT_ID
-        , managerUnique.get()
-    );
-
-    return managerUnique;
-*/
-    return nullptr;
 }
 
 UsbDeviceManagerUnique newUsbDeviceManager(

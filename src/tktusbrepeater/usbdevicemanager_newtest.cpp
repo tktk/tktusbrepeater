@@ -41,7 +41,7 @@ namespace {
             EXPECT_EQ( dummyContext, argsRegisterUsbHotplugCallback.context );
             EXPECT_EQ( dummyVendorId, argsRegisterUsbHotplugCallback.vendorId );
             EXPECT_EQ( dummyProductId, argsRegisterUsbHotplugCallback.productId );
-            EXPECT_EQ( callbackUsbHotplug, argsRegisterUsbHotplugCallback.callback );
+            EXPECT_EQ( UsbDeviceManager::callbackUsbHotplug, argsRegisterUsbHotplugCallback.callback );
             EXPECT_EQ( usbDeviceManagerUnique.get(), argsRegisterUsbHotplugCallback.userData );
 
             auto &  usbDeviceManagerImpl = reinterpret_cast< UsbDeviceManagerImpl & >( *usbDeviceManagerUnique );

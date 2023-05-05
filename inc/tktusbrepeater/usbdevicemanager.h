@@ -14,6 +14,7 @@ int callbackUsbHotplug(
 
 class UsbDeviceManager
 {
+
     UsbContextImplUnique    usbContextUnique;
 
     UsbDeviceImpl * usbDevicePtr;
@@ -22,6 +23,13 @@ class UsbDeviceManager
     UsbDeviceHandleImplUnique   usbDeviceHandleUnique;
 
 public:
+    static int callbackUsbHotplug(
+        UsbContextImpl *
+        , UsbDeviceImpl *
+        , UsbHotplugEvent
+        , void *
+    );
+
     UsbDeviceManager(
         UsbContextImplUnique
     );
@@ -41,13 +49,6 @@ public:
 };
 
 using UsbDeviceManagerUnique = std::unique_ptr< UsbDeviceManager >;
-
-//REMOVEME
-UsbDeviceManagerUnique newUsbDeviceManager(
-    UsbContextImpl *
-    , int
-    , int
-);
 
 UsbDeviceManagerUnique newUsbDeviceManager(
     int

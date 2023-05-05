@@ -3,9 +3,9 @@
 
 #include <memory>
 
-using UsbDeviceImpl = void;
+class UsbDeviceImpl;
 
-using UsbDeviceHandleImpl = void;
+class UsbDeviceHandleImpl;
 
 void closeUsbDeviceHandleImpl(
     UsbDeviceHandleImpl *
@@ -35,7 +35,7 @@ enum UsbHotplugEvent {
     LEFT = 0x2,
 };
 
-using UsbContextImpl = void;
+class UsbContextImpl;
 
 void exitUsbContextImpl(
     UsbContextImpl *
