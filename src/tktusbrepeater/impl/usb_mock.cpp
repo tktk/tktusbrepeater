@@ -6,6 +6,8 @@ void closeUsbDeviceHandleImpl(
 {
 }
 
+int  calledCountOpenUsbDeviceImpl;
+
 ArgsOpenUsbDeviceImpl   argsOpenUsbDeviceImpl;
 
 UsbDeviceHandleImpl *   returnsOpenUsbDeviceImpl;
@@ -14,6 +16,8 @@ UsbDeviceHandleImplUnique openUsbDeviceImpl(
     UsbDeviceImpl * _device
 )
 {
+    calledCountOpenUsbDeviceImpl++;
+
     argsOpenUsbDeviceImpl.device = _device;
 
     return UsbDeviceHandleImplUnique( returnsOpenUsbDeviceImpl );
@@ -58,6 +62,7 @@ namespace {
     void initializeMockOpenUsbDeviceImpl(
     )
     {
+        calledCountOpenUsbDeviceImpl = 0;
         argsOpenUsbDeviceImpl = ArgsOpenUsbDeviceImpl();
         returnsOpenUsbDeviceImpl = nullptr;
     }

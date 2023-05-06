@@ -9,6 +9,8 @@ struct ArgsOpenUsbDeviceImpl
     UsbDeviceImpl * device = nullptr;
 };
 
+extern int  calledCountOpenUsbDeviceImpl;
+
 extern ArgsOpenUsbDeviceImpl    argsOpenUsbDeviceImpl;
 
 extern UsbDeviceHandleImpl *    returnsOpenUsbDeviceImpl;

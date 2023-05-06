@@ -14,30 +14,43 @@ namespace {
         }
 
     public:
+        UsbDeviceImpl *         deviceImpl = reinterpret_cast< UsbDeviceImpl * >( 10 );
+        UsbDeviceHandleImpl *   deviceHandleImpl = reinterpret_cast< UsbDeviceHandleImpl * >( 20 );
+
         void test(
+            UsbHotplugEvent                 _EVENT
+            , UsbDeviceImpl *               _usbDevicePtr
+            , UsbDeviceHandleImpl *         _usbDeviceHandleUniquePtr
+            , const UsbDeviceImpl *         _EXPECTED_USB_DEVICE_PTR
+            , const UsbDeviceHandleImpl *   _EXPECTED_USB_DEVICE_HANDLE_UNIQUE_PTR
+            , const int                     _EXPECTED_CALLED_COUNT_OPEN_USB_DEVICE_IMPL
+            , const UsbDeviceImpl *         _EXPECTED_ARG_OPEN_USB_DEVICE_IMPL_DEVICE
         ) const
         {
-            auto    deviceImpl = reinterpret_cast< UsbDeviceImpl * >( 10 );
-            auto    deviceManagerImpl = UsbDeviceManagerImpl();
+            auto    deviceManagerImpl = UsbDeviceManagerImpl{
+                .usbDevicePtr = _usbDevicePtr,
+                .usbDeviceHandleUnique = UsbDeviceHandleImplUnique( _usbDeviceHandleUniquePtr ),
+            };
 
-            auto    deviceHandleImpl = reinterpret_cast< UsbDeviceHandleImpl * >( 20 );
-
-            returnsOpenUsbDeviceImpl = deviceHandleImpl;
+            returnsOpenUsbDeviceImpl = this->deviceHandleImpl;
 
             EXPECT_EQ(
                 0
                 , UsbDeviceManager::callbackUsbHotplug(
                     nullptr
-                    , deviceImpl
-                    , UsbHotplugEvent::ARRIVED
+                    , this->deviceImpl
+                    , _EVENT
                     , &deviceManagerImpl
                 )
             );
 
-            EXPECT_EQ( deviceImpl, deviceManagerImpl.usbDevicePtr );
-            EXPECT_EQ( deviceHandleImpl, deviceManagerImpl.usbDeviceHandleUnique.get() );
+            EXPECT_EQ( _EXPECTED_USB_DEVICE_PTR, deviceManagerImpl.usbDevicePtr );
+            EXPECT_EQ( _EXPECTED_USB_DEVICE_HANDLE_UNIQUE_PTR, deviceManagerImpl.usbDeviceHandleUnique.get() );
 
-            EXPECT_EQ( deviceImpl, argsOpenUsbDeviceImpl.device );
+            EXPECT_EQ( _EXPECTED_CALLED_COUNT_OPEN_USB_DEVICE_IMPL, calledCountOpenUsbDeviceImpl );
+            if( calledCountOpenUsbDeviceImpl > 0 ) {
+                EXPECT_EQ( _EXPECTED_ARG_OPEN_USB_DEVICE_IMPL_DEVICE, argsOpenUsbDeviceImpl.device );
+            }
         }
     };
 }
@@ -47,11 +60,33 @@ TEST_F(
     , ArrivedDevice
 )
 {
-    //TODO
-    this->test();
+    this->test(
+        UsbHotplugEvent::ARRIVED
+        , nullptr
+        , nullptr
+        , this->deviceImpl
+        , this->deviceHandleImpl
+        , 1
+        , this->deviceImpl
+    );
 }
 
-//TODO LeftDevice
+TEST_F(
+    UsbDeviceManager_callbackUsbHotplugTest
+    , LeftDevice
+)
+{
+    this->test(
+        UsbHotplugEvent::LEFT
+        , this->deviceImpl
+        , this->deviceHandleImpl
+        , nullptr
+        , nullptr
+        , 0
+        , nullptr
+    );
+}
+
 //TODO ArrivedOtherDevice
 //TODO LeftOtherDevice
 //TODO Failed_openUsbDeviceImpl
