@@ -23,6 +23,17 @@ public:
         , void *
     );
 
+private:
+    static void callbackUsbHotplugArrived(
+        UsbDeviceImpl *
+        , UsbDeviceManager *
+    );
+
+    static void callbackUsbHotplugLeft(
+        UsbDeviceManager *
+    );
+
+public:
     UsbDeviceManager(
         UsbContextImplUnique
     );
