@@ -14,44 +14,44 @@ int UsbDeviceManager::callbackUsbHotplug(
     auto    managerPtr = static_cast< UsbDeviceManager * >( _managerPtr );
 
     if( _EVENT == UsbHotplugEvent::ARRIVED ) {
-        callbackUsbHotplugArrived(
-            _devicePtr
-            , managerPtr
-        );
+        managerPtr->callbackUsbHotplugArrived( _devicePtr );
     } else {
-        callbackUsbHotplugLeft( managerPtr );
+        managerPtr->callbackUsbHotplugLeft( _devicePtr );
     }
 
     return 0;
 }
 
 void UsbDeviceManager::callbackUsbHotplugArrived(
-    UsbDeviceImpl *         _devicePtr
-    , UsbDeviceManager *    _managerPtr
+    UsbDeviceImpl * _devicePtr
 )
 {
-    if( _managerPtr->usbDevicePtr != nullptr ) {
+    if( this->usbDevicePtr != nullptr ) {
         return;
     }
 
     auto    usbDeviceHandleUnique = openUsbDeviceImpl( _devicePtr );
 
-    _managerPtr->usbDevicePtr = _devicePtr;
+    this->usbDevicePtr = _devicePtr;
 
-    auto    lock = std::lock_guard< std::shared_mutex >( _managerPtr->usbDeviceMutex );
+    auto    lock = std::lock_guard< std::shared_mutex >( this->usbDeviceMutex );
 
-    _managerPtr->usbDeviceHandleUnique = std::move( usbDeviceHandleUnique );
+    this->usbDeviceHandleUnique = std::move( usbDeviceHandleUnique );
 }
 
 void UsbDeviceManager::callbackUsbHotplugLeft(
-    UsbDeviceManager *  _managerPtr
+    UsbDeviceImpl * _devicePtr
 )
 {
-    _managerPtr->usbDevicePtr = nullptr;
+    if( this->usbDevicePtr != _devicePtr ) {
+        return;
+    }
 
-    auto    lock = std::lock_guard< std::shared_mutex >( _managerPtr->usbDeviceMutex );
+    this->usbDevicePtr = nullptr;
 
-    _managerPtr->usbDeviceHandleUnique.reset();
+    auto    lock = std::lock_guard< std::shared_mutex >( this->usbDeviceMutex );
+
+    this->usbDeviceHandleUnique.reset();
 }
 
 UsbDeviceManager::UsbDeviceManager(

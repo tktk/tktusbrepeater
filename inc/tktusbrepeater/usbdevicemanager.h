@@ -24,13 +24,12 @@ public:
     );
 
 private:
-    static void callbackUsbHotplugArrived(
+    void callbackUsbHotplugArrived(
         UsbDeviceImpl *
-        , UsbDeviceManager *
     );
 
-    static void callbackUsbHotplugLeft(
-        UsbDeviceManager *
+    void callbackUsbHotplugLeft(
+        UsbDeviceImpl *
     );
 
 public:
