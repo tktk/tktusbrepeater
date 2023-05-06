@@ -66,7 +66,7 @@ using CallbackUsbHotplugImpl = int ( * )(
     , void *
 );
 
-void registerUsbHotplugCallback(
+void registerCallbackUsbHotplugImpl(
     UsbContextImpl *
     , int
     , int

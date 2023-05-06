@@ -100,7 +100,7 @@ UsbDeviceManagerUnique newUsbDeviceManager(
         )
     );
 
-    registerUsbHotplugCallback(
+    registerCallbackUsbHotplugImpl(
         contextPtr
         , _VENDOR_ID
         , _PRODUCT_ID

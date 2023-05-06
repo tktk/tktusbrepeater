@@ -18,8 +18,8 @@ extern UsbDeviceHandleImpl *    returnsOpenUsbDeviceImpl;
 // initializeUsbContextImpl()
 extern UsbContextImpl * returnsInitializeUsbContextImpl;
 
-// registerUsbHotplugCallback()
-struct ArgsRegisterUsbHotplugCallback
+// registerCallbackUsbHotplugImpl()
+struct ArgsRegisterCallbackUsbHotplugImpl
 {
     UsbContextImpl *        context = nullptr;
     int                     vendorId = 0;
@@ -28,9 +28,9 @@ struct ArgsRegisterUsbHotplugCallback
     void *                  userData = nullptr;
 };
 
-extern int  calledCountRegisterUsbHotplugCallback;
+extern int  calledCountRegisterCallbackUsbHotplugImpl;
 
-extern ArgsRegisterUsbHotplugCallback   argsRegisterUsbHotplugCallback;
+extern ArgsRegisterCallbackUsbHotplugImpl   argsRegisterCallbackUsbHotplugImpl;
 
 
 void initializeUsbMock(

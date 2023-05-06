@@ -37,11 +37,11 @@ UsbContextImplUnique initializeUsbContextImpl(
     return UsbContextImplUnique( returnsInitializeUsbContextImpl );
 }
 
-int calledCountRegisterUsbHotplugCallback;
+int calledCountRegisterCallbackUsbHotplugImpl;
 
-ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
+ArgsRegisterCallbackUsbHotplugImpl  argsRegisterCallbackUsbHotplugImpl;
 
-void registerUsbHotplugCallback(
+void registerCallbackUsbHotplugImpl(
     UsbContextImpl *            _context
     , int                       _vendorId
     , int                       _productId
@@ -49,13 +49,13 @@ void registerUsbHotplugCallback(
     , void *                    _userData
 )
 {
-    calledCountRegisterUsbHotplugCallback++;
+    calledCountRegisterCallbackUsbHotplugImpl++;
 
-    argsRegisterUsbHotplugCallback.context = _context;
-    argsRegisterUsbHotplugCallback.vendorId = _vendorId;
-    argsRegisterUsbHotplugCallback.productId = _productId;
-    argsRegisterUsbHotplugCallback.callback = _callback;
-    argsRegisterUsbHotplugCallback.userData = _userData;
+    argsRegisterCallbackUsbHotplugImpl.context = _context;
+    argsRegisterCallbackUsbHotplugImpl.vendorId = _vendorId;
+    argsRegisterCallbackUsbHotplugImpl.productId = _productId;
+    argsRegisterCallbackUsbHotplugImpl.callback = _callback;
+    argsRegisterCallbackUsbHotplugImpl.userData = _userData;
 }
 
 namespace {
@@ -73,11 +73,11 @@ namespace {
         returnsInitializeUsbContextImpl = nullptr;
     }
 
-    void initializeMockRegisterUsbHotplugCallback(
+    void initializeMockRegisterCallbackUsbHotplugImpl(
     )
     {
-        calledCountRegisterUsbHotplugCallback = 0;
-        argsRegisterUsbHotplugCallback = ArgsRegisterUsbHotplugCallback();
+        calledCountRegisterCallbackUsbHotplugImpl = 0;
+        argsRegisterCallbackUsbHotplugImpl = ArgsRegisterCallbackUsbHotplugImpl();
     }
 }
 
@@ -86,5 +86,5 @@ void initializeUsbMock(
 {
     initializeMockOpenUsbDeviceImpl();
     initializeMockInitializeUsbContextImpl();
-    initializeMockRegisterUsbHotplugCallback();
+    initializeMockRegisterCallbackUsbHotplugImpl();
 }
