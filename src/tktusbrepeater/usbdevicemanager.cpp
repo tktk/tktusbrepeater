@@ -31,6 +31,9 @@ void UsbDeviceManager::callbackUsbHotplugArrived(
     }
 
     auto    usbDeviceHandleUnique = openUsbDeviceImpl( _devicePtr );
+    if( usbDeviceHandleUnique.get() == nullptr ) {
+        return;
+    }
 
     this->usbDevicePtr = _devicePtr;
 
