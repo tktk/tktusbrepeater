@@ -24,6 +24,7 @@ namespace {
             UsbHotplugEvent                 _EVENT
             , UsbDeviceImpl *               _usbDevicePtr
             , UsbDeviceHandleImpl *         _usbDeviceHandleUniquePtr
+            , UsbDeviceHandleImpl *         _returnsOpenUsbDeviceImpl
             , const UsbDeviceImpl *         _EXPECTED_USB_DEVICE_PTR
             , const UsbDeviceHandleImpl *   _EXPECTED_USB_DEVICE_HANDLE_UNIQUE_PTR
             , const int                     _EXPECTED_CALLED_COUNT_OPEN_USB_DEVICE_IMPL
@@ -35,7 +36,7 @@ namespace {
                 .usbDeviceHandleUnique = UsbDeviceHandleImplUnique( _usbDeviceHandleUniquePtr ),
             };
 
-            returnsOpenUsbDeviceImpl = this->deviceHandleImpl;
+            returnsOpenUsbDeviceImpl = _returnsOpenUsbDeviceImpl;
 
             EXPECT_EQ(
                 0
@@ -67,6 +68,7 @@ TEST_F(
         UsbHotplugEvent::ARRIVED
         , nullptr
         , nullptr
+        , this->deviceHandleImpl
         , this->deviceImpl
         , this->deviceHandleImpl
         , 1
@@ -82,6 +84,7 @@ TEST_F(
     this->test(
         UsbHotplugEvent::LEFT
         , this->deviceImpl
+        , this->deviceHandleImpl
         , this->deviceHandleImpl
         , nullptr
         , nullptr
@@ -99,6 +102,7 @@ TEST_F(
         UsbHotplugEvent::ARRIVED
         , this->otherDeviceImpl
         , this->otherDeviceHandleImpl
+        , this->deviceHandleImpl
         , this->otherDeviceImpl
         , this->otherDeviceHandleImpl
         , 0
@@ -115,6 +119,7 @@ TEST_F(
         UsbHotplugEvent::LEFT
         , this->otherDeviceImpl
         , this->otherDeviceHandleImpl
+        , this->deviceHandleImpl
         , this->otherDeviceImpl
         , this->otherDeviceHandleImpl
         , 0
@@ -122,4 +127,19 @@ TEST_F(
     );
 }
 
-//TODO Failed_openUsbDeviceImpl
+TEST_F(
+    UsbDeviceManager_callbackUsbHotplugTest
+    , Failed_openUsbDeviceImpl
+)
+{
+    this->test(
+        UsbHotplugEvent::ARRIVED
+        , nullptr
+        , nullptr
+        , nullptr
+        , nullptr
+        , nullptr
+        , 1
+        , this->deviceImpl
+    );
+}
