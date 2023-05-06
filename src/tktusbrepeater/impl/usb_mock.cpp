@@ -42,11 +42,11 @@ int calledCountRegisterUsbHotplugCallback;
 ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
 
 void registerUsbHotplugCallback(
-    UsbContextImpl *        _context
-    , int                   _vendorId
-    , int                   _productId
-    , CallbackUsbHotplug    _callback
-    , void *                _userData
+    UsbContextImpl *            _context
+    , int                       _vendorId
+    , int                       _productId
+    , CallbackUsbHotplugImpl    _callback
+    , void *                    _userData
 )
 {
     calledCountRegisterUsbHotplugCallback++;

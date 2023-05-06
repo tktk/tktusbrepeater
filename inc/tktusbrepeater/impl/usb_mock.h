@@ -21,11 +21,11 @@ extern UsbContextImpl * returnsInitializeUsbContextImpl;
 // registerUsbHotplugCallback()
 struct ArgsRegisterUsbHotplugCallback
 {
-    UsbContextImpl *    context = nullptr;
-    int                 vendorId = 0;
-    int                 productId = 0;
-    CallbackUsbHotplug  callback = nullptr;
-    void *              userData = nullptr;
+    UsbContextImpl *        context = nullptr;
+    int                     vendorId = 0;
+    int                     productId = 0;
+    CallbackUsbHotplugImpl  callback = nullptr;
+    void *                  userData = nullptr;
 };
 
 extern int  calledCountRegisterUsbHotplugCallback;

@@ -59,7 +59,7 @@ using UsbContextImplUnique = std::unique_ptr<
 UsbContextImplUnique initializeUsbContextImpl(
 );
 
-using CallbackUsbHotplug = int ( * )(
+using CallbackUsbHotplugImpl = int ( * )(
     UsbContextImpl *
     , UsbDeviceImpl *
     , UsbHotplugEvent
@@ -70,7 +70,7 @@ void registerUsbHotplugCallback(
     UsbContextImpl *
     , int
     , int
-    , CallbackUsbHotplug
+    , CallbackUsbHotplugImpl
     , void *
 );
 
