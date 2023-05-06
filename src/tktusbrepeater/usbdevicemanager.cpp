@@ -1,16 +1,27 @@
 #include "tktusbrepeater/usbdevicemanager.h"
 #include "tktusbrepeater/impl/usb.h"
+#include <mutex>
+#include <shared_mutex>
 #include <stdexcept>
 
 int UsbDeviceManager::callbackUsbHotplug(
     UsbContextImpl *
-    , UsbDeviceImpl *
-    , UsbHotplugEvent
-    , void *
+    , UsbDeviceImpl *   _devicePtr
+    , UsbHotplugEvent   _EVENT
+    , void *            _managerPtr
 )
 {
-    //TODO
-    return -1;
+    auto    managerPtr = static_cast< UsbDeviceManager * >( _managerPtr );
+
+    auto    usbDeviceHandleUnique = openUsbDeviceImpl( _devicePtr );
+
+    managerPtr->usbDevicePtr = _devicePtr;
+
+    auto    lock = std::lock_guard< std::shared_mutex >( managerPtr->usbDeviceMutex );
+
+    managerPtr->usbDeviceHandleUnique = std::move( usbDeviceHandleUnique );
+
+    return 0;
 }
 
 UsbDeviceManager::UsbDeviceManager(
