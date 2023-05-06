@@ -30,6 +30,10 @@ void UsbDeviceManager::callbackUsbHotplugArrived(
     , UsbDeviceManager *    _managerPtr
 )
 {
+    if( _managerPtr->usbDevicePtr != nullptr ) {
+        return;
+    }
+
     auto    usbDeviceHandleUnique = openUsbDeviceImpl( _devicePtr );
 
     _managerPtr->usbDevicePtr = _devicePtr;
