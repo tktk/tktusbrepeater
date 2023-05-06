@@ -68,7 +68,7 @@ UsbDeviceManager::UsbDeviceManager(
 void UsbDeviceManager::handleEvents(
 )
 {
-    //TODO
+    handleUsbEventsImpl( this->usbContextUnique.get() );
 }
 
 int UsbDeviceManager::readData(
