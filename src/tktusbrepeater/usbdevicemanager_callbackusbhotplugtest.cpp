@@ -87,6 +87,24 @@ TEST_F(
     );
 }
 
-//TODO ArrivedOtherDevice
+TEST_F(
+    UsbDeviceManager_callbackUsbHotplugTest
+    , ArrivedOtherDevice
+)
+{
+    auto    otherDeviceImpl = reinterpret_cast< UsbDeviceImpl * >( 30 );
+    auto    otherDeviceHandleImpl = reinterpret_cast< UsbDeviceHandleImpl * >( 40 );
+
+    this->test(
+        UsbHotplugEvent::ARRIVED
+        , otherDeviceImpl
+        , otherDeviceHandleImpl
+        , otherDeviceImpl
+        , otherDeviceHandleImpl
+        , 0
+        , nullptr
+    );
+}
+
 //TODO LeftOtherDevice
 //TODO Failed_openUsbDeviceImpl
