@@ -74,4 +74,8 @@ void registerCallbackUsbHotplugImpl(
     , void *
 );
 
+void handleUsbEventsImpl(
+    UsbContextImpl *
+);
+
 #endif  // TKTUSBREPEATER_IMPL_USB_H

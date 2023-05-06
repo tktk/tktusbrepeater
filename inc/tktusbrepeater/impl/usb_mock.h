@@ -32,6 +32,16 @@ extern int  calledCountRegisterCallbackUsbHotplugImpl;
 
 extern ArgsRegisterCallbackUsbHotplugImpl   argsRegisterCallbackUsbHotplugImpl;
 
+// handleUsbEventsImpl()
+struct ArgsHandleUsbEventsImpl
+{
+    UsbContextImpl *    context = nullptr;
+};
+
+extern int  calledCountHandleUsbEventsImpl;
+
+extern ArgsHandleUsbEventsImpl  argsHandleUsbEventsImpl;
+
 
 void initializeUsbMock(
 );

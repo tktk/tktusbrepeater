@@ -58,6 +58,19 @@ void registerCallbackUsbHotplugImpl(
     argsRegisterCallbackUsbHotplugImpl.userData = _userData;
 }
 
+int calledCountHandleUsbEventsImpl;
+
+ArgsHandleUsbEventsImpl argsHandleUsbEventsImpl;
+
+void handleUsbEventsImpl(
+    UsbContextImpl *    _context
+)
+{
+    calledCountHandleUsbEventsImpl++;
+
+    argsHandleUsbEventsImpl.context = _context;
+}
+
 namespace {
     void initializeMockOpenUsbDeviceImpl(
     )
@@ -79,6 +92,13 @@ namespace {
         calledCountRegisterCallbackUsbHotplugImpl = 0;
         argsRegisterCallbackUsbHotplugImpl = ArgsRegisterCallbackUsbHotplugImpl();
     }
+
+    void initializeMockHandleUsbEventsImpl(
+    )
+    {
+        calledCountHandleUsbEventsImpl = 0;
+        argsHandleUsbEventsImpl = ArgsHandleUsbEventsImpl();
+    }
 }
 
 void initializeUsbMock(
@@ -87,4 +107,5 @@ void initializeUsbMock(
     initializeMockOpenUsbDeviceImpl();
     initializeMockInitializeUsbContextImpl();
     initializeMockRegisterCallbackUsbHotplugImpl();
+    initializeMockHandleUsbEventsImpl();
 }
