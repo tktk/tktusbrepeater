@@ -3,6 +3,20 @@
 
 #include "tktusbrepeater/impl/usb.h"
 
+// openUsbDeviceImpl()
+struct ArgsOpenUsbDeviceImpl
+{
+    UsbDeviceImpl * device = nullptr;
+};
+
+extern ArgsOpenUsbDeviceImpl    argsOpenUsbDeviceImpl;
+
+extern UsbDeviceHandleImpl *    returnsOpenUsbDeviceImpl;
+
+// initializeUsbContextImpl()
+extern UsbContextImpl * returnsInitializeUsbContextImpl;
+
+// registerUsbHotplugCallback()
 struct ArgsRegisterUsbHotplugCallback
 {
     UsbContextImpl *    context = nullptr;
@@ -16,7 +30,6 @@ extern int  calledCountRegisterUsbHotplugCallback;
 
 extern ArgsRegisterUsbHotplugCallback   argsRegisterUsbHotplugCallback;
 
-extern UsbContextImpl * returnsInitializeUsbContextImpl;
 
 void initializeUsbMock(
 );

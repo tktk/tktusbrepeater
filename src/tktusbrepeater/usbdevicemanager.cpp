@@ -10,7 +10,7 @@ int UsbDeviceManager::callbackUsbHotplug(
 )
 {
     //TODO
-    return 0;
+    return -1;
 }
 
 UsbDeviceManager::UsbDeviceManager(

@@ -1,14 +1,41 @@
 #include "tktusbrepeater/impl/usb_mock.h"
 
-int calledCountRegisterUsbHotplugCallback;
-
-ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
-
 void closeUsbDeviceHandleImpl(
     UsbDeviceHandleImpl *
 )
 {
 }
+
+ArgsOpenUsbDeviceImpl   argsOpenUsbDeviceImpl;
+
+UsbDeviceHandleImpl *   returnsOpenUsbDeviceImpl;
+
+UsbDeviceHandleImplUnique openUsbDeviceImpl(
+    UsbDeviceImpl * _device
+)
+{
+    argsOpenUsbDeviceImpl.device = _device;
+
+    return UsbDeviceHandleImplUnique( returnsOpenUsbDeviceImpl );
+}
+
+void exitUsbContextImpl(
+    UsbContextImpl *
+)
+{
+}
+
+UsbContextImpl * returnsInitializeUsbContextImpl;
+
+UsbContextImplUnique initializeUsbContextImpl(
+)
+{
+    return UsbContextImplUnique( returnsInitializeUsbContextImpl );
+}
+
+int calledCountRegisterUsbHotplugCallback;
+
+ArgsRegisterUsbHotplugCallback  argsRegisterUsbHotplugCallback;
 
 void registerUsbHotplugCallback(
     UsbContextImpl *        _context
@@ -27,26 +54,12 @@ void registerUsbHotplugCallback(
     argsRegisterUsbHotplugCallback.userData = _userData;
 }
 
-UsbContextImpl * returnsInitializeUsbContextImpl;
-
-void exitUsbContextImpl(
-    UsbContextImpl *
-)
-{
-}
-
-UsbContextImplUnique initializeUsbContextImpl(
-)
-{
-    return UsbContextImplUnique( returnsInitializeUsbContextImpl );
-}
-
 namespace {
-    void initializeMockRegisterUsbHotplugCallback(
+    void initializeMockOpenUsbDeviceImpl(
     )
     {
-        calledCountRegisterUsbHotplugCallback = 0;
-        argsRegisterUsbHotplugCallback = ArgsRegisterUsbHotplugCallback();
+        argsOpenUsbDeviceImpl = ArgsOpenUsbDeviceImpl();
+        returnsOpenUsbDeviceImpl = nullptr;
     }
 
     void initializeMockInitializeUsbContextImpl(
@@ -54,11 +67,19 @@ namespace {
     {
         returnsInitializeUsbContextImpl = nullptr;
     }
+
+    void initializeMockRegisterUsbHotplugCallback(
+    )
+    {
+        calledCountRegisterUsbHotplugCallback = 0;
+        argsRegisterUsbHotplugCallback = ArgsRegisterUsbHotplugCallback();
+    }
 }
 
 void initializeUsbMock(
 )
 {
-    initializeMockRegisterUsbHotplugCallback();
+    initializeMockOpenUsbDeviceImpl();
     initializeMockInitializeUsbContextImpl();
+    initializeMockRegisterUsbHotplugCallback();
 }

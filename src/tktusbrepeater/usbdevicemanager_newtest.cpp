@@ -1,19 +1,10 @@
 #include "tktusbrepeater/test.h"
 #include "tktusbrepeater/usbdevicemanager.h"
+#include "tktusbrepeater/usbdevicemanager_test.h"
 #include "tktusbrepeater/impl/usb_mock.h"
 
 namespace {
-    struct UsbDeviceManagerImpl
-    {
-        UsbContextImplUnique    usbContextUnique;
-
-        UsbDeviceImpl * usbDevicePtr;
-
-        std::shared_mutex           usbDeviceMutex;
-        UsbDeviceHandleImplUnique   usbDeviceHandleUnique;
-    };
-
-    class NewUsbDeviceManagerTest : public ::testing::Test
+    class UsbDeviceManager_newTest : public ::testing::Test
     {
     protected:
         virtual void SetUp(
@@ -53,7 +44,7 @@ namespace {
 }
 
 TEST_F(
-    NewUsbDeviceManagerTest
+    UsbDeviceManager_newTest
     , New
 )
 {

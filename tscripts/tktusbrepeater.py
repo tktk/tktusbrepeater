@@ -5,6 +5,7 @@ from taf.tools import cpp
 
 module.DEPENDS = [
     'tktusbrepeater_usbdevicemanager_newtest',
+    'tktusbrepeater_usbdevicemanager_callbackusbhotplugtest',
 ]
 
 module.BUILDER = cpp.program
