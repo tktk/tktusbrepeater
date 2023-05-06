@@ -17,6 +17,9 @@ namespace {
         UsbDeviceImpl *         deviceImpl = reinterpret_cast< UsbDeviceImpl * >( 10 );
         UsbDeviceHandleImpl *   deviceHandleImpl = reinterpret_cast< UsbDeviceHandleImpl * >( 20 );
 
+        UsbDeviceImpl *         otherDeviceImpl = reinterpret_cast< UsbDeviceImpl * >( 30 );
+        UsbDeviceHandleImpl *   otherDeviceHandleImpl = reinterpret_cast< UsbDeviceHandleImpl * >( 40 );
+
         void test(
             UsbHotplugEvent                 _EVENT
             , UsbDeviceImpl *               _usbDevicePtr
@@ -92,19 +95,31 @@ TEST_F(
     , ArrivedOtherDevice
 )
 {
-    auto    otherDeviceImpl = reinterpret_cast< UsbDeviceImpl * >( 30 );
-    auto    otherDeviceHandleImpl = reinterpret_cast< UsbDeviceHandleImpl * >( 40 );
-
     this->test(
         UsbHotplugEvent::ARRIVED
-        , otherDeviceImpl
-        , otherDeviceHandleImpl
-        , otherDeviceImpl
-        , otherDeviceHandleImpl
+        , this->otherDeviceImpl
+        , this->otherDeviceHandleImpl
+        , this->otherDeviceImpl
+        , this->otherDeviceHandleImpl
         , 0
         , nullptr
     );
 }
 
-//TODO LeftOtherDevice
+TEST_F(
+    UsbDeviceManager_callbackUsbHotplugTest
+    , LeftOtherDevice
+)
+{
+    this->test(
+        UsbHotplugEvent::LEFT
+        , this->otherDeviceImpl
+        , this->otherDeviceHandleImpl
+        , this->otherDeviceImpl
+        , this->otherDeviceHandleImpl
+        , 0
+        , nullptr
+    );
+}
+
 //TODO Failed_openUsbDeviceImpl
