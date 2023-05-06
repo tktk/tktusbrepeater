@@ -15,4 +15,14 @@ module.TARGET = 'tktusbrepeater'
 
 module.SOURCE = [
     'main.cpp',
+    'usbdevicemanager.cpp',
+    {
+        'impl' : [
+            'usb_libusb.cpp',
+        ],
+    },
+]
+
+module.LIB = [
+    'usb-1.0',
 ]
