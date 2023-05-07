@@ -1,18 +1,35 @@
 #include "tktusbrepeater/impl/socket.h"
 #include <string>
+#include <sys/socket.h>
+#include <cerrno>
+#include <sstream>
+#include <stdexcept>
+#include <unistd.h>
 
 void closeSocketImpl(
     int _socket
 )
 {
-    //TODO
+    close( _socket );
 }
 
 int initializeSocketImpl(
 )
 {
-    //TODO
-    return -1;
+    const auto  SOCKET = socket(
+        AF_UNIX
+        , SOCK_STREAM
+        , 0
+    );
+    if( SOCKET < 0 ) {
+        auto    stringStream = std::stringstream();
+
+        stringStream << "socket()が失敗 : " << errno;
+
+        throw std::runtime_error( stringStream.str() );
+    }
+
+    return SOCKET;
 }
 
 void bindSocketImpl(
