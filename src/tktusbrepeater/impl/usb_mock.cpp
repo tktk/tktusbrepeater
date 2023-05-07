@@ -71,6 +71,29 @@ void handleUsbEventsImpl(
     argsHandleUsbEventsImpl.context = _context;
 }
 
+int calledCountBulkTransferUsbImpl;
+
+ArgsBulkTransferUsbImpl argsBulkTransferUsbImpl;
+
+int returnsBulkTransferUsbImpl;
+
+int bulkTransferUsbImpl(
+    UsbDeviceHandleImpl *   _deviceHandle
+    , unsigned char         _endpoint
+    , void *                _data
+    , int                   _dataSize
+)
+{
+    calledCountBulkTransferUsbImpl++;
+
+    argsBulkTransferUsbImpl.deviceHandle = _deviceHandle;
+    argsBulkTransferUsbImpl.endpoint = _endpoint;
+    argsBulkTransferUsbImpl.data = _data;
+    argsBulkTransferUsbImpl.dataSize = _dataSize;
+
+    return returnsBulkTransferUsbImpl;
+}
+
 namespace {
     void initializeMockOpenUsbDeviceImpl(
     )
@@ -99,6 +122,14 @@ namespace {
         calledCountHandleUsbEventsImpl = 0;
         argsHandleUsbEventsImpl = ArgsHandleUsbEventsImpl();
     }
+
+    void initializeMockBulkTransferUsbImpl(
+    )
+    {
+        calledCountBulkTransferUsbImpl = 0;
+        argsBulkTransferUsbImpl = ArgsBulkTransferUsbImpl();
+        returnsBulkTransferUsbImpl = 0;
+    }
 }
 
 void initializeUsbMock(
@@ -108,4 +139,5 @@ void initializeUsbMock(
     initializeMockInitializeUsbContextImpl();
     initializeMockRegisterCallbackUsbHotplugImpl();
     initializeMockHandleUsbEventsImpl();
+    initializeMockBulkTransferUsbImpl();
 }

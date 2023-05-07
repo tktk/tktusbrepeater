@@ -42,6 +42,21 @@ extern int  calledCountHandleUsbEventsImpl;
 
 extern ArgsHandleUsbEventsImpl  argsHandleUsbEventsImpl;
 
+// bulkTrandferUsbImpl()
+struct ArgsBulkTransferUsbImpl
+{
+    UsbDeviceHandleImpl *   deviceHandle = nullptr;
+    unsigned char           endpoint = 0;
+    void *                  data = nullptr;
+    int                     dataSize = 0;
+};
+
+extern int  calledCountBulkTransferUsbImpl;
+
+extern ArgsBulkTransferUsbImpl  argsBulkTransferUsbImpl;
+
+extern int  returnsBulkTransferUsbImpl;
+
 
 void initializeUsbMock(
 );

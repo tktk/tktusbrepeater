@@ -7,6 +7,7 @@ module.DEPENDS = [
     'tktusbrepeater_usbdevicemanager_newtest',
     'tktusbrepeater_usbdevicemanager_callbackusbhotplugtest',
     'tktusbrepeater_usbdevicemanager_handleeventstest',
+    'tktusbrepeater_usbdevicemanager_bulktransfertest',
 ]
 
 module.BUILDER = cpp.program

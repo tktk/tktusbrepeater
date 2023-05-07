@@ -71,18 +71,10 @@ void UsbDeviceManager::handleEvents(
     handleUsbEventsImpl( this->usbContextUnique.get() );
 }
 
-int UsbDeviceManager::readData(
-    void *  _data
-    , int   _DATA_SIZE
-)
-{
-    //TODO
-    return -1;
-}
-
-int UsbDeviceManager::writeData(
-    void *  _DATA
-    , int   _DATA_SIZE
+int UsbDeviceManager::bulkTransfer(
+    unsigned char   _ENDPOINT
+    , void *        _data
+    , int           _DATA_SIZE
 )
 {
     //TODO

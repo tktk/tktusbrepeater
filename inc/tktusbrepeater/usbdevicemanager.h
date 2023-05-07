@@ -40,13 +40,9 @@ public:
     void handleEvents(
     );
 
-    int readData(
-        void *
-        , int
-    );
-
-    int writeData(
-        void *
+    int bulkTransfer(
+        unsigned char
+        , void *
         , int
     );
 };

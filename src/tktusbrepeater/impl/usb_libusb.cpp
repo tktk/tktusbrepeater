@@ -78,3 +78,14 @@ void handleUsbEventsImpl(
 {
     libusb_handle_events( reinterpret_cast< libusb_context * >( _contextImpl ) );
 }
+
+int bulkTransferUsbImpl(
+    UsbDeviceHandleImpl *   _deviceHandleImpl
+    , unsigned char         _ENDPOINT
+    , void *                _data
+    , int                   _DATA_SIZE
+)
+{
+    //TODO
+    return -1;
+}

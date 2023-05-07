@@ -78,4 +78,11 @@ void handleUsbEventsImpl(
     UsbContextImpl *
 );
 
+int bulkTransferUsbImpl(
+    UsbDeviceHandleImpl *
+    , unsigned char
+    , void *
+    , int
+);
+
 #endif  // TKTUSBREPEATER_IMPL_USB_H
