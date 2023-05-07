@@ -77,8 +77,14 @@ int UsbDeviceManager::bulkTransfer(
     , int           _DATA_SIZE
 )
 {
-    //TODO
-    return -1;
+    auto    lock = std::shared_lock< std::shared_mutex >( this->usbDeviceMutex );
+
+    return bulkTransferUsbImpl(
+        this->usbDeviceHandleUnique.get()
+        , _ENDPOINT
+        , _data
+        , _DATA_SIZE
+    );
 }
 
 UsbDeviceManagerUnique newUsbDeviceManager(
