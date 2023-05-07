@@ -27,6 +27,12 @@ namespace {
                 dummyVendorId
                 , dummyProductId
             );
+            ASSERT_NE( nullptr, usbDeviceManagerUnique.get() );
+
+            auto &  usbDeviceManagerImpl = reinterpret_cast< UsbDeviceManagerImpl & >( *usbDeviceManagerUnique );
+            EXPECT_EQ( dummyContext, usbDeviceManagerImpl.usbContextUnique.get() );
+            EXPECT_EQ( nullptr, usbDeviceManagerImpl.usbDevicePtr );
+            EXPECT_EQ( nullptr, usbDeviceManagerImpl.usbDeviceHandleUnique.get() );
 
             EXPECT_EQ( 1, calledCountRegisterCallbackUsbHotplugImpl );
             EXPECT_EQ( dummyContext, argsRegisterCallbackUsbHotplugImpl.context );
@@ -34,11 +40,6 @@ namespace {
             EXPECT_EQ( dummyProductId, argsRegisterCallbackUsbHotplugImpl.productId );
             EXPECT_EQ( UsbDeviceManager::callbackUsbHotplug, argsRegisterCallbackUsbHotplugImpl.callback );
             EXPECT_EQ( usbDeviceManagerUnique.get(), argsRegisterCallbackUsbHotplugImpl.userData );
-
-            auto &  usbDeviceManagerImpl = reinterpret_cast< UsbDeviceManagerImpl & >( *usbDeviceManagerUnique );
-            EXPECT_EQ( dummyContext, usbDeviceManagerImpl.usbContextUnique.get() );
-            EXPECT_EQ( nullptr, usbDeviceManagerImpl.usbDevicePtr );
-            EXPECT_EQ( nullptr, usbDeviceManagerImpl.usbDeviceHandleUnique.get() );
         }
     };
 }

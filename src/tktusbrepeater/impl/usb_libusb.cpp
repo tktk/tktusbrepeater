@@ -1,5 +1,4 @@
 #include "tktusbrepeater/impl/usb.h"
-
 #include <libusb-1.0/libusb.h>
 #include <sstream>
 #include <stdexcept>

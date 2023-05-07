@@ -7,7 +7,6 @@
 
 class UsbDeviceManager
 {
-
     UsbContextImplUnique    usbContextUnique;
 
     UsbDeviceImpl * usbDevicePtr;

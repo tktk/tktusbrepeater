@@ -8,6 +8,7 @@ module.DEPENDS = [
     'tktusbrepeater_usbdevicemanager_callbackusbhotplugtest',
     'tktusbrepeater_usbdevicemanager_handleeventstest',
     'tktusbrepeater_usbdevicemanager_bulktransfertest',
+    'tktusbrepeater_serversocket_newtest',
 ]
 
 module.BUILDER = cpp.program
@@ -17,6 +18,7 @@ module.TARGET = 'tktusbrepeater'
 module.SOURCE = [
     'main.cpp',
     'usbdevicemanager.cpp',
+    'serversocket.cpp',
     {
         'impl' : [
             'usb_libusb.cpp',
