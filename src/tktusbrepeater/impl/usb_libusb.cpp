@@ -4,6 +4,12 @@
 #include <sstream>
 #include <stdexcept>
 
+namespace {
+    enum {
+        TIMEOUT_BULK_TRANSFER = 500,
+    };
+}
+
 void closeUsbDeviceHandleImpl(
     UsbDeviceHandleImpl *   _deviceHandleImpl
 )
@@ -86,6 +92,19 @@ int bulkTransferUsbImpl(
     , int                   _DATA_SIZE
 )
 {
-    //TODO
-    return -1;
+    auto    transferred = 0;
+
+    const auto  ERROR_CODE = libusb_bulk_transfer(
+        reinterpret_cast< libusb_device_handle * >( _deviceHandleImpl )
+        , _ENDPOINT
+        , static_cast< unsigned char * >( _data )
+        , _DATA_SIZE
+        , &transferred
+        , TIMEOUT_BULK_TRANSFER
+    );
+    if( ERROR_CODE != 0 ) {
+        return ERROR_CODE;
+    }
+
+    return transferred;
 }
