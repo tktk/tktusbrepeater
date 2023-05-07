@@ -86,6 +86,9 @@ int acceptSocketImpl(
     int _socket
 )
 {
-    //TODO
-    return -1;
+    return accept(
+        _socket
+        , nullptr
+        , nullptr
+    );
 }
