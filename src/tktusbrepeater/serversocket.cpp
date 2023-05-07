@@ -18,8 +18,7 @@ ServerSocket::ServerSocket(
 int ServerSocket::accept(
 )
 {
-    //TODO
-    return -1;
+    return acceptSocketImpl( this->socket );
 }
 
 ServerSocketUnique newServerSocket(
