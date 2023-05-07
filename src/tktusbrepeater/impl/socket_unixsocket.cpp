@@ -1,10 +1,12 @@
 #include "tktusbrepeater/impl/socket.h"
 #include <string>
+#include <cstring>
 #include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
 #include <cerrno>
 #include <sstream>
 #include <stdexcept>
-#include <unistd.h>
 
 void closeSocketImpl(
     int _socket
@@ -37,7 +39,31 @@ void bindSocketImpl(
     , const std::string &   _PATH
 )
 {
-    //TODO
+    auto    addrUn = sockaddr_un();
+    std::memset(
+        &addrUn
+        , 0
+        , sizeof( addrUn )
+    );
+
+    addrUn.sun_family = AF_UNIX;
+    std::memcpy(
+        addrUn.sun_path
+        , _PATH.c_str()
+        , _PATH.size()
+    );
+
+    if( bind(
+        _socket
+        , reinterpret_cast< sockaddr * >( &addrUn )
+        , sizeof( addrUn )
+    ) < 0 ) {
+        auto    stringStream = std::stringstream();
+
+        stringStream << "bind()が失敗 : " << errno;
+
+        throw std::runtime_error( stringStream.str() );
+    }
 }
 
 void listenSocketImpl(
