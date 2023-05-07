@@ -70,7 +70,16 @@ void listenSocketImpl(
     int _socket
 )
 {
-    //TODO
+    if( listen(
+        _socket
+        , 1
+    ) < 0 ) {
+        auto    stringStream = std::stringstream();
+
+        stringStream << "listen()が失敗 : " << errno;
+
+        throw std::runtime_error( stringStream.str() );
+    }
 }
 
 int acceptSocketImpl(
