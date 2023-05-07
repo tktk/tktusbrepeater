@@ -22,6 +22,7 @@ module.SOURCE = [
     {
         'impl' : [
             'usb_libusb.cpp',
+            'socket_unixsocket.cpp',
         ],
     },
 ]

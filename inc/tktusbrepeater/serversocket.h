@@ -12,7 +12,7 @@ class ServerSocket
 
 public:
     ServerSocket(
-        int
+        const std::string &
     );
 
     int accept(

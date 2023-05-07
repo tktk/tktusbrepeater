@@ -1,10 +1,18 @@
 #include "tktusbrepeater/serversocket.h"
+#include "tktusbrepeater/impl/socket.h"
 
 ServerSocket::ServerSocket(
-    int _socket
+    const std::string & _PATH
 )
+    : socket( initializeSocketImpl() )
+    , socketCloser( &( this->socket ) )
 {
-    //TODO
+    bindSocketImpl(
+        this->socket
+        , _PATH
+    );
+
+    listenSocketImpl( this->socket );
 }
 
 int ServerSocket::accept(
@@ -18,6 +26,5 @@ ServerSocketUnique newServerSocket(
     const std::string & _PATH
 )
 {
-    //TODO
-    return nullptr;
+    return ServerSocketUnique( new ServerSocket( _PATH ) );
 }
