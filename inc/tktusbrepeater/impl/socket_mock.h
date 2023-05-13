@@ -39,6 +39,34 @@ extern ArgsAcceptSocketImpl argsAcceptSocketImpl;
 
 extern int  returnsAcceptSocketImpl;
 
+// readSocketImpl()
+struct ArgsReadSocketImpl
+{
+    int     socket = 0;
+    void *  data = nullptr;
+    int     dataSize = 0;
+};
+
+extern int  calledCountReadSocketImpl;
+
+extern ArgsReadSocketImpl   argsReadSocketImpl;
+
+extern int  returnsReadSocketImpl;
+
+// writeSocketImpl()
+struct ArgsWriteSocketImpl
+{
+    int             socket = 0;
+    const void *    data = nullptr;
+    int             dataSize = 0;
+};
+
+extern int  calledCountWriteSocketImpl;
+
+extern ArgsWriteSocketImpl  argsWriteSocketImpl;
+
+extern int  returnsWriteSocketImpl;
+
 
 void initializeSocketMock(
 );

@@ -39,4 +39,16 @@ int acceptSocketImpl(
     int
 );
 
+int readSocketImpl(
+    int
+    , void *
+    , int
+);
+
+int writeSocketImpl(
+    int
+    , const void *
+    , int
+);
+
 #endif  // TKTUSBREPEATER_IMPL_SOCKET_H

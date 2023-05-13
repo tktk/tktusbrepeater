@@ -59,6 +59,48 @@ int acceptSocketImpl(
     return returnsAcceptSocketImpl;
 }
 
+int calledCountReadSocketImpl;
+
+ArgsReadSocketImpl  argsReadSocketImpl;
+
+int returnsReadSocketImpl;
+
+int readSocketImpl(
+    int         _socket
+    , void *    _data
+    , int       _DATA_SIZE
+)
+{
+    calledCountReadSocketImpl++;
+
+    argsReadSocketImpl.socket = _socket;
+    argsReadSocketImpl.data = _data;
+    argsReadSocketImpl.dataSize = _DATA_SIZE;
+
+    return returnsReadSocketImpl;
+}
+
+int calledCountWriteSocketImpl;
+
+ArgsWriteSocketImpl argsWriteSocketImpl;
+
+int returnsWriteSocketImpl;
+
+int writeSocketImpl(
+    int             _socket
+    , const void *  _DATA
+    , int           _DATA_SIZE
+)
+{
+    calledCountWriteSocketImpl++;
+
+    argsWriteSocketImpl.socket = _socket;
+    argsWriteSocketImpl.data = _DATA;
+    argsWriteSocketImpl.dataSize = _DATA_SIZE;
+
+    return returnsWriteSocketImpl;
+}
+
 namespace {
     void initializeMockInitializeSocketImpl(
     )
@@ -87,6 +129,22 @@ namespace {
         argsAcceptSocketImpl = ArgsAcceptSocketImpl();
         returnsAcceptSocketImpl = 0;
     }
+
+    void initializeMockReadSocketImpl(
+    )
+    {
+        calledCountReadSocketImpl = 0;
+        argsReadSocketImpl = ArgsReadSocketImpl();
+        returnsReadSocketImpl = 0;
+    }
+
+    void initializeMockWriteSocketImpl(
+    )
+    {
+        calledCountWriteSocketImpl = 0;
+        argsWriteSocketImpl = ArgsWriteSocketImpl();
+        returnsWriteSocketImpl = 0;
+    }
 }
 
 void initializeSocketMock(
@@ -96,4 +154,6 @@ void initializeSocketMock(
     initializeMockBindSocketImpl();
     initializeMockListenSocketImpl();
     initializeMockAcceptSocketImpl();
+    initializeMockReadSocketImpl();
+    initializeMockWriteSocketImpl();
 }
