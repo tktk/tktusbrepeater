@@ -48,7 +48,7 @@ void bindSocketImpl(
 
     addrUn.sun_family = AF_UNIX;
     std::memcpy(
-        addrUn.sun_path
+        addrUn.sun_path + 1
         , _PATH.c_str()
         , _PATH.size()
     );
