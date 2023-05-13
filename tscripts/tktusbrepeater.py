@@ -12,6 +12,7 @@ module.DEPENDS = [
     'tktusbrepeater_serversocket_accepttest',
     'tktusbrepeater_socket_newtest',
     'tktusbrepeater_socket_readtest',
+    'tktusbrepeater_socket_writetest',
 ]
 
 module.BUILDER = cpp.program
