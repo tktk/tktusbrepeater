@@ -25,8 +25,11 @@ int Socket::write(
     , int           _DATA_SIZE
 )
 {
-    //TODO
-    return -1;
+    return writeSocketImpl(
+        this->socket
+        , _DATA
+        , _DATA_SIZE
+    );
 }
 
 SocketUnique newSocket(
