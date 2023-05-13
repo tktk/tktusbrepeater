@@ -3,8 +3,9 @@
 Socket::Socket(
     int _socket
 )
+    : socket( _socket )
+    , socketCloser( &( this->socket ) )
 {
-    //TODO
 }
 
 int Socket::read(
@@ -29,6 +30,5 @@ SocketUnique newSocket(
     int _socket
 )
 {
-    //TODO
-    return nullptr;
+    return SocketUnique( new Socket( _socket ) );
 }
