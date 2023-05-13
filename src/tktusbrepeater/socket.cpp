@@ -13,8 +13,11 @@ int Socket::read(
     , int   _DATA_SIZE
 )
 {
-    //TODO
-    return -1;
+    return readSocketImpl(
+        this->socket
+        , _data
+        , _DATA_SIZE
+    );
 }
 
 int Socket::write(

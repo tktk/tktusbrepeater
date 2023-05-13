@@ -92,3 +92,23 @@ int acceptSocketImpl(
         , nullptr
     );
 }
+
+int readSocketImpl(
+    int         _socket
+    , void *    _data
+    , int       _DATA_SIZE
+)
+{
+    //TODO
+    return -1;
+}
+
+int writeSocketImpl(
+    int             _socket
+    , const void *  _DATA
+    , int           _DATA_SIZE
+)
+{
+    //TODO
+    return -1;
+}
