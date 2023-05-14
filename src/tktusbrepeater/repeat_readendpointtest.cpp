@@ -26,26 +26,28 @@ namespace {
 
     public:
         void test(
+            unsigned char   _ENDPOINT
+            , int           _RETURNS_READ
+            , bool          _EXPECTED
+            , unsigned char _EXPECTED_ENDPOINT
         ) const
         {
             auto    endpoint = static_cast< unsigned char >( 0 );
-            auto    socketImpl = 10;
+            auto    socketImpl = 0;
             auto &  socket = reinterpret_cast< Socket & >( socketImpl );
 
-            const auto  ENDPOINT = static_cast< unsigned char >( 20 );
-
-            readData = ENDPOINT;
-            returnsRead = 1;
+            readData = _ENDPOINT;
+            returnsRead = _RETURNS_READ;
 
             EXPECT_EQ(
-                true
+                _EXPECTED
                 , readEndpoint(
                     endpoint
                     , socket
                 )
             );
 
-            EXPECT_EQ( ENDPOINT, endpoint );
+            EXPECT_EQ( _EXPECTED_ENDPOINT, endpoint );
             EXPECT_EQ( 1, argsRead.dataSize );
         }
     };
@@ -58,11 +60,13 @@ int Socket::read(
 {
     argsRead.dataSize = _DATA_SIZE;
 
-    std::memcpy(
-        _data
-        , &readData
-        , sizeof( readData )
-    );
+    if( returnsRead >= 0 ) {
+        std::memcpy(
+            _data
+            , &readData
+            , sizeof( readData )
+        );
+    }
 
     return returnsRead;
 }
@@ -72,28 +76,23 @@ TEST_F(
     , ReadEndpoint
 )
 {
-    this->test();
+    this->test(
+        10
+        , 1
+        , true
+        , 10
+    );
 }
 
-//TODO
-/*
 TEST_F(
     ReadEndpointTest
     , Falied_read
 )
 {
     this->test(
-        {
-            10,
-            20,
-            30,
-        }
-        , 25
-        , {
-            10,
-            20,
-            30,
-        }
+        10
+        , -1
+        , false
+        , 0
     );
 }
-*/
