@@ -9,6 +9,8 @@ void UsbEndpointManager::Unregisterer::UnregisterEndpoint::operator()(
     auto &  endpointManager = _unregistererPtr->endpointManager;
     auto &  endpoints = endpointManager.endpoints;
 
+    const auto &    ENDPOINT = _unregistererPtr->ENDPOINT;
+
     auto    lock = std::lock_guard< std::mutex >( endpointManager.endpointsMutex );
 
     auto    begin = endpoints.begin();
@@ -17,8 +19,11 @@ void UsbEndpointManager::Unregisterer::UnregisterEndpoint::operator()(
     auto    it = std::lower_bound(
         begin
         , end
-        , _unregistererPtr->ENDPOINT
+        , ENDPOINT
     );
+    if( *it != ENDPOINT ) {
+        return;
+    }
 
     endpoints.erase( it );
 }
