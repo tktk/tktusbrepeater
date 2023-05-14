@@ -69,3 +69,17 @@ TEST_F(
         }
     );
 }
+
+TEST_F(
+    UsbEndpointManager_UnregistererTest
+    , EmptyEndpoints
+)
+{
+    this->test(
+        {
+        }
+        , 20
+        , {
+        }
+    );
+}
