@@ -4,6 +4,5 @@ bool isUsbEndpointOut(
     unsigned char   _ENDPOINT
 )
 {
-    //TODO
-    return true;
+    return ( _ENDPOINT & 0x80 ) == 0x00;
 }
