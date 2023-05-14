@@ -8,35 +8,29 @@ namespace {
     {
     public:
         void test(
+            const std::vector< unsigned char > &    _ENDPOINTS
+            , unsigned char                         _ENDPOINT
+            , bool                                  _EXPECTED_IS_NOT_NULL
+            , const std::vector< unsigned char > &  _EXPECTED_ENDPOINTS
         ) const
         {
             auto    usbEndpointManager = UsbEndpointManager();
 
             auto &  usbEndpointManagerImpl = reinterpret_cast< UsbEndpointManagerImpl & >( usbEndpointManager );
-            usbEndpointManagerImpl.endpoints = {
-                10,
-                30,
-            };
+            usbEndpointManagerImpl.endpoints = _ENDPOINTS;
 
-            const auto  ENDPOINT = 20;
+            auto    unregistererUnique = usbEndpointManager.registerEndpoint( _ENDPOINT );
+            if( _EXPECTED_IS_NOT_NULL == true ) {
+                ASSERT_NE( nullptr, unregistererUnique.get() );
 
-            auto    unregistererUnique = usbEndpointManager.registerEndpoint( ENDPOINT );
-            ASSERT_NE( nullptr, unregistererUnique.get() );
+                EXPECT_EQ( &usbEndpointManager, &( unregistererUnique->endpointManager ) );
+                EXPECT_EQ( _ENDPOINT, unregistererUnique->ENDPOINT );
+                EXPECT_EQ( unregistererUnique.get(), unregistererUnique->unregistererUnique.get() );
+            } else {
+                EXPECT_EQ( nullptr, unregistererUnique.get() );
+            }
 
-            EXPECT_EQ( &usbEndpointManager, &( unregistererUnique->endpointManager ) );
-            EXPECT_EQ( ENDPOINT, unregistererUnique->ENDPOINT );
-            EXPECT_EQ( unregistererUnique.get(), unregistererUnique->unregistererUnique.get() );
-
-            EXPECT_EQ(
-                std::vector< unsigned char >(
-                    {
-                        10,
-                        20,
-                        30,
-                    }
-                )
-                , usbEndpointManagerImpl.endpoints
-            );
+            EXPECT_EQ( _EXPECTED_ENDPOINTS, usbEndpointManagerImpl.endpoints );
         }
     };
 }
@@ -46,7 +40,38 @@ TEST_F(
     , NotExists
 )
 {
-    this->test();
+    this->test(
+        {
+            10,
+            30,
+        }
+        , 20
+        , true
+        , {
+            10,
+            20,
+            30,
+        }
+    );
 }
 
-//TODO AlreadyExists
+TEST_F(
+    UsbEndpointManager_reginterEndpointTest
+    , AlreadyExists
+)
+{
+    this->test(
+        {
+            10,
+            20,
+            30,
+        }
+        , 20
+        , false
+        , {
+            10,
+            20,
+            30,
+        }
+    );
+}
