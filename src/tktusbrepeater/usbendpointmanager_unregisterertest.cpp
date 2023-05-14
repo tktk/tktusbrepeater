@@ -50,19 +50,18 @@ TEST_F(
     );
 }
 
-/*
 TEST_F(
-    UsbEndpointManager_registerEndpointTest
+    UsbEndpointManager_UnregistererTest
     , NotExists
 )
 {
     this->test(
         {
             10,
+            20,
             30,
         }
-        , 20
-        , true
+        , 25
         , {
             10,
             20,
@@ -70,4 +69,3 @@ TEST_F(
         }
     );
 }
-*/
