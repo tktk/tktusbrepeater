@@ -1,4 +1,5 @@
 #include "tktusbrepeater/usbendpointmanager.h"
+#include <algorithm>
 
 void UsbEndpointManager::Unregisterer::UnregisterEndpoint::operator()(
     Unregisterer *  _unregistererPtr
@@ -23,9 +24,11 @@ UsbEndpointManager::UnregistererUnique UsbEndpointManager::registerEndpoint(
 {
     auto    lock = std::lock_guard< std::mutex >( this->endpointsMutex );
 
-    this->endpoints.insert(
-        this->endpoints.begin() + 1
-        , _ENDPOINT
+    this->endpoints.push_back( _ENDPOINT );
+
+    std::sort(
+        this->endpoints.begin()
+        , this->endpoints.end()
     );
 
     return UnregistererUnique(
