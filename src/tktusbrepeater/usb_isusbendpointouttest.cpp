@@ -26,4 +26,13 @@ TEST_F(
     );
 }
 
-//TODO EndpointIn
+TEST_F(
+    IsUsbEndpointOutTest
+    , EndpointIn
+)
+{
+    this->test(
+        0x81
+        , false
+    );
+}
