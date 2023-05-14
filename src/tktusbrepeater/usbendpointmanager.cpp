@@ -11,16 +11,27 @@ UsbEndpointManager::Unregisterer::Unregisterer(
     UsbEndpointManager &    _endpointManager
     , unsigned char         _ENDPOINT
 )
-    : endpointManager( *static_cast< UsbEndpointManager * >( nullptr ) )
-    , ENDPOINT( -1 )
+    : endpointManager( _endpointManager )
+    , ENDPOINT( _ENDPOINT )
+    , unregistererUnique( this )
 {
-    //TODO
 }
 
 UsbEndpointManager::UnregistererUnique UsbEndpointManager::registerEndpoint(
     unsigned char   _ENDPOINT
 )
 {
-    //TODO
-    return nullptr;
+    auto    lock = std::lock_guard< std::mutex >( this->endpointsMutex );
+
+    this->endpoints.insert(
+        this->endpoints.begin() + 1
+        , _ENDPOINT
+    );
+
+    return UnregistererUnique(
+        new Unregisterer(
+            *this
+            , _ENDPOINT
+        )
+    );
 }
