@@ -24,6 +24,15 @@ UsbEndpointManager::UnregistererUnique UsbEndpointManager::registerEndpoint(
 {
     auto    lock = std::lock_guard< std::mutex >( this->endpointsMutex );
 
+    auto    it = std::lower_bound(
+        this->endpoints.begin()
+        , this->endpoints.end()
+        , _ENDPOINT
+    );
+    if( *it == _ENDPOINT ) {
+        return nullptr;
+    }
+
     this->endpoints.push_back( _ENDPOINT );
 
     std::sort(
