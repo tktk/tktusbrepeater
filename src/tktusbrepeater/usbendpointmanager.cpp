@@ -15,6 +15,9 @@ void UsbEndpointManager::Unregisterer::UnregisterEndpoint::operator()(
 
     auto    begin = endpoints.begin();
     auto    end = endpoints.end();
+    if( begin == end ) {
+        return;
+    }
 
     auto    it = std::lower_bound(
         begin
@@ -47,8 +50,8 @@ UsbEndpointManager::UnregistererUnique UsbEndpointManager::registerEndpoint(
     auto &  endpoints = this->endpoints;
     auto    begin = endpoints.begin();
     auto    end = endpoints.end();
-    auto    it = begin;
 
+    auto    it = begin;
     if( begin != end ) {
         it = std::lower_bound(
             begin
