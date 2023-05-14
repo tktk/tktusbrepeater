@@ -19,10 +19,12 @@ bool readEndpoint(
 {
     auto    endpoint = static_cast< unsigned char >( 0 );
 
-    _socket.read(
+    if( _socket.read(
         &endpoint
         , 1
-    );
+    ) < 1 ) {
+        return false;
+    }
 
     _endpoint = endpoint;
 
