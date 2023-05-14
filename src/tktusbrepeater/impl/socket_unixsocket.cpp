@@ -112,6 +112,9 @@ int writeSocketImpl(
     , int           _DATA_SIZE
 )
 {
-    //TODO
-    return -1;
+    return write(
+        _socket
+        , _DATA
+        , _DATA_SIZE
+    );
 }
