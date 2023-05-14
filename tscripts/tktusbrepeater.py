@@ -14,6 +14,7 @@ module.DEPENDS = [
     'tktusbrepeater_socket_readtest',
     'tktusbrepeater_socket_writetest',
     'tktusbrepeater_usbendpointmanager_registerendpointtest',
+    'tktusbrepeater_usbendpointmanager_unregisterertest',
 ]
 
 module.BUILDER = cpp.program
