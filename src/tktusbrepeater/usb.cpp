@@ -5,5 +5,5 @@ bool isUsbEndpointOut(
 )
 {
     //TODO
-    return false;
+    return true;
 }
