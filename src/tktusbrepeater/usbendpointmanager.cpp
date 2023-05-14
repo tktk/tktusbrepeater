@@ -29,7 +29,7 @@ UsbEndpointManager::UnregistererUnique UsbEndpointManager::registerEndpoint(
         , this->endpoints.end()
         , _ENDPOINT
     );
-    if( *it == _ENDPOINT ) {
+    if( it != this->endpoints.end() && *it == _ENDPOINT ) {
         return nullptr;
     }
 
