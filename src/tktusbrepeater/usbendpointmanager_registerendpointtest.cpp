@@ -75,3 +75,19 @@ TEST_F(
         }
     );
 }
+
+TEST_F(
+    UsbEndpointManager_reginterEndpointTest
+    , FirstRegister
+)
+{
+    this->test(
+        {
+        }
+        , 10
+        , true
+        , {
+            10,
+        }
+    );
+}
