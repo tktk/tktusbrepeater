@@ -13,6 +13,7 @@ module.DEPENDS = [
     'tktusbrepeater_socket_newtest',
     'tktusbrepeater_socket_readtest',
     'tktusbrepeater_socket_writetest',
+    'tktusbrepeater_usbendpointmanager_registerendpointtest',
 ]
 
 module.BUILDER = cpp.program
@@ -24,6 +25,7 @@ module.SOURCE = [
     'usbdevicemanager.cpp',
     'serversocket.cpp',
     'socket.cpp',
+    'usbendpointmanager.cpp',
     {
         'impl' : [
             'usb_libusb.cpp',
