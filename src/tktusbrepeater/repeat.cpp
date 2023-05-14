@@ -17,8 +17,16 @@ bool readEndpoint(
     , Socket &      _socket
 )
 {
-    //TODO
-    return false;
+    auto    endpoint = static_cast< unsigned char >( 0 );
+
+    _socket.read(
+        &endpoint
+        , 1
+    );
+
+    _endpoint = endpoint;
+
+    return true;
 }
 
 bool repeatFromUsbDevice(
