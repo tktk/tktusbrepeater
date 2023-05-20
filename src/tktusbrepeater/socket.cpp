@@ -35,8 +35,9 @@ int Socket::write(
 bool Socket::isConnected(
 )
 {
-    //TODO
-    return false;
+    isConnectedSocketImpl( this->socket );
+
+    return true;
 }
 
 SocketUnique newSocket(
