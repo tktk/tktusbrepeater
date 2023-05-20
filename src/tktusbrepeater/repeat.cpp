@@ -57,10 +57,15 @@ bool repeatToUsbDevice(
     );
     //TODO READ_SIZEのチェック
 
-    _usbDeviceManager.bulkTransfer(
+    const auto  TRANSFERRED_SIZE = _usbDeviceManager.bulkTransfer(
         _ENDPOINT
         , _buffer
         , READ_SIZE
+    );
+
+    _socket.write(
+        &TRANSFERRED_SIZE
+        , 2
     );
 
     return true;

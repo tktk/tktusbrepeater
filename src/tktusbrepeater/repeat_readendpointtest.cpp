@@ -76,6 +76,14 @@ int Socket::read(
     return returnsRead;
 }
 
+int Socket::write(
+    const void *
+    , int
+)
+{
+    return -1;
+}
+
 int UsbDeviceManager::bulkTransfer(
     unsigned char
     , void *
