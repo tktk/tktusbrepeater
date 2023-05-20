@@ -180,4 +180,18 @@ TEST_F(
 }
 
 //TODO Failed_bulkTransfer
-//TODO Failed_write
+
+TEST_F(
+    RepeatFromUsbDeviceTest
+    , Failed_write
+)
+{
+    this->test(
+        50
+        , 60
+        , -1
+        , false
+        , 1
+        , 60
+    );
+}
