@@ -101,6 +101,23 @@ int writeSocketImpl(
     return returnsWriteSocketImpl;
 }
 
+int calledCountIsConnectedSocketImpl;
+
+ArgsIsConnectedSocketImpl   argsIsConnectedSocketImpl;
+
+bool    returnsIsConnectedSocketImpl;
+
+bool isConnectedSocketImpl(
+    int _socket
+)
+{
+    calledCountIsConnectedSocketImpl++;
+
+    argsIsConnectedSocketImpl.socket = _socket;
+
+    return returnsIsConnectedSocketImpl;
+}
+
 namespace {
     void initializeMockInitializeSocketImpl(
     )
@@ -145,6 +162,14 @@ namespace {
         argsWriteSocketImpl = ArgsWriteSocketImpl();
         returnsWriteSocketImpl = 0;
     }
+
+    void initializeMockIsConnectedSocketImpl(
+    )
+    {
+        calledCountIsConnectedSocketImpl = 0;
+        argsIsConnectedSocketImpl = ArgsIsConnectedSocketImpl();
+        returnsIsConnectedSocketImpl = false;
+    }
 }
 
 void initializeSocketMock(
@@ -156,4 +181,5 @@ void initializeSocketMock(
     initializeMockAcceptSocketImpl();
     initializeMockReadSocketImpl();
     initializeMockWriteSocketImpl();
+    initializeMockIsConnectedSocketImpl();
 }

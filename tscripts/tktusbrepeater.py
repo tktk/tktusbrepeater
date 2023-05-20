@@ -13,6 +13,7 @@ module.DEPENDS = [
     'tktusbrepeater_socket_newtest',
     'tktusbrepeater_socket_readtest',
     'tktusbrepeater_socket_writetest',
+    'tktusbrepeater_socket_isconnectedtest',
     'tktusbrepeater_usbendpointmanager_registerendpointtest',
     'tktusbrepeater_usbendpointmanager_unregisterertest',
     'tktusbrepeater_usb_isusbendpointouttest',

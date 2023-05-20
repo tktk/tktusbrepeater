@@ -27,11 +27,11 @@ namespace {
     auto    argsBulkTransfer = ArgsBulkTransfer();
     auto    returnsBulkTransfer = static_cast< int >( 0 );
 
-    auto    calledWrite = static_cast< int >( 0 );
+    auto    calledCountWrite = static_cast< int >( 0 );
     auto    argsWrite = ArgsWrite();
     auto    returnsWrite = static_cast< int >( 0 );
 
-    auto    calledIsConnected = static_cast< int >( 0 );
+    auto    calledCountIsConnected = static_cast< int >( 0 );
     auto    argsIsConnected = ArgsIsConnected();
     auto    returnsIsConnected = false;
 
@@ -44,11 +44,11 @@ namespace {
             argsBulkTransfer = ArgsBulkTransfer();
             returnsBulkTransfer = 0;
 
-            calledWrite = 0;
+            calledCountWrite = 0;
             argsWrite = ArgsWrite();
             returnsWrite = 0;
 
-            calledIsConnected = 0;
+            calledCountIsConnected = 0;
             argsIsConnected = ArgsIsConnected();
             returnsIsConnected = false;
         }
@@ -59,8 +59,8 @@ namespace {
             , bool  _RETURNS_IS_CONNECTED
             , int   _RETURNS_WRITE
             , bool  _EXPECTED
-            , int   _EXPECTED_CALLED_IS_CONNECTED
-            , int   _EXPECTED_CALLED_WRITE
+            , int   _EXPECTED_CALLED_COUNT_IS_CONNECTED
+            , int   _EXPECTED_CALLED_COUNT_WRITE
         ) const
         {
             auto    ENDPOINT = static_cast< unsigned char >( 10 );
@@ -94,13 +94,13 @@ namespace {
             EXPECT_EQ( buffer, argsBulkTransfer.data );
             EXPECT_EQ( BUFFER_SIZE, argsBulkTransfer.dataSize );
 
-            EXPECT_EQ( _EXPECTED_CALLED_IS_CONNECTED, calledIsConnected );
-            if( calledIsConnected > 0 ) {
+            EXPECT_EQ( _EXPECTED_CALLED_COUNT_IS_CONNECTED, calledCountIsConnected );
+            if( calledCountIsConnected > 0 ) {
                 EXPECT_EQ( &socket, argsIsConnected.socketPtr );
             }
 
-            EXPECT_EQ( _EXPECTED_CALLED_WRITE, calledWrite );
-            if( calledWrite > 0 ) {
+            EXPECT_EQ( _EXPECTED_CALLED_COUNT_WRITE, calledCountWrite );
+            if( calledCountWrite > 0 ) {
                 EXPECT_EQ( &socket, argsWrite.socketPtr );
                 EXPECT_EQ( buffer, argsWrite.data );
                 EXPECT_EQ( _RETURNS_BULK_TRANSFER, argsWrite.dataSize );
@@ -128,7 +128,7 @@ int Socket::write(
     , int           _DATA_SIZE
 )
 {
-    calledWrite++;
+    calledCountWrite++;
 
     argsWrite.socketPtr = this;
     argsWrite.data = _DATA;
@@ -140,7 +140,7 @@ int Socket::write(
 bool Socket::isConnected(
 )
 {
-    calledIsConnected++;
+    calledCountIsConnected++;
 
     argsIsConnected.socketPtr = this;
 

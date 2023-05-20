@@ -67,6 +67,18 @@ extern ArgsWriteSocketImpl  argsWriteSocketImpl;
 
 extern int  returnsWriteSocketImpl;
 
+// isConnectedSocketImpl()
+struct ArgsIsConnectedSocketImpl
+{
+    int socket = 0;
+};
+
+extern int  calledCountIsConnectedSocketImpl;
+
+extern ArgsIsConnectedSocketImpl    argsIsConnectedSocketImpl;
+
+extern bool returnsIsConnectedSocketImpl;
+
 
 void initializeSocketMock(
 );

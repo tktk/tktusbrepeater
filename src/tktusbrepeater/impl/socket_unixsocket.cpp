@@ -118,3 +118,11 @@ int writeSocketImpl(
         , _DATA_SIZE
     );
 }
+
+bool isConnectedSocketImpl(
+    int _socket
+)
+{
+    //TODO
+    return false;
+}

@@ -51,4 +51,8 @@ int writeSocketImpl(
     , int
 );
 
+bool isConnectedSocketImpl(
+    int
+);
+
 #endif  // TKTUSBREPEATER_IMPL_SOCKET_H

@@ -22,7 +22,7 @@ namespace {
     auto    argsRead = ArgsRead();
     auto    returnsRead = static_cast< int >( 0 );
 
-    auto    calledBulkTransfer = static_cast< int >( 0 );
+    auto    calledCountBulkTransfer = static_cast< int >( 0 );
     auto    argsBulkTransfer = ArgsBulkTransfer();
 
     class RepeatToUsbDeviceTest : public ::testing::Test
@@ -34,7 +34,7 @@ namespace {
             argsRead = ArgsRead();
             returnsRead = 0;
 
-            calledBulkTransfer = 0;
+            calledCountBulkTransfer = 0;
             argsBulkTransfer = ArgsBulkTransfer();
         }
 
@@ -42,7 +42,7 @@ namespace {
         void test(
             int     _RETURNS_READ
             , bool  _EXPECTED
-            , int   _EXPECTED_CALLED_BULK_TRANSFER
+            , int   _EXPECTED_CALLED_COUNT_BULK_TRANSFER
         ) const
         {
             auto    ENDPOINT = static_cast< unsigned char >( 10 );
@@ -73,8 +73,8 @@ namespace {
             EXPECT_EQ( buffer, argsRead.data );
             EXPECT_EQ( BUFFER_SIZE, argsRead.dataSize );
 
-            EXPECT_EQ( _EXPECTED_CALLED_BULK_TRANSFER, calledBulkTransfer );
-            if( calledBulkTransfer > 0 ) {
+            EXPECT_EQ( _EXPECTED_CALLED_COUNT_BULK_TRANSFER, calledCountBulkTransfer );
+            if( calledCountBulkTransfer > 0 ) {
                 EXPECT_EQ( &usbDeviceManager, argsBulkTransfer.usbDeviceManagerPtr );
                 EXPECT_EQ( ENDPOINT, argsBulkTransfer.endpoint );
                 EXPECT_EQ( buffer, argsBulkTransfer.data );
@@ -102,7 +102,7 @@ int UsbDeviceManager::bulkTransfer(
     , int           _DATA_SIZE
 )
 {
-    calledBulkTransfer++;
+    calledCountBulkTransfer++;
 
     argsBulkTransfer.usbDeviceManagerPtr = this;
     argsBulkTransfer.endpoint = _ENDPOINT;
