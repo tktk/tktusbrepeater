@@ -177,7 +177,21 @@ TEST_F(
     );
 }
 
-//TODO Failed_inConnected
+TEST_F(
+    RepeatFromUsbDeviceTest
+    , Failed_inConnected
+)
+{
+    this->test(
+        0
+        , false
+        , 60
+        , false
+        , 1
+        , 0
+    );
+}
+
 //TODO Failed_write
 /*
 TEST_F(
