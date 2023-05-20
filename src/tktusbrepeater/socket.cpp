@@ -32,6 +32,13 @@ int Socket::write(
     );
 }
 
+bool Socket::isConnected(
+)
+{
+    //TODO
+    return false;
+}
+
 SocketUnique newSocket(
     int _socket
 )

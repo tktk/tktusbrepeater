@@ -76,15 +76,6 @@ int Socket::read(
     return returnsRead;
 }
 
-int UsbDeviceManager::bulkTransfer(
-    unsigned char
-    , void *
-    , int
-)
-{
-    return -1;
-}
-
 TEST_F(
     ReadEndpointTest
     , ReadEndpoint
@@ -109,4 +100,13 @@ TEST_F(
         , false
         , 0
     );
+}
+
+int UsbDeviceManager::bulkTransfer(
+    unsigned char
+    , void *
+    , int
+)
+{
+    return -1;
 }

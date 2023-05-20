@@ -23,6 +23,9 @@ public:
         const void *
         , int
     );
+
+    bool isConnected(
+    );
 };
 
 using SocketUnique = std::unique_ptr< Socket >;

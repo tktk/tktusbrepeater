@@ -25,7 +25,7 @@ namespace {
     auto    calledBulkTransfer = static_cast< int >( 0 );
     auto    argsBulkTransfer = ArgsBulkTransfer();
 
-    class RepeatFromUsbDeviceTest : public ::testing::Test
+    class RepeatToUsbDeviceTest : public ::testing::Test
     {
     protected:
         virtual void SetUp(
@@ -53,10 +53,10 @@ namespace {
             auto    socketImpl = 30;
             auto &  socket = reinterpret_cast< Socket & >( socketImpl );
 
-            returnsRead = _RETURNS_READ;
-
             auto    buffer = reinterpret_cast< void * >( 40 );
             auto    BUFFER_SIZE = 50;
+
+            returnsRead = _RETURNS_READ;
 
             EXPECT_EQ(
                 _EXPECTED
@@ -113,8 +113,8 @@ int UsbDeviceManager::bulkTransfer(
 }
 
 TEST_F(
-    RepeatFromUsbDeviceTest
-    , RepeatFromUsbDevice
+    RepeatToUsbDeviceTest
+    , RepeatToUsbDevice
 )
 {
     this->test(
@@ -125,7 +125,7 @@ TEST_F(
 }
 
 TEST_F(
-    RepeatFromUsbDeviceTest
+    RepeatToUsbDeviceTest
     , Failed_read
 )
 {
