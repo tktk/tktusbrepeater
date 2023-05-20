@@ -112,15 +112,6 @@ int UsbDeviceManager::bulkTransfer(
     return 0;
 }
 
-//REMOVEME
-int Socket::write(
-    const void *
-    , int
-)
-{
-    return -1;
-}
-
 TEST_F(
     RepeatFromUsbDeviceTest
     , RepeatFromUsbDevice
