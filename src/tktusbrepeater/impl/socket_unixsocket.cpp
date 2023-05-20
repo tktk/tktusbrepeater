@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
+#include <poll.h>
 #include <cerrno>
 #include <sstream>
 #include <stdexcept>
@@ -123,6 +124,14 @@ bool isConnectedSocketImpl(
     int _socket
 )
 {
-    //TODO
-    return false;
+    auto    fd = pollfd{
+        .fd = _socket,
+        .events = 0,
+    };
+
+    return poll(
+        &fd
+        , 1
+        , 0
+    ) <= 0;
 }
