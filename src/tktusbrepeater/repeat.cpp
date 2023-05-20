@@ -35,6 +35,8 @@ bool repeatFromUsbDevice(
     unsigned char           _ENDPOINT
     , UsbDeviceManager &    _usbDeviceManager
     , Socket &              _socket
+    , void *                _buffer
+    , int                   _BUFFER_SIZE
 )
 {
     //TODO
@@ -45,6 +47,8 @@ bool repeatToUsbDevice(
     unsigned char           _ENDPOINT
     , UsbDeviceManager &    _usbDeviceManager
     , Socket &              _socket
+    , void *                _buffer
+    , int                   _BUFFER_SIZE
 )
 {
     //TODO

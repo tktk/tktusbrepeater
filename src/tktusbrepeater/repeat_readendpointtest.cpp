@@ -6,10 +6,12 @@
 namespace {
     struct ArgsRead
     {
-        int dataSize = 0;
+        Socket *    socketPtr = nullptr;
+        int         dataSize = 0;
     };
 
     auto    readData = static_cast< unsigned char >( 0 );
+
     auto    argsRead = ArgsRead();
     auto    returnsRead = static_cast< int >( 0 );
 
@@ -20,6 +22,7 @@ namespace {
         ) override
         {
             readData = 0;
+
             argsRead = ArgsRead();
             returnsRead = 0;
         }
@@ -33,7 +36,7 @@ namespace {
         ) const
         {
             auto    endpoint = static_cast< unsigned char >( 0 );
-            auto    socketImpl = 0;
+            auto    socketImpl = 10;
             auto &  socket = reinterpret_cast< Socket & >( socketImpl );
 
             readData = _ENDPOINT;
@@ -48,6 +51,7 @@ namespace {
             );
 
             EXPECT_EQ( _EXPECTED_ENDPOINT, endpoint );
+            EXPECT_EQ( &socket, argsRead.socketPtr );
             EXPECT_EQ( 1, argsRead.dataSize );
         }
     };
@@ -58,6 +62,7 @@ int Socket::read(
     , int   _DATA_SIZE
 )
 {
+    argsRead.socketPtr = this;
     argsRead.dataSize = _DATA_SIZE;
 
     if( returnsRead >= 0 ) {
@@ -77,10 +82,10 @@ TEST_F(
 )
 {
     this->test(
-        10
+        20
         , 1
         , true
-        , 10
+        , 20
     );
 }
 
@@ -90,7 +95,7 @@ TEST_F(
 )
 {
     this->test(
-        10
+        20
         , -1
         , false
         , 0

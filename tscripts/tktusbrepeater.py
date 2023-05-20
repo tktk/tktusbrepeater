@@ -17,6 +17,7 @@ module.DEPENDS = [
     'tktusbrepeater_usbendpointmanager_unregisterertest',
     'tktusbrepeater_usb_isusbendpointouttest',
     'tktusbrepeater_repeat_readendpointtest',
+    'tktusbrepeater_repeat_repeattousbdevicetest',
 ]
 
 module.BUILDER = cpp.program
