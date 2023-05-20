@@ -192,20 +192,20 @@ TEST_F(
     );
 }
 
-//TODO Failed_write
-/*
 TEST_F(
     RepeatFromUsbDeviceTest
-    , Failed_read
+    , Failed_write
 )
 {
     this->test(
-        -1
+        60
+        , true
+        , -1
         , false
         , 0
+        , 1
     );
 }
-*/
 
 int Socket::read(
     void *
