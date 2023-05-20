@@ -65,8 +65,12 @@ bool repeatToUsbDevice(
         , READ_SIZE
     );
 
-    return _socket.write(
+    if( _socket.write(
         &TRANSFERRED_SIZE
-        , 2
-    ) >= 0;
+        , sizeof( TRANSFERRED_SIZE )
+    ) < 0 ) {
+        return false;
+    }
+
+    return true;
 }
