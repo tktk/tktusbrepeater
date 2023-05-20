@@ -108,7 +108,7 @@ TEST_F(
 
 TEST_F(
     ReadEndpointTest
-    , Falied_read
+    , Failed_read
 )
 {
     this->test(

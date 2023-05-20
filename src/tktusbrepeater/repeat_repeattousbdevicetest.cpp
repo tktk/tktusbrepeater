@@ -29,6 +29,7 @@ namespace {
     auto    argsRead = ArgsRead();
     auto    returnsRead = static_cast< int >( 0 );
 
+    auto    calledBulkTransfer = static_cast< int >( 0 );
     auto    argsBulkTransfer = ArgsBulkTransfer();
     auto    returnsBulkTransfer = static_cast< int >( 0 );
 
@@ -44,6 +45,7 @@ namespace {
             argsRead = ArgsRead();
             returnsRead = 0;
 
+            calledBulkTransfer = 0;
             argsBulkTransfer = ArgsBulkTransfer();
             returnsBulkTransfer = 0;
 
@@ -57,6 +59,7 @@ namespace {
             , int   _RETURNS_BULK_TRANSFER
             , int   _RETURNS_WRITE
             , bool  _EXPECTED
+            , int   _EXPECTED_CALLED_BULK_TRANSFER
             , short _EXPECTED_TRANSFERRED_SIZE
         ) const
         {
@@ -90,10 +93,13 @@ namespace {
             EXPECT_EQ( buffer, argsRead.data );
             EXPECT_EQ( BUFFER_SIZE, argsRead.dataSize );
 
-            EXPECT_EQ( &usbDeviceManager, argsBulkTransfer.usbDeviceManagerPtr );
-            EXPECT_EQ( ENDPOINT, argsBulkTransfer.endpoint );
-            EXPECT_EQ( buffer, argsBulkTransfer.data );
-            EXPECT_EQ( _RETURNS_READ, argsBulkTransfer.dataSize );
+            EXPECT_EQ( _EXPECTED_CALLED_BULK_TRANSFER, calledBulkTransfer );
+            if( calledBulkTransfer > 0 ) {
+                EXPECT_EQ( &usbDeviceManager, argsBulkTransfer.usbDeviceManagerPtr );
+                EXPECT_EQ( ENDPOINT, argsBulkTransfer.endpoint );
+                EXPECT_EQ( buffer, argsBulkTransfer.data );
+                EXPECT_EQ( _RETURNS_READ, argsBulkTransfer.dataSize );
+            }
 
             EXPECT_EQ( &socket, argsWrite.socketPtr );
             ASSERT_NE( nullptr, argsWrite.data );
@@ -133,6 +139,8 @@ int UsbDeviceManager::bulkTransfer(
     , int           _DATA_SIZE
 )
 {
+    calledBulkTransfer++;
+
     argsBulkTransfer.usbDeviceManagerPtr = this;
     argsBulkTransfer.endpoint = _ENDPOINT;
     argsBulkTransfer.data = _data;
@@ -151,21 +159,25 @@ TEST_F(
         , 60
         , 70
         , true
+        , 1
         , 60
     );
 }
 
-/*
 TEST_F(
     RepeatFromUsbDeviceTest
-    , Falied_read
+    , Failed_read
 )
 {
     this->test(
-        10
-        , -1
+        -1
+        , 60
+        , 70
         , false
         , 0
+        , -1
     );
 }
-*/
+
+//TODO Failed_bulkTransfer
+//TODO Failed_write
