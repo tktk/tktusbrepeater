@@ -189,8 +189,6 @@ TEST_F(
     );
 }
 
-//TODO Failed_bulkTransfer
-
 TEST_F(
     RepeatFromUsbDeviceTest
     , Failed_write

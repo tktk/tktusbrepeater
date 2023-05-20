@@ -59,19 +59,14 @@ bool repeatToUsbDevice(
         return false;
     }
 
-    auto    transferredSize = static_cast< short >( -1 );
-    transferredSize = _usbDeviceManager.bulkTransfer(
+    const auto  TRANSFERRED_SIZE = _usbDeviceManager.bulkTransfer(
         _ENDPOINT
         , _buffer
         , READ_SIZE
     );
 
-    if( _socket.write(
-        &transferredSize
-        , sizeof( transferredSize )
-    ) < 0 ) {
-        return false;
-    }
-
-    return true;
+    return _socket.write(
+        &TRANSFERRED_SIZE
+        , 2
+    ) >= 0;
 }
