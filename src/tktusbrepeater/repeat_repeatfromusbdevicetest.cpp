@@ -162,7 +162,21 @@ TEST_F(
     );
 }
 
-//TODO Failed_bulkTransfer
+TEST_F(
+    RepeatFromUsbDeviceTest
+    , Failed_bulkTransfer
+)
+{
+    this->test(
+        0
+        , true
+        , -1
+        , true
+        , 1
+        , 0
+    );
+}
+
 //TODO Failed_inConnected
 //TODO Failed_write
 /*
