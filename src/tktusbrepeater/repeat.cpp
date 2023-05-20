@@ -48,11 +48,12 @@ bool repeatFromUsbDevice(
         return _socket.isConnected();
     }
 
-    //TODO 戻り値をチェック
-    _socket.write(
+    if( _socket.write(
         _buffer
         , TRANSFERRED_SIZE
-    );
+    ) < 0 ) {
+        return false;
+    }
 
     return true;
 }
