@@ -45,9 +45,7 @@ bool repeatFromUsbDevice(
         , _BUFFER_SIZE
     );
     if( TRANSFERRED_SIZE <= 0 ) {
-        _socket.isConnected();
-
-        return true;
+        return _socket.isConnected();
     }
 
     //TODO 戻り値をチェック
