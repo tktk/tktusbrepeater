@@ -51,6 +51,17 @@ bool repeatToUsbDevice(
     , int                   _BUFFER_SIZE
 )
 {
-    //TODO
-    return false;
+    const auto  READ_SIZE = _socket.read(
+        _buffer
+        , _BUFFER_SIZE
+    );
+    //TODO READ_SIZEのチェック
+
+    _usbDeviceManager.bulkTransfer(
+        _ENDPOINT
+        , _buffer
+        , READ_SIZE
+    );
+
+    return true;
 }
