@@ -46,15 +46,13 @@ TEST_F(
     );
 }
 
-/*
 TEST_F(
     Socket_isConnectedTest
     , IsConnected_disconnected
 )
 {
     this->test(
-        true
-        , true
+        false
+        , false
     );
 }
-*/
