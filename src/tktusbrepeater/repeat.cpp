@@ -39,8 +39,20 @@ bool repeatFromUsbDevice(
     , int                   _BUFFER_SIZE
 )
 {
-    //TODO
-    return false;
+    //TODO TRANSFERRED_SIZEをチェック
+    const auto  TRANSFERRED_SIZE = _usbDeviceManager.bulkTransfer(
+        _ENDPOINT
+        , _buffer
+        , _BUFFER_SIZE
+    );
+
+    //TODO 戻り値をチェック
+    _socket.write(
+        _buffer
+        , TRANSFERRED_SIZE
+    );
+
+    return true;
 }
 
 bool repeatToUsbDevice(

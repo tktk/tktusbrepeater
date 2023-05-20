@@ -110,3 +110,11 @@ int UsbDeviceManager::bulkTransfer(
 {
     return -1;
 }
+
+int Socket::write(
+    const void *
+    , int
+)
+{
+    return -1;
+}

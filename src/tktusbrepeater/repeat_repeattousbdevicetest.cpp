@@ -135,3 +135,11 @@ TEST_F(
         , 0
     );
 }
+
+int Socket::write(
+    const void *
+    , int
+)
+{
+    return -1;
+}
