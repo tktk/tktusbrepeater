@@ -33,6 +33,7 @@ namespace {
     auto    argsBulkTransfer = ArgsBulkTransfer();
     auto    returnsBulkTransfer = static_cast< int >( 0 );
 
+    auto    calledWrite = static_cast< int >( 0 );
     auto    argsWrite = ArgsWrite();
     auto    returnsWrite = static_cast< int >( 0 );
 
@@ -49,6 +50,7 @@ namespace {
             argsBulkTransfer = ArgsBulkTransfer();
             returnsBulkTransfer = 0;
 
+            calledWrite = 0;
             argsWrite = ArgsWrite();
             returnsWrite = 0;
         }
@@ -60,6 +62,7 @@ namespace {
             , int   _RETURNS_WRITE
             , bool  _EXPECTED
             , int   _EXPECTED_CALLED_BULK_TRANSFER
+            , int   _EXPECTED_CALLED_WRITE
             , short _EXPECTED_TRANSFERRED_SIZE
         ) const
         {
@@ -101,10 +104,13 @@ namespace {
                 EXPECT_EQ( _RETURNS_READ, argsBulkTransfer.dataSize );
             }
 
-            EXPECT_EQ( &socket, argsWrite.socketPtr );
-            ASSERT_NE( nullptr, argsWrite.data );
-            EXPECT_EQ( _EXPECTED_TRANSFERRED_SIZE, *static_cast< const short * >( argsWrite.data ) );
-            EXPECT_EQ( sizeof( _EXPECTED_TRANSFERRED_SIZE ), argsWrite.dataSize );
+            EXPECT_EQ( _EXPECTED_CALLED_WRITE, calledWrite );
+            if( calledWrite > 0 ) {
+                EXPECT_EQ( &socket, argsWrite.socketPtr );
+                ASSERT_NE( nullptr, argsWrite.data );
+                EXPECT_EQ( _EXPECTED_TRANSFERRED_SIZE, *static_cast< const short * >( argsWrite.data ) );
+                EXPECT_EQ( sizeof( _EXPECTED_TRANSFERRED_SIZE ), argsWrite.dataSize );
+            }
         }
     };
 }
@@ -119,18 +125,6 @@ int Socket::read(
     argsRead.dataSize = _DATA_SIZE;
 
     return returnsRead;
-}
-
-int Socket::write(
-    const void *    _DATA
-    , int           _DATA_SIZE
-)
-{
-    argsWrite.socketPtr = this;
-    argsWrite.data = _DATA;
-    argsWrite.dataSize = _DATA_SIZE;
-
-    return returnsWrite;
 }
 
 int UsbDeviceManager::bulkTransfer(
@@ -149,6 +143,20 @@ int UsbDeviceManager::bulkTransfer(
     return returnsBulkTransfer;
 }
 
+int Socket::write(
+    const void *    _DATA
+    , int           _DATA_SIZE
+)
+{
+    calledWrite++;
+
+    argsWrite.socketPtr = this;
+    argsWrite.data = _DATA;
+    argsWrite.dataSize = _DATA_SIZE;
+
+    return returnsWrite;
+}
+
 TEST_F(
     RepeatFromUsbDeviceTest
     , RepeatFromUsbDevice
@@ -159,6 +167,7 @@ TEST_F(
         , 60
         , 70
         , true
+        , 1
         , 1
         , 60
     );
@@ -175,7 +184,8 @@ TEST_F(
         , 70
         , false
         , 0
-        , -1
+        , 0
+        , 0
     );
 }
 
@@ -191,6 +201,7 @@ TEST_F(
         , 60
         , -1
         , false
+        , 1
         , 1
         , 60
     );
