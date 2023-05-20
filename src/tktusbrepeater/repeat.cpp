@@ -65,10 +65,12 @@ bool repeatToUsbDevice(
         );
     }
 
-    _socket.write(
+    if( _socket.write(
         &transferredSize
         , sizeof( transferredSize )
-    );
+    ) < 0 ) {
+        return false;
+    }
 
     return READ_SIZE >= 0;
 }
