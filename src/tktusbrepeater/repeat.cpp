@@ -55,15 +55,16 @@ bool repeatToUsbDevice(
         _buffer
         , _BUFFER_SIZE
     );
+    if( READ_SIZE < 0 ) {
+        return false;
+    }
 
     auto    transferredSize = static_cast< short >( -1 );
-    if( READ_SIZE >= 0 ) {
-        transferredSize = _usbDeviceManager.bulkTransfer(
-            _ENDPOINT
-            , _buffer
-            , READ_SIZE
-        );
-    }
+    transferredSize = _usbDeviceManager.bulkTransfer(
+        _ENDPOINT
+        , _buffer
+        , READ_SIZE
+    );
 
     if( _socket.write(
         &transferredSize
@@ -72,5 +73,5 @@ bool repeatToUsbDevice(
         return false;
     }
 
-    return READ_SIZE >= 0;
+    return true;
 }
