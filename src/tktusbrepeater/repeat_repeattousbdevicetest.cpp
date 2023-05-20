@@ -63,7 +63,7 @@ namespace {
             , bool  _EXPECTED
             , int   _EXPECTED_CALLED_BULK_TRANSFER
             , int   _EXPECTED_CALLED_WRITE
-            , short _EXPECTED_TRANSFERRED_SIZE
+            , int   _EXPECTED_TRANSFERRED_SIZE
         ) const
         {
             auto    ENDPOINT = static_cast< unsigned char >( 10 );
