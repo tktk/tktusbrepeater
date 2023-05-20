@@ -143,3 +143,9 @@ int Socket::write(
 {
     return -1;
 }
+
+bool Socket::isConnected(
+)
+{
+    return false;
+}
