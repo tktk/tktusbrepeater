@@ -7,9 +7,9 @@ module.TYPE = module.test
 
 module.BUILDER = cpp.gtest
 
-module.TARGET = 'tktusbrepeater_commandlineoptionstest'
+module.TARGET = 'tktusbrepeater_commandlineoptions_initializetest'
 
 module.SOURCE = [
-    'commandlineoptionstest.cpp',
+    'commandlineoptions_initializetest.cpp',
     'commandlineoptions.cpp',
 ]
