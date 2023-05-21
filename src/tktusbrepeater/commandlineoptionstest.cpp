@@ -173,7 +173,6 @@ TEST_F(
     );
 }
 
-/*
 TEST_F(
     CommandLineOptions_initializeTest
     , Failed_containsIllegalOption
@@ -181,18 +180,16 @@ TEST_F(
 {
     this->test(
         {
-            "tktemotejoy",
-            "-m",
-            "MAPFILEPATH",
-            "-i",
-            "IP",
+            "tktusbrepeater",
+            "-s",
+            "SOCKETNAME",
+            "-v",
+            "12ab",
             "-p",
-            "10",
+            "34cd",
             "-X",
-            "DEVICEFILEPATH",
         }
         , false
         , CommandLineOptions{}
     );
 }
-*/
