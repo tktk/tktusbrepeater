@@ -83,7 +83,7 @@ TEST_F(
 
 TEST_F(
     CommandLineOptions_initializeTest
-    , FailedNotExistsSocketName
+    , Failed_notExistsSocketName
 )
 {
     this->test(
@@ -99,30 +99,30 @@ TEST_F(
     );
 }
 
-/*
 TEST_F(
     CommandLineOptions_initializeTest
-    , FailedNotExistsDeviceFilePath
+    , Failed_notExistsVendorId
 )
 {
     this->test(
         {
-            "tktemotejoy",
-            "-m",
-            "MAPFILEPATH",
-            "-i",
-            "IP",
+            "tktusbrepeater",
+            "-s",
+            "SOCKETNAME",
             "-p",
-            "10",
+            "34cd",
         }
         , false
         , CommandLineOptions{}
     );
 }
 
+//TODO Failed_notExistsProductId
+
+/*
 TEST_F(
     CommandLineOptions_initializeTest
-    , FailedContainsIllegalOption
+    , Failed_containsIllegalOption
 )
 {
     this->test(
