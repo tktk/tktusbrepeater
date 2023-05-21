@@ -11,9 +11,7 @@ namespace {
         void test(
             const std::vector< const char * > & _ARGS
             , const bool                        _EXPECTED
-            , const std::string &               _EXPECTED_SOCKET_NAME
-            , int                               _EXPECTED_VENDOR_ID
-            , int                               _EXPECTED_PRODUCT_ID
+            , CommandLineOptions                _EXPECTED_COMMAND_LINE_OPTIONS
         ) const
         {
             auto    commandLineOptions = CommandLineOptions();
@@ -30,9 +28,9 @@ namespace {
             );
 
             if( _EXPECTED == true ) {
-                EXPECT_EQ( _EXPECTED_SOCKET_NAME, commandLineOptions.socketName );
-                EXPECT_EQ( _EXPECTED_VENDOR_ID, commandLineOptions.vendorId );
-                EXPECT_EQ( _EXPECTED_PRODUCT_ID, commandLineOptions.productId );
+                EXPECT_EQ( _EXPECTED_COMMAND_LINE_OPTIONS.socketName, commandLineOptions.socketName );
+                EXPECT_EQ( _EXPECTED_COMMAND_LINE_OPTIONS.vendorId, commandLineOptions.vendorId );
+                EXPECT_EQ( _EXPECTED_COMMAND_LINE_OPTIONS.productId, commandLineOptions.productId );
             }
         }
     };
@@ -54,57 +52,10 @@ TEST_F(
             "34cd",
         }
         , true
-        , "SOCKETNAME"
-        , 0x12ab
-        , 0x34cd
-    );
-}
-
-/*
-TEST_F(
-    CommandLineOptions_initializeTest
-    , NotExistsIp
-)
-{
-    this->test(
-        {
-            "tktemotejoy",
-            "-m",
-            "MAPFILEPATH",
-            "-p",
-            "10",
-            "DEVICEFILEPATH",
-        }
-        , true
         , CommandLineOptions{
-            "MAPFILEPATH",
-            "DEVICEFILEPATH",
-            "localhost",
-            10,
-        }
-    );
-}
-
-TEST_F(
-    CommandLineOptions_initializeTest
-    , NotExistsPort
-)
-{
-    this->test(
-        {
-            "tktemotejoy",
-            "-m",
-            "MAPFILEPATH",
-            "-i",
-            "IP",
-            "DEVICEFILEPATH",
-        }
-        , true
-        , CommandLineOptions{
-            "MAPFILEPATH",
-            "DEVICEFILEPATH",
-            "IP",
-            10004,
+            "SOCKETNAME",
+            0x12ab,
+            0x34cd,
         }
     );
 }
@@ -116,14 +67,13 @@ TEST_F(
 {
     this->test(
         {
-            "tktemotejoy",
-            "-m",
-            "MAPFILEPATH",
-            "-i",
-            "IP",
+            "tktusbrepeater",
+            "-s",
+            "SOCKETNAME",
+            "-v",
+            "12ab",
             "-p",
-            "10",
-            "DEVICEFILEPATH",
+            "34cd",
             "-h",
         }
         , false
@@ -131,6 +81,7 @@ TEST_F(
     );
 }
 
+/*
 TEST_F(
     CommandLineOptions_initializeTest
     , FailedNotExistsMapFilePath
