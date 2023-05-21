@@ -31,18 +31,6 @@ namespace {
 
         return true;
     }
-
-    //REMOVEME
-    int hexStringToInt(
-        const char *    _STRING
-    )
-    {
-        return std::stoi(
-            _STRING
-            , nullptr
-            , 16
-        );
-    }
 }
 
 bool initializeCommandLineOptions(
@@ -88,7 +76,12 @@ bool initializeCommandLineOptions(
 
         case OPTION_KEY_PRODUCT_ID:
             existsProductId = true;
-            _commandLineOptions.productId = hexStringToInt( optarg );
+            if( hexStringToInt(
+                _commandLineOptions.productId
+                , optarg
+            ) == false ) {
+                illegalProductId = true;
+            }
             break;
 
         case OPTION_KEY_HELP:
@@ -127,6 +120,11 @@ bool initializeCommandLineOptions(
     if( printHelp == false ) {
         if( illegalVendorId == true ) {
             std::cerr << "ベンダーIDが不正" << std::endl;
+
+            printHelp = true;
+        }
+        if( illegalProductId == true ) {
+            std::cerr << "プロダクトIDが不正" << std::endl;
 
             printHelp = true;
         }
