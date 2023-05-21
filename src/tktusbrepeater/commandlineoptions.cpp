@@ -31,6 +31,7 @@ bool initializeCommandLineOptions(
 {
     auto    existsSocketName = false;
     auto    existsVendorId = false;
+    auto    existsProductId = false;
 
     auto    printHelp = false;
 
@@ -56,6 +57,7 @@ bool initializeCommandLineOptions(
             break;
 
         case OPTION_KEY_PRODUCT_ID:
+            existsProductId = true;
             _commandLineOptions.productId = hexStringToInt( optarg );
             break;
 
@@ -82,6 +84,11 @@ bool initializeCommandLineOptions(
         }
         if( existsVendorId == false ) {
             std::cerr << "ベンダーIDの指定が必要" << std::endl;
+
+            printHelp = true;
+        }
+        if( existsProductId == false ) {
+            std::cerr << "プロダクトIDの指定が必要" << std::endl;
 
             printHelp = true;
         }
