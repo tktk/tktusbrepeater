@@ -29,6 +29,8 @@ bool initializeCommandLineOptions(
     , char * const *        _argv
 )
 {
+    auto    existsSocketName = false;
+
     auto    printHelp = false;
 
     while( true ) {
@@ -43,6 +45,7 @@ bool initializeCommandLineOptions(
 
         switch( OPTION_KEY ) {
         case OPTION_KEY_SOCKET_NAME:
+            existsSocketName = true;
             _commandLineOptions.socketName = std::string( optarg );
             break;
 
@@ -68,6 +71,14 @@ bool initializeCommandLineOptions(
         }
     }
     LOOP_END:
+
+    if( printHelp == false ) {
+        if( existsSocketName == false ) {
+            std::cerr << "ソケット名の指定が必要" << std::endl;
+
+            printHelp = true;
+        }
+    }
 
     if( printHelp == true ) {
         std::cerr << "使い方: " << _argv[ 0 ] << " [オプション]..." << std::endl;
