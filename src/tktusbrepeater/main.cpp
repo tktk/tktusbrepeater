@@ -18,7 +18,30 @@ namespace {
         , BUFFER_SIZE
     >;
 
-    void repeat(
+    void usbDeviceManagerThreadProc(
+        UsbDeviceManager &  _usbDeviceManager
+    )
+    {
+        while( 1 ) {
+            _usbDeviceManager.handleEvents();
+        }
+    }
+
+    void startUsbDeviceManagerThread(
+        UsbDeviceManager &  _usbDeviceManager
+    )
+    {
+        std::thread(
+            [
+                &_usbDeviceManager
+            ]
+            {
+                usbDeviceManagerThreadProc( _usbDeviceManager );
+            }
+        ).detach();
+    }
+
+    void repeatThreadProc(
         UsbEndpointManager &    _usbEndpointManager
         , UsbDeviceManager &    _usbDeviceManager
         , int                   _socket
@@ -59,6 +82,45 @@ namespace {
             }
         }
     }
+
+    void startRepeatThread(
+        UsbEndpointManager &    _usbEndpointManager
+        , UsbDeviceManager &    _usbDeviceManager
+        , int                   _socket
+    )
+    {
+        std::thread(
+            [
+                &_usbEndpointManager
+                , &_usbDeviceManager
+                , _socket
+            ]
+            {
+                repeatThreadProc(
+                    _usbEndpointManager
+                    , _usbDeviceManager
+                    , _socket
+                );
+            }
+        ).detach();
+    }
+
+    void serverSocketThreadProc(
+        UsbEndpointManager &    _usbEndpointManager
+        , UsbDeviceManager &    _usbDeviceManager
+        , ServerSocket &        _serverSocket
+    )
+    {
+        while( 1 ) {
+            auto    socket = _serverSocket.accept();
+
+            startRepeatThread(
+                _usbEndpointManager
+                , _usbDeviceManager
+                , socket
+            );
+        }
+    }
 }
 
 int main(
@@ -83,26 +145,16 @@ int main(
     );
     auto &  usbDeviceManager = *usbDeviceManagerUnique;
 
+    startUsbDeviceManagerThread( usbDeviceManager );
+
     auto    serverSocketUnique = newServerSocket( options.socketName );
+    auto &  serverSocket = *serverSocketUnique;
 
-    while( 1 ) {
-        auto    socket = serverSocketUnique->accept();
-
-        std::thread(
-            [
-                &usbEndpointManager
-                , &usbDeviceManager
-                , &socket
-            ]
-            {
-                repeat(
-                    usbEndpointManager
-                    , usbDeviceManager
-                    , socket
-                );
-            }
-        ).detach();
-    }
+    serverSocketThreadProc(
+        usbEndpointManager
+        , usbDeviceManager
+        , serverSocket
+    );
 
     return 0;
 }
