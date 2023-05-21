@@ -153,6 +153,26 @@ TEST_F(
     );
 }
 
+TEST_F(
+    CommandLineOptions_initializeTest
+    , Failed_illegalProductId
+)
+{
+    this->test(
+        {
+            "tktusbrepeater",
+            "-s",
+            "SOCKETNAME",
+            "-v",
+            "12ab",
+            "-p",
+            "34cdg",
+        }
+        , false
+        , CommandLineOptions{}
+    );
+}
+
 /*
 TEST_F(
     CommandLineOptions_initializeTest
