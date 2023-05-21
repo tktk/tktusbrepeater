@@ -1,6 +1,7 @@
 #include "tktusbrepeater/commandlineoptions.h"
 #include <unistd.h>
 #include <string>
+#include <iostream>
 
 namespace {
     enum {
@@ -28,6 +29,8 @@ bool initializeCommandLineOptions(
     , char * const *        _argv
 )
 {
+    auto    printHelp = false;
+
     while( true ) {
         const auto  OPTION_KEY = getopt(
             _ARGC
@@ -51,12 +54,10 @@ bool initializeCommandLineOptions(
             _commandLineOptions.productId = hexStringToInt( optarg );
             break;
 
-/*
         case OPTION_KEY_HELP:
             printHelp = true;
             goto LOOP_END;
             break;
-*/
 
         default:
 /*
@@ -67,6 +68,17 @@ bool initializeCommandLineOptions(
         }
     }
     LOOP_END:
+
+    if( printHelp == true ) {
+        std::cerr << "使い方: " << _argv[ 0 ] << " [オプション]..." << std::endl;
+        std::cerr << "オプション:" << std::endl;
+        std::cerr << "-s name   : ソケット名" << std::endl;
+        std::cerr << "-v id     : 対象USBデバイスのベンダーID(16進数で指定)" << std::endl;
+        std::cerr << "-p id     : 対象USBデバイスのプロダクトID(16進数で指定)" << std::endl;
+        std::cerr << "-h        : ヘルプ" << std::endl;
+
+        return false;
+    }
 
     return true;
 }
