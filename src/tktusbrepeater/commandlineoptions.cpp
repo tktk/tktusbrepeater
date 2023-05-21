@@ -90,9 +90,7 @@ bool initializeCommandLineOptions(
             break;
 
         default:
-/*
             printHelp = true;
-*/
             goto LOOP_END;
             break;
         }
