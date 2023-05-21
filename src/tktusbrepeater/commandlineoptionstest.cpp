@@ -10,7 +10,7 @@ namespace {
     public:
         void test(
             const std::vector< const char * > & _ARGS
-            , const bool                        _EXPECTED
+            , bool                              _EXPECTED
             , CommandLineOptions                _EXPECTED_COMMAND_LINE_OPTIONS
         ) const
         {
@@ -18,16 +18,14 @@ namespace {
 
             optind = 1;
 
-            EXPECT_EQ(
-                _EXPECTED
-                , initializeCommandLineOptions(
-                    commandLineOptions
-                    , _ARGS.size()
-                    , const_cast< char * const * >( _ARGS.data() )
-                )
+            const auto  RESULT = initializeCommandLineOptions(
+                commandLineOptions
+                , _ARGS.size()
+                , const_cast< char * const * >( _ARGS.data() )
             );
+            EXPECT_EQ( _EXPECTED, RESULT );
 
-            if( _EXPECTED == true ) {
+            if( RESULT == true ) {
                 EXPECT_EQ( _EXPECTED_COMMAND_LINE_OPTIONS.socketName, commandLineOptions.socketName );
                 EXPECT_EQ( _EXPECTED_COMMAND_LINE_OPTIONS.vendorId, commandLineOptions.vendorId );
                 EXPECT_EQ( _EXPECTED_COMMAND_LINE_OPTIONS.productId, commandLineOptions.productId );
@@ -129,6 +127,26 @@ TEST_F(
             "SOCKETNAME",
             "-v",
             "12ab",
+        }
+        , false
+        , CommandLineOptions{}
+    );
+}
+
+TEST_F(
+    CommandLineOptions_initializeTest
+    , Failed_illegalVendorId
+)
+{
+    this->test(
+        {
+            "tktusbrepeater",
+            "-s",
+            "SOCKETNAME",
+            "-v",
+            "12abg",
+            "-p",
+            "34cd",
         }
         , false
         , CommandLineOptions{}
