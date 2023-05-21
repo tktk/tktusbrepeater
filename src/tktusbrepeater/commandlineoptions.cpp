@@ -11,6 +11,28 @@ namespace {
         OPTION_KEY_HELP = 'h',
     };
 
+    bool hexStringToInt(
+        int &           _result
+        , const char *  _STRING
+    )
+    {
+        auto    index = std::size_t( 0 );
+
+        const auto  RESULT = std::stoi(
+            _STRING
+            , &index
+            , 16
+        );
+        if( _STRING[ index ] != '\0' ) {
+            return false;
+        }
+
+        _result = RESULT;
+
+        return true;
+    }
+
+    //REMOVEME
     int hexStringToInt(
         const char *    _STRING
     )
@@ -33,6 +55,9 @@ bool initializeCommandLineOptions(
     auto    existsVendorId = false;
     auto    existsProductId = false;
 
+    auto    illegalVendorId = false;
+    auto    illegalProductId = false;
+
     auto    printHelp = false;
 
     while( true ) {
@@ -53,7 +78,12 @@ bool initializeCommandLineOptions(
 
         case OPTION_KEY_VENDOR_ID:
             existsVendorId = true;
-            _commandLineOptions.vendorId = hexStringToInt( optarg );
+            if( hexStringToInt(
+                _commandLineOptions.vendorId
+                , optarg
+            ) == false ) {
+                illegalVendorId = true;
+            }
             break;
 
         case OPTION_KEY_PRODUCT_ID:
@@ -89,6 +119,14 @@ bool initializeCommandLineOptions(
         }
         if( existsProductId == false ) {
             std::cerr << "プロダクトIDの指定が必要" << std::endl;
+
+            printHelp = true;
+        }
+    }
+
+    if( printHelp == false ) {
+        if( illegalVendorId == true ) {
+            std::cerr << "ベンダーIDが不正" << std::endl;
 
             printHelp = true;
         }
