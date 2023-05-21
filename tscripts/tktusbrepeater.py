@@ -4,6 +4,7 @@ from taf import *
 from taf.tools import cpp
 
 module.DEPENDS = [
+    'libtktusbrepeater',
     'tktusbrepeater_commandlineoptions_initializetest',
     'tktusbrepeater_usbdevicemanager_newtest',
     'tktusbrepeater_usbdevicemanager_callbackusbhotplugtest',
