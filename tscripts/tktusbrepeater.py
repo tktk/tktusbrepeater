@@ -29,6 +29,7 @@ module.TARGET = 'tktusbrepeater'
 
 module.SOURCE = [
     'main.cpp',
+    'commandlineoptions.cpp',
     'usbdevicemanager.cpp',
     'serversocket.cpp',
     'socket.cpp',
