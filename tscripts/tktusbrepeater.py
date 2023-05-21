@@ -34,6 +34,8 @@ module.SOURCE = [
     'serversocket.cpp',
     'socket.cpp',
     'usbendpointmanager.cpp',
+    'usb.cpp',
+    'repeat.cpp',
     {
         'impl' : [
             'usb_libusb.cpp',

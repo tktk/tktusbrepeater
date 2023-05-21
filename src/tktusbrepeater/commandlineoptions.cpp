@@ -132,8 +132,8 @@ bool initializeCommandLineOptions(
         std::cerr << "使い方: " << _argv[ 0 ] << " [オプション]..." << std::endl;
         std::cerr << "オプション:" << std::endl;
         std::cerr << "-s name   : ソケット名" << std::endl;
-        std::cerr << "-v id     : 対象USBデバイスのベンダーID(16進数で指定)" << std::endl;
-        std::cerr << "-p id     : 対象USBデバイスのプロダクトID(16進数で指定)" << std::endl;
+        std::cerr << "-v id     : 対象USBデバイスのベンダーID (16進数で指定)" << std::endl;
+        std::cerr << "-p id     : 対象USBデバイスのプロダクトID (16進数で指定)" << std::endl;
         std::cerr << "-h        : ヘルプ" << std::endl;
 
         return false;
