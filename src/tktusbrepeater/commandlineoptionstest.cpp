@@ -117,7 +117,23 @@ TEST_F(
     );
 }
 
-//TODO Failed_notExistsProductId
+TEST_F(
+    CommandLineOptions_initializeTest
+    , Failed_notExistsProductId
+)
+{
+    this->test(
+        {
+            "tktusbrepeater",
+            "-s",
+            "SOCKETNAME",
+            "-v",
+            "12ab",
+        }
+        , false
+        , CommandLineOptions{}
+    );
+}
 
 /*
 TEST_F(
