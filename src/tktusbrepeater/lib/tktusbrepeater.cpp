@@ -5,7 +5,7 @@
 namespace {
     struct ReaderWriter
     {
-        //TODO
+        int socket;
     };
 
     ReaderWriter * newReaderWriter(

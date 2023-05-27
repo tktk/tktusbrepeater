@@ -79,6 +79,19 @@ extern ArgsIsConnectedSocketImpl    argsIsConnectedSocketImpl;
 
 extern bool returnsIsConnectedSocketImpl;
 
+// connectSocketImpl()
+struct ArgsConnectSocketImpl
+{
+    int                 socket = 0;
+    const std::string * pathPtr = nullptr;
+};
+
+extern int  calledCountConnectSocketImpl;
+
+extern ArgsConnectSocketImpl    argsConnectSocketImpl;
+
+extern bool returnsConnectSocketImpl;
+
 
 void initializeSocketMock(
 );
