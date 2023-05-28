@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+
+from taf import *
+from taf.tools import cpp
+
+import os.path
+
+APPNAME = 'usbreadwritetest'
+VERSION = '1.0.0'
+
+out = 'build'
+
+taf.PACKAGE_NAME = 'usbreadwritetest'
+
+cpp.INCLUDES = [
+    os.path.join(
+        '..',
+        '..',
+        '..',
+        'inc',
+    ),
+]
+
+cpp.LIBPATH = [
+    os.path.join(
+        '..',
+        '..',
+        '..',
+        'build',
+        'tktusbrepeater',
+    ),
+]
+
+taf.LOAD_TOOLS = [
+    'compiler_cxx',
+    'taf.tools.cpp',
+]
