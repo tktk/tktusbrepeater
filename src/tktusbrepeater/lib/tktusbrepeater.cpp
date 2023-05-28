@@ -64,11 +64,13 @@ extern "C" {
             return nullptr;
         }
 
-        writeSocketImpl(
+        if( writeSocketImpl(
             socket
             , &_ENDPOINT
             , 1
-        );
+        ) < 0 ) {
+            return nullptr;
+        }
 
         return reinterpret_cast< TktUsbRepeaterReader * >( readerWriterUnique.release() );
     }
