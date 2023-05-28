@@ -78,8 +78,6 @@ TEST_F(
     );
 }
 
-//TODO
-/*
 TEST_F(
     Writer_newTest
     , Failed_illegalEndpoint
@@ -95,7 +93,6 @@ TEST_F(
         , 0
     );
 }
-*/
 
 TEST_F(
     Writer_newTest
