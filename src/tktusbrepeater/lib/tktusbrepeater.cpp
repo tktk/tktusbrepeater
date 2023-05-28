@@ -1,5 +1,6 @@
 #include "tktusbrepeater/tktusbrepeater.h"
-#include "tktusbrepeater/impl/socket.h"
+#include "tktusbrepeater/lib/impl/socket.h"
+#include "tktusbrepeater/usb.h"
 #include <memory>
 
 #define EXPORT __attribute__( ( visibility( "default" ) ) )
@@ -45,6 +46,10 @@ extern "C" {
         , unsigned char _ENDPOINT
     )
     {
+        if( isUsbEndpointOut( _ENDPOINT ) == false ) {
+            return nullptr;
+        }
+
         auto    socket = initializeSocketImpl();
 
         auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );

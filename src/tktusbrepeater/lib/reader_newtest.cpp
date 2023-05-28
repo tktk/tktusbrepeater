@@ -1,7 +1,7 @@
 #include "tktusbrepeater/test.h"
 #include "tktusbrepeater/tktusbrepeater.h"
-#include "tktusbrepeater/readerwriter_test.h"
-#include "tktusbrepeater/impl/socket_mock.h"
+#include "tktusbrepeater/lib/readerwriter_test.h"
+#include "tktusbrepeater/lib/impl/socket_mock.h"
 #include <string>
 
 namespace {
