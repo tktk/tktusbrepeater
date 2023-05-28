@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <array>
 #include <stdexcept>
-#include <unistd.h>
 
 namespace {
     enum {
@@ -25,7 +24,6 @@ int main(
     }
 
     while( 1 ) {
-        //sleep( 1 );
         auto    buffer = std::array< char, BUFFER_SIZE >();
 
         const auto  READ_SIZE = readerUnique->read(

@@ -2,7 +2,13 @@
 #include "tktusbrepeater/impl/usb.h"
 #include <mutex>
 #include <shared_mutex>
+#include <thread>
+#include <chrono>
 #include <stdexcept>
+
+enum {
+    INTERVAL_MILLISECONDS = 10,
+};
 
 int UsbDeviceManager::callbackUsbHotplug(
     UsbContextImpl *
@@ -81,6 +87,8 @@ int UsbDeviceManager::bulkTransfer(
 
     auto    usbDeviceHandlePtr = this->usbDeviceHandleUnique.get();
     if( usbDeviceHandlePtr == nullptr ) {
+        std::this_thread::sleep_for( std::chrono::milliseconds( INTERVAL_MILLISECONDS ) );
+
         return 0;
     }
 
