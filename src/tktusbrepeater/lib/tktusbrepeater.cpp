@@ -24,6 +24,39 @@ namespace {
 
     ReaderWriter * newReaderWriter(
         const char *    _SOCKET_NAME
+        , std::size_t   _SOCKET_NAME_SIZE
+        , unsigned char _ENDPOINT
+    )
+    {
+        auto    socket = initializeSocketImpl();
+        if( socket < 0 ) {
+            return nullptr;
+        }
+
+        auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );
+
+        if( connectSocketImpl(
+            socket
+            , _SOCKET_NAME
+            , _SOCKET_NAME_SIZE
+        ) != true ) {
+            return nullptr;
+        }
+
+        if( writeSocketImpl(
+            socket
+            , &_ENDPOINT
+            , 1
+        ) < 0 ) {
+            return nullptr;
+        }
+
+        return readerWriterUnique.release();
+    }
+
+    //REMOVEME
+    ReaderWriter * newReaderWriter_old(
+        const char *    _SOCKET_NAME
         , unsigned char _ENDPOINT
     )
     {
@@ -75,6 +108,7 @@ extern "C" {
         return reinterpret_cast< TktUsbRepeaterReader * >(
             newReaderWriter(
                 _SOCKET_NAME
+                , _SOCKET_NAME_SIZE
                 , _ENDPOINT
             )
         );
@@ -111,7 +145,7 @@ extern "C" {
         }
 
         return reinterpret_cast< TktUsbRepeaterWriter * >(
-            newReaderWriter(
+            newReaderWriter_old(
                 _SOCKET_NAME
                 , _ENDPOINT
             )
