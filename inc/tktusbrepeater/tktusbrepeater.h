@@ -1,6 +1,8 @@
 #ifndef TKTUSBREPEATER_TKTUSBREPEATER_H
 #define TKTUSBREPEATER_TKTUSBREPEATER_H
 
+#include <stddef.h>
+
 #ifdef  __cplusplus
 extern "C" {
 #endif  // __cplusplus
@@ -9,6 +11,7 @@ extern "C" {
 
     TktUsbRepeaterReader * tktUsbRepeaterNewReader(
         const char *
+        , size_t
         , unsigned char
     );
 
@@ -26,6 +29,7 @@ extern "C" {
 
     TktUsbRepeaterWriter * tktUsbRepeaterNewWriter(
         const char *
+        , size_t
         , unsigned char
     );
 
@@ -95,6 +99,7 @@ namespace tktusbrepeater {
             reinterpret_cast< Reader * >(
                 tktUsbRepeaterNewReader(
                     _SOCKET_NAME.c_str()
+                    , _SOCKET_NAME.size()
                     , _ENDPOINT
                 )
             )
@@ -147,6 +152,7 @@ namespace tktusbrepeater {
             reinterpret_cast< Writer * >(
                 tktUsbRepeaterNewWriter(
                     _SOCKET_NAME.c_str()
+                    , _SOCKET_NAME.size()
                     , _ENDPOINT
                 )
             )

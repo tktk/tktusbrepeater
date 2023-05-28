@@ -63,6 +63,7 @@ namespace {
 extern "C" {
     EXPORT TktUsbRepeaterReader * tktUsbRepeaterNewReader(
         const char *    _SOCKET_NAME
+        , size_t        _SOCKET_NAME_SIZE
         , unsigned char _ENDPOINT
     )
     {
@@ -100,6 +101,7 @@ extern "C" {
 
     EXPORT TktUsbRepeaterWriter * tktUsbRepeaterNewWriter(
         const char *    _SOCKET_NAME
+        , size_t        _SOCKET_NAME_SIZE
         , unsigned char _ENDPOINT
     )
     {
