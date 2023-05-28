@@ -57,10 +57,12 @@ extern "C" {
 
         auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );
 
-        connectSocketImpl(
+        if( connectSocketImpl(
             socket
             , _SOCKET_NAME
-        );
+        ) != true ) {
+            return nullptr;
+        }
 
         writeSocketImpl(
             socket
