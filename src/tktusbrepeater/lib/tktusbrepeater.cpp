@@ -128,7 +128,10 @@ extern "C" {
         , int                   _DATA_SIZE
     )
     {
-        //TODO
-        return -1;
+        return writeSocketImpl(
+            reinterpret_cast< ReaderWriter * >( _writerPtr )->socket
+            , _DATA
+            , _DATA_SIZE
+        );
     }
 }
