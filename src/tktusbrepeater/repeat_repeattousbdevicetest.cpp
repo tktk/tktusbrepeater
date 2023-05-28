@@ -130,7 +130,7 @@ TEST_F(
 )
 {
     this->test(
-        -1
+        0
         , false
         , 0
     );
