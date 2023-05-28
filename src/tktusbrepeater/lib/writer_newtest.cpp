@@ -25,7 +25,9 @@ namespace {
             , int           _EXPECTED_CALLED_COUNT_WRITE_SOCKET_IMPL
         ) const
         {
-            const auto  SOCKET_NAME = "SOCKET_NAME";
+#define SOCKET_NAME "SOCKET_NAME"
+
+            const auto  SOCKET_NAME_SIZE = sizeof( SOCKET_NAME ) - 1;   // \0は含めない
 
             returnsInitializeSocketImpl = _SOCKET;
             returnsConnectSocketImpl = _RETURNS_CONNECT_SOCKET_IMPL;
@@ -50,6 +52,7 @@ namespace {
             if( calledCountConnectSocketImpl > 0 ) {
                 EXPECT_EQ( _SOCKET, argsConnectSocketImpl.socket );
                 EXPECT_STREQ( SOCKET_NAME, argsConnectSocketImpl.pathPtr );
+                EXPECT_EQ( SOCKET_NAME_SIZE, argsConnectSocketImpl.pathSize );
             }
 
             EXPECT_EQ( _EXPECTED_CALLED_COUNT_WRITE_SOCKET_IMPL, calledCountWriteSocketImpl );
