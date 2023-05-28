@@ -60,7 +60,7 @@ bool repeatToUsbDevice(
         _buffer
         , _BUFFER_SIZE
     );
-    if( READ_SIZE < 0 ) {
+    if( READ_SIZE <= 0 ) {
         return false;
     }
 
