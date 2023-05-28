@@ -51,6 +51,9 @@ extern "C" {
         }
 
         auto    socket = initializeSocketImpl();
+        if( socket < 0 ) {
+            return nullptr;
+        }
 
         auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );
 
