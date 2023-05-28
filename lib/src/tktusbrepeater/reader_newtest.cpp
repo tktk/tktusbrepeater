@@ -33,6 +33,7 @@ namespace {
 
             const auto &    READER_IMPL = reinterpret_cast< const ReaderWriterImpl & >( *readerUnique );
             EXPECT_EQ( SOCKET, READER_IMPL.socket );
+            EXPECT_EQ( &( READER_IMPL.socket ), READER_IMPL.socketCloser.get() );
 
             EXPECT_EQ( 1, calledCountConnectSocketImpl );
             if( calledCountConnectSocketImpl > 0 ) {
