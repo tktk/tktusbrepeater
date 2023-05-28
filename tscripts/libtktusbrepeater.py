@@ -14,13 +14,16 @@ module.BUILDER = cpp.shlib
 
 module.TARGET = 'tktusbrepeater'
 
-module.SOURCE = {
-    'lib' : [
-        'tktusbrepeater.cpp',
-        {
-            'impl' : [
-                'socket_unixsocket.cpp',
-            ],
-        },
-    ],
-}
+module.SOURCE = [
+    {
+        'lib' : [
+            'tktusbrepeater.cpp',
+            {
+                'impl' : [
+                    'socket_unixsocket.cpp',
+                ],
+            },
+        ],
+    },
+    'usb.cpp',
+]
