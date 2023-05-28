@@ -14,7 +14,7 @@ namespace {
             int _socket
         )
             : socket( _socket )
-            //TODO , socketCloser( &( this->socket ) )
+            , socketCloser( &( this->socket ) )
         {
         }
     };
