@@ -1,4 +1,5 @@
 #include "tktusbrepeater/lib/impl/socket_mock.h"
+#include <cstddef>
 
 void closeSocketImpl(
     int
@@ -23,12 +24,14 @@ bool    returnsConnectSocketImpl;
 bool connectSocketImpl(
     int             _socket
     , const char *  _PATH
+    , std::size_t   _PATH_SIZE
 )
 {
     calledCountConnectSocketImpl++;
 
     argsConnectSocketImpl.socket = _socket;
     argsConnectSocketImpl.pathPtr = _PATH;
+    argsConnectSocketImpl.pathSize = _PATH_SIZE;
 
     return returnsConnectSocketImpl;
 }

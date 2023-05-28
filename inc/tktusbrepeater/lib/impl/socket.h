@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <cstddef>
 
 void closeSocketImpl(
     int
@@ -29,6 +30,7 @@ int initializeSocketImpl(
 bool connectSocketImpl(
     int
     , const char *
+    , std::size_t
 );
 
 int readSocketImpl(

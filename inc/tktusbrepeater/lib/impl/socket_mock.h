@@ -3,6 +3,7 @@
 
 #include "tktusbrepeater/impl/socket.h"
 #include <vector>
+#include <cstddef>
 
 // initializeSocketImpl()
 extern int  returnsInitializeSocketImpl;
@@ -12,6 +13,7 @@ struct ArgsConnectSocketImpl
 {
     int             socket = 0;
     const char *    pathPtr = nullptr;
+    std::size_t     pathSize;
 };
 
 extern int  calledCountConnectSocketImpl;

@@ -1,4 +1,5 @@
 #include "tktusbrepeater/impl/socket.h"
+#include <cstddef>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
@@ -23,6 +24,7 @@ int initializeSocketImpl(
 bool connectSocketImpl(
     int             _socket
     , const char *  _PATH
+    , std::size_t   _PATH_SIZE
 )
 {
     //TODO
