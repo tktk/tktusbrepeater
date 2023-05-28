@@ -37,8 +37,8 @@ extern int  returnsReadSocketImpl;
 // writeSocketImpl()
 struct ArgsWriteSocketImpl
 {
-    int                 socket = 0;
-    std::vector< char > data;
+    int                             socket = 0;
+    std::vector< unsigned char >    data;
 };
 
 extern int  calledCountWriteSocketImpl;
