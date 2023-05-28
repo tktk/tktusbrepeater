@@ -119,10 +119,7 @@ extern "C" {
         TktUsbRepeaterWriter *  _writerPtr
     )
     {
-        //TODO
-/*
         deleteReaderWriter( reinterpret_cast< ReaderWriter * >( _writerPtr ) );
-*/
     }
 
     EXPORT int tktUsbRepeaterWrite(
