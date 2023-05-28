@@ -46,7 +46,7 @@ bool connectSocketImpl(
         _socket
         , reinterpret_cast< sockaddr * >( &addrUn )
         , sizeof( addrUn )
-    );
+    ) >= 0;
 }
 
 int readSocketImpl(
