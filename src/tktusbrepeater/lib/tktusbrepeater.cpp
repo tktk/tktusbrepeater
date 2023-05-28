@@ -56,10 +56,7 @@ namespace {
         ReaderWriter *  _readerWriterPtr
     )
     {
-        //TODO
-/*
         delete _readerWriterPtr;
-*/
     }
 }
 
@@ -85,10 +82,7 @@ extern "C" {
         TktUsbRepeaterReader *  _readerPtr
     )
     {
-        //TODO
-/*
         deleteReaderWriter( reinterpret_cast< ReaderWriter * >( _readerPtr ) );
-*/
     }
 
     EXPORT int tktUsbRepeaterRead(
