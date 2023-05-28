@@ -21,14 +21,14 @@ ArgsConnectSocketImpl   argsConnectSocketImpl;
 bool    returnsConnectSocketImpl;
 
 bool connectSocketImpl(
-    int                     _socket
-    , const std::string &   _PATH
+    int             _socket
+    , const char *  _PATH
 )
 {
     calledCountConnectSocketImpl++;
 
     argsConnectSocketImpl.socket = _socket;
-    argsConnectSocketImpl.pathPtr = &_PATH;
+    argsConnectSocketImpl.pathPtr = _PATH;
 
     return returnsConnectSocketImpl;
 }

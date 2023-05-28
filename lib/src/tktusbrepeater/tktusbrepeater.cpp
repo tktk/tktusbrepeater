@@ -1,12 +1,25 @@
 #include "tktusbrepeater/tktusbrepeater.h"
+#include "tktusbrepeater/impl/socket.h"
+#include <memory>
 
 #define EXPORT __attribute__( ( visibility( "default" ) ) )
 
 namespace {
     struct ReaderWriter
     {
-        int socket;
+        int                 socket;
+        SocketImplCloser    socketCloser;
+
+        ReaderWriter(
+            int _socket
+        )
+            : socket( _socket )
+            //TODO , socketCloser( &( this->socket ) )
+        {
+        }
     };
+
+    using ReaderWriterUnique = std::unique_ptr< ReaderWriter >;
 
     ReaderWriter * newReaderWriter(
     )
@@ -32,16 +45,22 @@ extern "C" {
         , unsigned char _ENDPOINT
     )
     {
-        //TODO
-        return nullptr;
-/*
-        return reinterpret_cast< TktUsbRepeaterReader * >(
-            newReaderWriter(
-                _SOCKET_NAME
-                , _ENDPOINT
-            )
+        auto    socket = initializeSocketImpl();
+
+        auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );
+
+        connectSocketImpl(
+            socket
+            , _SOCKET_NAME
         );
-*/
+
+        writeSocketImpl(
+            socket
+            , &_ENDPOINT
+            , 1
+        );
+
+        return reinterpret_cast< TktUsbRepeaterReader * >( readerWriterUnique.release() );
     }
 
     EXPORT void tktUsbRepeaterDeleteReader(

@@ -10,8 +10,8 @@ extern int  returnsInitializeSocketImpl;
 // connectSocketImpl()
 struct ArgsConnectSocketImpl
 {
-    int                 socket = 0;
-    const std::string * pathPtr = nullptr;
+    int             socket = 0;
+    const char *    pathPtr = nullptr;
 };
 
 extern int  calledCountConnectSocketImpl;

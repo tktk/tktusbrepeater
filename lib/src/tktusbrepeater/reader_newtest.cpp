@@ -18,7 +18,7 @@ namespace {
         void test(
         ) const
         {
-            const auto  SOCKET_NAME = std::string( "SOCKET_NAME" );
+            const auto  SOCKET_NAME = "SOCKET_NAME";
             const auto  ENDPOINT = static_cast< unsigned char >( 10 );
 
             const auto  SOCKET = 20;
@@ -26,7 +26,7 @@ namespace {
             returnsInitializeSocketImpl = SOCKET;
 
             auto    readerUnique = tktusbrepeater::newReader(
-                SOCKET_NAME
+                std::string( SOCKET_NAME )
                 , ENDPOINT
             );
             ASSERT_NE( nullptr, readerUnique.get() );
@@ -37,7 +37,7 @@ namespace {
             EXPECT_EQ( 1, calledCountConnectSocketImpl );
             if( calledCountConnectSocketImpl > 0 ) {
                 EXPECT_EQ( SOCKET, argsConnectSocketImpl.socket );
-                EXPECT_EQ( &SOCKET_NAME, argsConnectSocketImpl.pathPtr );
+                EXPECT_STREQ( SOCKET_NAME, argsConnectSocketImpl.pathPtr );
             }
 
             EXPECT_EQ( 1, calledCountWriteSocketImpl );
