@@ -103,12 +103,9 @@ extern "C" {
         , unsigned char _ENDPOINT
     )
     {
-        //TODO
-/*
-        if( isUsbEndpointOut( _ENDPOINT ) != false ) {
+        if( isUsbEndpointOut( _ENDPOINT ) != true ) {
             return nullptr;
         }
-*/
 
         auto    socket = initializeSocketImpl();
         if( socket < 0 ) {
