@@ -46,7 +46,7 @@ extern "C" {
         , unsigned char _ENDPOINT
     )
     {
-        if( isUsbEndpointOut( _ENDPOINT ) == false ) {
+        if( isUsbEndpointOut( _ENDPOINT ) != false ) {
             return nullptr;
         }
 
