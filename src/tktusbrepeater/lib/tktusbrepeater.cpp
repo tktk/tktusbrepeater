@@ -91,8 +91,11 @@ extern "C" {
         , int                   _BUFFER_SIZE
     )
     {
-        //TODO
-        return -1;
+        return readSocketImpl(
+            reinterpret_cast< ReaderWriter * >( _readerPtr )->socket
+            , _buffer
+            , _BUFFER_SIZE
+        );
     }
 
     EXPORT TktUsbRepeaterWriter * tktUsbRepeaterNewWriter(
