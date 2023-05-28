@@ -54,38 +54,6 @@ namespace {
         return readerWriterUnique.release();
     }
 
-    //REMOVEME
-    ReaderWriter * newReaderWriter_old(
-        const char *    _SOCKET_NAME
-        , unsigned char _ENDPOINT
-    )
-    {
-        auto    socket = initializeSocketImpl();
-        if( socket < 0 ) {
-            return nullptr;
-        }
-
-        auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );
-
-        if( connectSocketImpl(
-            socket
-            , _SOCKET_NAME
-            , -1    //TODO
-        ) != true ) {
-            return nullptr;
-        }
-
-        if( writeSocketImpl(
-            socket
-            , &_ENDPOINT
-            , 1
-        ) < 0 ) {
-            return nullptr;
-        }
-
-        return readerWriterUnique.release();
-    }
-
     void deleteReaderWriter(
         ReaderWriter *  _readerWriterPtr
     )
@@ -145,8 +113,9 @@ extern "C" {
         }
 
         return reinterpret_cast< TktUsbRepeaterWriter * >(
-            newReaderWriter_old(
+            newReaderWriter(
                 _SOCKET_NAME
+                , _SOCKET_NAME_SIZE
                 , _ENDPOINT
             )
         );
