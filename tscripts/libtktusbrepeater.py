@@ -7,6 +7,7 @@ module.DEPENDS = [
     'libtktusbrepeater_reader_newtest',
     'libtktusbrepeater_reader_readtest',
     'libtktusbrepeater_writer_newtest',
+    'libtktusbrepeater_writer_writetest',
 ]
 
 module.BUILDER = cpp.shlib
