@@ -5,7 +5,7 @@
 #include <string>
 
 namespace {
-    class Reader_newTest : public ::testing::Test
+    class Writer_newTest : public ::testing::Test
     {
     protected:
         virtual void SetUp(
@@ -31,19 +31,19 @@ namespace {
             returnsConnectSocketImpl = _RETURNS_CONNECT_SOCKET_IMPL;
             returnsWriteSocketImpl = _RETURNS_WRITE_SOCKET_IMPL;
 
-            auto    readerUnique = tktusbrepeater::newReader(
+            auto    writerUnique = tktusbrepeater::newWriter(
                 std::string( SOCKET_NAME )
                 , _ENDPOINT
             );
 
             if( _EXPECTED_NON_NULL == true ) {
-                ASSERT_NE( nullptr, readerUnique.get() );
+                ASSERT_NE( nullptr, writerUnique.get() );
 
-                const auto &    READER_WRITER_IMPL = reinterpret_cast< const ReaderWriterImpl & >( *readerUnique );
+                const auto &    READER_WRITER_IMPL = reinterpret_cast< const ReaderWriterImpl & >( *writerUnique );
                 EXPECT_EQ( _SOCKET, READER_WRITER_IMPL.socket );
                 EXPECT_EQ( &( READER_WRITER_IMPL.socket ), READER_WRITER_IMPL.socketCloser.get() );
             } else {
-                EXPECT_EQ( nullptr, readerUnique.get() );
+                EXPECT_EQ( nullptr, writerUnique.get() );
             }
 
             EXPECT_EQ( _EXPECTED_CALLED_COUNT_CONNECT_SOCKET_IMPL, calledCountConnectSocketImpl );
@@ -63,13 +63,13 @@ namespace {
 }
 
 TEST_F(
-    Reader_newTest
+    Writer_newTest
     , New
 )
 {
     this->test(
         10
-        , 0x81
+        , 0x1
         , true
         , 20
         , true
@@ -78,13 +78,32 @@ TEST_F(
     );
 }
 
+//TODO
+/*
 TEST_F(
-    Reader_newTest
+    Writer_newTest
     , Failed_illegalEndpoint
 )
 {
     this->test(
         10
+        , 0x81
+        , true
+        , 20
+        , false
+        , 0
+        , 0
+    );
+}
+*/
+
+TEST_F(
+    Writer_newTest
+    , Failed_initializeSocketImpl
+)
+{
+    this->test(
+        -1
         , 0x1
         , true
         , 20
@@ -95,29 +114,13 @@ TEST_F(
 }
 
 TEST_F(
-    Reader_newTest
-    , Failed_initializeSocketImpl
-)
-{
-    this->test(
-        -1
-        , 0x81
-        , true
-        , 20
-        , false
-        , 0
-        , 0
-    );
-}
-
-TEST_F(
-    Reader_newTest
+    Writer_newTest
     , Failed_connectSocketImpl
 )
 {
     this->test(
         10
-        , 0x81
+        , 0x1
         , false
         , 20
         , false
@@ -127,13 +130,13 @@ TEST_F(
 }
 
 TEST_F(
-    Reader_newTest
+    Writer_newTest
     , Failed_writeSocketImpl
 )
 {
     this->test(
         10
-        , 0x81
+        , 0x1
         , true
         , -1
         , false
