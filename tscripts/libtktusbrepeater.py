@@ -5,6 +5,7 @@ from taf.tools import cpp
 
 module.DEPENDS = [
     'libtktusbrepeater_reader_newtest',
+    'libtktusbrepeater_reader_readtest',
 ]
 
 module.BUILDER = cpp.shlib

@@ -56,7 +56,7 @@ namespace {
             if( calledCountWriteSocketImpl > 0 ) {
                 EXPECT_EQ( _SOCKET, argsWriteSocketImpl.socket );
                 ASSERT_EQ( 1, argsWriteSocketImpl.data.size() );
-                ASSERT_EQ( _ENDPOINT, argsWriteSocketImpl.data[ 0 ] );
+                EXPECT_EQ( _ENDPOINT, argsWriteSocketImpl.data[ 0 ] );
             }
         }
     };
