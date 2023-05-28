@@ -104,15 +104,35 @@ extern "C" {
     )
     {
         //TODO
-        return nullptr;
 /*
-        return reinterpret_cast< TktUsbRepeaterWriter * >(
-            newReaderWriter(
-                _SOCKET_NAME
-                , _ENDPOINT
-            )
-        );
+        if( isUsbEndpointOut( _ENDPOINT ) != false ) {
+            return nullptr;
+        }
 */
+
+        auto    socket = initializeSocketImpl();
+        if( socket < 0 ) {
+            return nullptr;
+        }
+
+        auto    readerWriterUnique = ReaderWriterUnique( new ReaderWriter( socket ) );
+
+        if( connectSocketImpl(
+            socket
+            , _SOCKET_NAME
+        ) != true ) {
+            return nullptr;
+        }
+
+        if( writeSocketImpl(
+            socket
+            , &_ENDPOINT
+            , 1
+        ) < 0 ) {
+            return nullptr;
+        }
+
+        return reinterpret_cast< TktUsbRepeaterWriter * >( readerWriterUnique.release() );
     }
 
     EXPORT void tktUsbRepeaterDeleteWriter(
