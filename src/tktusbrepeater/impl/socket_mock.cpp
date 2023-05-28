@@ -118,25 +118,6 @@ bool isConnectedSocketImpl(
     return returnsIsConnectedSocketImpl;
 }
 
-int calledCountConnectSocketImpl;
-
-ArgsConnectSocketImpl   argsConnectSocketImpl;
-
-bool    returnsConnectSocketImpl;
-
-bool connectSocketImpl(
-    int                     _socket
-    , const std::string &   _PATH
-)
-{
-    calledCountConnectSocketImpl++;
-
-    argsConnectSocketImpl.socket = _socket;
-    argsConnectSocketImpl.pathPtr = &_PATH;
-
-    return returnsConnectSocketImpl;
-}
-
 namespace {
     void initializeMockInitializeSocketImpl(
     )
@@ -189,14 +170,6 @@ namespace {
         argsIsConnectedSocketImpl = ArgsIsConnectedSocketImpl();
         returnsIsConnectedSocketImpl = false;
     }
-
-    void initializeMockConnectSocketImpl(
-    )
-    {
-        calledCountConnectSocketImpl = 0;
-        argsConnectSocketImpl = ArgsConnectSocketImpl();
-        returnsConnectSocketImpl = false;
-    }
 }
 
 void initializeSocketMock(
@@ -209,5 +182,4 @@ void initializeSocketMock(
     initializeMockReadSocketImpl();
     initializeMockWriteSocketImpl();
     initializeMockIsConnectedSocketImpl();
-    initializeMockConnectSocketImpl();
 }

@@ -1,6 +1,6 @@
 #include "tktusbrepeater/test.h"
 #include "tktusbrepeater/tktusbrepeater.h"
-#include "tktusbrepeater/lib/readerwriter_test.h"
+#include "tktusbrepeater/readerwriter_test.h"
 #include "tktusbrepeater/impl/socket_mock.h"
 #include <string>
 
@@ -43,8 +43,8 @@ namespace {
             EXPECT_EQ( 1, calledCountWriteSocketImpl );
             if( calledCountWriteSocketImpl > 0 ) {
                 EXPECT_EQ( SOCKET, argsWriteSocketImpl.socket );
-                ASSERT_EQ( 1, argsWriteSocketImpl.dataSize );
-                ASSERT_EQ( ENDPOINT, *static_cast< const unsigned char * >( argsWriteSocketImpl.data ) );
+                ASSERT_EQ( 1, argsWriteSocketImpl.data.size() );
+                ASSERT_EQ( ENDPOINT, argsWriteSocketImpl.data[ 0 ] );
             }
         }
     };

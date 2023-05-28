@@ -1,5 +1,5 @@
-#ifndef TKTUSBREPEATER_LIB_SOCKET_H
-#define TKTUSBREPEATER_LIB_SOCKET_H
+#ifndef TKTUSBREPEATER_IMPL_SOCKET_H
+#define TKTUSBREPEATER_IMPL_SOCKET_H
 
 #include <string>
 #include <memory>
@@ -28,7 +28,7 @@ int initializeSocketImpl(
 
 bool connectSocketImpl(
     int
-    , const std::string &
+    , const char *
 );
 
 int readSocketImpl(
@@ -43,4 +43,4 @@ int writeSocketImpl(
     , int
 );
 
-#endif  // TKTUSBREPEATER_LIB_SOCKET_H
+#endif  // TKTUSBREPEATER_IMPL_SOCKET_H
