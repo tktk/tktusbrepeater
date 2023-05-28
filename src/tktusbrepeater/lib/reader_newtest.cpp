@@ -19,6 +19,7 @@ namespace {
             int             _SOCKET
             , unsigned char _ENDPOINT
             , bool          _RETURNS_CONNECT_SOCKET_IMPL
+            , int           _RETURNS_WRITE_SOCKET_IMPL
             , bool          _EXPECTED_NON_NULL
             , int           _EXPECTED_CALLED_COUNT_CONNECT_SOCKET_IMPL
             , int           _EXPECTED_CALLED_COUNT_WRITE_SOCKET_IMPL
@@ -28,6 +29,7 @@ namespace {
 
             returnsInitializeSocketImpl = _SOCKET;
             returnsConnectSocketImpl = _RETURNS_CONNECT_SOCKET_IMPL;
+            returnsWriteSocketImpl = _RETURNS_WRITE_SOCKET_IMPL;
 
             auto    readerUnique = tktusbrepeater::newReader(
                 std::string( SOCKET_NAME )
@@ -69,6 +71,7 @@ TEST_F(
         10
         , 0x81
         , true
+        , 20
         , true
         , 1
         , 1
@@ -84,6 +87,7 @@ TEST_F(
         10
         , 0x1
         , true
+        , 20
         , false
         , 0
         , 0
@@ -99,6 +103,7 @@ TEST_F(
         -1
         , 0x81
         , true
+        , 20
         , false
         , 0
         , 0
@@ -114,10 +119,25 @@ TEST_F(
         10
         , 0x81
         , false
+        , 20
         , false
         , 1
         , 0
     );
 }
 
-//TODO Failed_writeSocketImpl
+TEST_F(
+    Reader_newTest
+    , Failed_writeSocketImpl
+)
+{
+    this->test(
+        10
+        , 0x81
+        , true
+        , -1
+        , false
+        , 1
+        , 1
+    );
+}
