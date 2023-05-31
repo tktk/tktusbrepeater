@@ -29,8 +29,6 @@ int mainThread(
 {
     char    buffer[ BUFFER_SIZE ];
 
-    sceKernelDelayThread( 1000000 );
-
     while( ended == 0 ) {
         const int   READ_SIZE = tktUsbRead(
             endpointR
@@ -38,6 +36,8 @@ int mainThread(
             , sizeof( buffer )
         );
         if( READ_SIZE < 0 ) {
+            sceKernelDelayThread( 1000000 );
+
             continue;
         }
 
