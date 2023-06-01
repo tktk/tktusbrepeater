@@ -113,10 +113,11 @@ int writeSocketImpl(
     , int           _DATA_SIZE
 )
 {
-    return write(
+    return send(
         _socket
         , _DATA
         , _DATA_SIZE
+        , MSG_NOSIGNAL
     );
 }
 
