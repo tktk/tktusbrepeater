@@ -37,24 +37,8 @@ public:
         UsbContextImplUnique
     );
 
-    void lockEventWaiters(
-    );
-
-    void unlockEventWaiters(
-    );
-
-    void lockEvents(
-    );
-
-    void unlockEvents(
-    );
-
     void handleEvents(
         std::time_t
-    );
-
-    //REMOVEME
-    void handleEvents(
     );
 
     int bulkTransfer(

@@ -72,30 +72,6 @@ UsbDeviceManager::UsbDeviceManager(
 {
 }
 
-void UsbDeviceManager::lockEventWaiters(
-)
-{
-    lockEventWaitersImpl( this->usbContextUnique.get() );
-}
-
-void UsbDeviceManager::unlockEventWaiters(
-)
-{
-    unlockEventWaitersImpl( this->usbContextUnique.get() );
-}
-
-void UsbDeviceManager::lockEvents(
-)
-{
-    lockEventsImpl( this->usbContextUnique.get() );
-}
-
-void UsbDeviceManager::unlockEvents(
-)
-{
-    unlockEventsImpl( this->usbContextUnique.get() );
-}
-
 void UsbDeviceManager::handleEvents(
     std::time_t _WAITING_SECONDS
 )
@@ -104,13 +80,6 @@ void UsbDeviceManager::handleEvents(
         this->usbContextUnique.get()
         , _WAITING_SECONDS
     );
-}
-
-//REMOVEME
-void UsbDeviceManager::handleEvents(
-)
-{
-    handleUsbEventsImpl( this->usbContextUnique.get() );
 }
 
 int UsbDeviceManager::bulkTransfer(
