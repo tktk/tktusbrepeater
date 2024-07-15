@@ -41,6 +41,9 @@ module.SOURCE = [
             'usb_libusb.cpp',
             'socket_unixsocket.cpp',
         ],
+        'thread' : [
+            'joiner.cpp',
+        ],
     },
 ]
 
