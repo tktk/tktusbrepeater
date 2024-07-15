@@ -1,6 +1,7 @@
 #ifndef TKTUSBREPEATER_THREAD_USBEVENTHANDLINGTHREAD_H
 #define TKTUSBREPEATER_THREAD_USBEVENTHANDLINGTHREAD_H
 
+#include "tktusbrepeater/thread/endmanager.h"
 #include "tktusbrepeater/thread/joiner.h"
 #include "tktusbrepeater/usbdevicemanager.h"
 #include <thread>
@@ -8,9 +9,7 @@
 
 class UsbEventHandlingThread
 {
-    UsbDeviceManager &  usbDeviceManager;
-
-    bool    ended;
+    EndManager  endManager;
 
     std::thread     thread;
     ThreadJoiner    threadJoiner;
