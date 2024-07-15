@@ -1,5 +1,8 @@
 #include "tktusbrepeater/impl/usb_mock.h"
 
+#include <ctime>
+#include <stdexcept>
+
 void closeUsbDeviceHandleImpl(
     UsbDeviceHandleImpl *
 )
@@ -58,17 +61,110 @@ void registerCallbackUsbHotplugImpl(
     argsRegisterCallbackUsbHotplugImpl.userData = _userData;
 }
 
-int calledCountHandleUsbEventsImpl;
+bool    waitersLocked = false;
 
-ArgsHandleUsbEventsImpl argsHandleUsbEventsImpl;
+int calledCountLockEventWaitersImpl;
 
+ArgsLockEventWaitersImpl    argsLockEventWaitersImpl;
+
+void lockEventWaitersImpl(
+    UsbContextImpl *    _context
+)
+{
+    if( waitersLocked == true ) {
+        throw std::runtime_error( "ロック中にlockEventWaitersImpl()" );
+    }
+
+    waitersLocked = true;
+
+    calledCountLockEventWaitersImpl++;
+
+    argsLockEventWaitersImpl.context = _context;
+}
+
+int calledCountUnlockEventWaitersImpl;
+
+ArgsUnlockEventWaitersImpl  argsUnlockEventWaitersImpl;
+
+void unlockEventWaitersImpl(
+    UsbContextImpl *    _context
+)
+{
+    if( waitersLocked == false ) {
+        throw std::runtime_error( "アンロック中にunlockEventWaitersImpl()" );
+    }
+
+    waitersLocked = false;
+
+    calledCountUnlockEventWaitersImpl++;
+
+    argsUnlockEventWaitersImpl.context = _context;
+}
+
+bool    locked = false;
+
+int calledCountLockEventsImpl;
+
+ArgsLockEventsImpl  argsLockEventsImpl;
+
+void lockEventsImpl(
+    UsbContextImpl *    _context
+)
+{
+    if( locked == true ) {
+        throw std::runtime_error( "ロック中にlockEventsImpl()" );
+    }
+
+    locked = true;
+
+    calledCountLockEventsImpl++;
+
+    argsLockEventsImpl.context = _context;
+}
+
+int calledCountUnlockEventsImpl;
+
+ArgsUnlockEventsImpl    argsUnlockEventsImpl;
+
+void unlockEventsImpl(
+    UsbContextImpl *    _context
+)
+{
+    if( locked == false ) {
+        throw std::runtime_error( "アンロック中にlockEventsImpl()" );
+    }
+
+    locked = false;
+
+    calledCountUnlockEventsImpl++;
+
+    argsUnlockEventsImpl.context = _context;
+}
+
+int calledCountHandleUsbEventsLockedImpl;
+
+ArgsHandleUsbEventsLockedImpl   argsHandleUsbEventsLockedImpl;
+
+void handleUsbEventsLockedImpl(
+    UsbContextImpl *    _context
+    , std::time_t       _WAITING_SECONDS
+)
+{
+    if( locked == false ) {
+        throw std::runtime_error( "アンロック中にhandleUsbEventsLockedImpl()" );
+    }
+
+    calledCountHandleUsbEventsLockedImpl++;
+
+    argsHandleUsbEventsLockedImpl.context = _context;
+    argsHandleUsbEventsLockedImpl.waitingSeconds = _WAITING_SECONDS;
+}
+
+//REMOVEME
 void handleUsbEventsImpl(
     UsbContextImpl *    _context
 )
 {
-    calledCountHandleUsbEventsImpl++;
-
-    argsHandleUsbEventsImpl.context = _context;
 }
 
 int calledCountBulkTransferUsbImpl;
@@ -116,11 +212,39 @@ namespace {
         argsRegisterCallbackUsbHotplugImpl = ArgsRegisterCallbackUsbHotplugImpl();
     }
 
-    void initializeMockHandleUsbEventsImpl(
+    void initializeMockLockEventWaitersImpl(
     )
     {
-        calledCountHandleUsbEventsImpl = 0;
-        argsHandleUsbEventsImpl = ArgsHandleUsbEventsImpl();
+        calledCountLockEventWaitersImpl = 0;
+        argsLockEventWaitersImpl = ArgsLockEventWaitersImpl();
+    }
+
+    void initializeMockUnlockEventWaitersImpl(
+    )
+    {
+        calledCountUnlockEventWaitersImpl = 0;
+        argsUnlockEventWaitersImpl = ArgsUnlockEventWaitersImpl();
+    }
+
+    void initializeMockLockEventsImpl(
+    )
+    {
+        calledCountLockEventsImpl = 0;
+        argsLockEventsImpl = ArgsLockEventsImpl();
+    }
+
+    void initializeMockUnlockEventsImpl(
+    )
+    {
+        calledCountUnlockEventsImpl = 0;
+        argsUnlockEventsImpl = ArgsUnlockEventsImpl();
+    }
+
+    void initializeMockHandleUsbEventsLockedImpl(
+    )
+    {
+        calledCountHandleUsbEventsLockedImpl = 0;
+        argsHandleUsbEventsLockedImpl = ArgsHandleUsbEventsLockedImpl();
     }
 
     void initializeMockBulkTransferUsbImpl(
@@ -138,6 +262,10 @@ void initializeUsbMock(
     initializeMockOpenUsbDeviceImpl();
     initializeMockInitializeUsbContextImpl();
     initializeMockRegisterCallbackUsbHotplugImpl();
-    initializeMockHandleUsbEventsImpl();
+    initializeMockLockEventWaitersImpl();
+    initializeMockUnlockEventWaitersImpl();
+    initializeMockLockEventsImpl();
+    initializeMockUnlockEventsImpl();
+    initializeMockHandleUsbEventsLockedImpl();
     initializeMockBulkTransferUsbImpl();
 }

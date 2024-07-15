@@ -3,6 +3,8 @@
 
 #include "tktusbrepeater/impl/usb.h"
 
+#include <ctime>
+
 // openUsbDeviceImpl()
 struct ArgsOpenUsbDeviceImpl
 {
@@ -32,15 +34,56 @@ extern int  calledCountRegisterCallbackUsbHotplugImpl;
 
 extern ArgsRegisterCallbackUsbHotplugImpl   argsRegisterCallbackUsbHotplugImpl;
 
-// handleUsbEventsImpl()
-struct ArgsHandleUsbEventsImpl
+// lockEventWaitersImpl()
+struct ArgsLockEventWaitersImpl
 {
     UsbContextImpl *    context = nullptr;
 };
 
-extern int  calledCountHandleUsbEventsImpl;
+extern int  calledCountLockEventWaitersImpl;
 
-extern ArgsHandleUsbEventsImpl  argsHandleUsbEventsImpl;
+extern ArgsLockEventWaitersImpl argsLockEventWaitersImpl;
+
+// unlockEventWaitersImpl()
+struct ArgsUnlockEventWaitersImpl
+{
+    UsbContextImpl *    context = nullptr;
+};
+
+extern int  calledCountUnlockEventWaitersImpl;
+
+extern ArgsUnlockEventWaitersImpl   argsUnlockEventWaitersImpl;
+
+// lockEventsImpl()
+struct ArgsLockEventsImpl
+{
+    UsbContextImpl *    context = nullptr;
+};
+
+extern int  calledCountLockEventsImpl;
+
+extern ArgsLockEventsImpl   argsLockEventsImpl;
+
+// unlockEventsImpl()
+struct ArgsUnlockEventsImpl
+{
+    UsbContextImpl *    context = nullptr;
+};
+
+extern int  calledCountUnlockEventsImpl;
+
+extern ArgsUnlockEventsImpl argsUnlockEventsImpl;
+
+// handleUsbEventsLockedImpl()
+struct ArgsHandleUsbEventsLockedImpl
+{
+    UsbContextImpl *    context = nullptr;
+    std::time_t         waitingSeconds = 0;
+};
+
+extern int  calledCountHandleUsbEventsLockedImpl;
+
+extern ArgsHandleUsbEventsLockedImpl    argsHandleUsbEventsLockedImpl;
 
 // bulkTrandferUsbImpl()
 struct ArgsBulkTransferUsbImpl

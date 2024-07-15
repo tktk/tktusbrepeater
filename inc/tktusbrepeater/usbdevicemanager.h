@@ -4,6 +4,7 @@
 #include "tktusbrepeater/impl/usb.h"
 #include <shared_mutex>
 #include <memory>
+#include <ctime>
 
 class UsbDeviceManager
 {
@@ -36,6 +37,23 @@ public:
         UsbContextImplUnique
     );
 
+    void lockEventWaiters(
+    );
+
+    void unlockEventWaiters(
+    );
+
+    void lockEvents(
+    );
+
+    void unlockEvents(
+    );
+
+    void handleEvents(
+        std::time_t
+    );
+
+    //REMOVEME
     void handleEvents(
     );
 

@@ -2,6 +2,8 @@
 #include <libusb-1.0/libusb.h>
 #include <sstream>
 #include <stdexcept>
+#include <ctime>
+#include <sys/time.h>
 
 namespace {
     enum {
@@ -77,6 +79,51 @@ void registerCallbackUsbHotplugImpl(
     );
 }
 
+void lockEventsImpl(
+    UsbContextImpl *    _contextImpl
+)
+{
+    libusb_lock_events( reinterpret_cast< libusb_context * >( _contextImpl ) );
+}
+
+void unlockEventsImpl(
+    UsbContextImpl *    _contextImpl
+)
+{
+    libusb_unlock_events( reinterpret_cast< libusb_context * >( _contextImpl ) );
+}
+
+void lockEventWaitersImpl(
+    UsbContextImpl *    _contextImpl
+)
+{
+    libusb_lock_event_waiters( reinterpret_cast< libusb_context * >( _contextImpl ) );
+}
+
+void unlockEventWaitersImpl(
+    UsbContextImpl *    _contextImpl
+)
+{
+    libusb_unlock_event_waiters( reinterpret_cast< libusb_context * >( _contextImpl ) );
+}
+
+void handleUsbEventsLockedImpl(
+    UsbContextImpl *    _contextImpl
+    , std::time_t       _WAITING_SECONDS
+)
+{
+    auto    MAXIMUM_WAITING = timeval{
+        _WAITING_SECONDS,
+        0,
+    };
+
+    libusb_handle_events_locked(
+        reinterpret_cast< libusb_context * >( _contextImpl )
+        , &MAXIMUM_WAITING
+    );
+}
+
+//REMOVEME
 void handleUsbEventsImpl(
     UsbContextImpl *    _contextImpl
 )

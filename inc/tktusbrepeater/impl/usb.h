@@ -2,6 +2,7 @@
 #define TKTUSBREPEATER_IMPL_USB_H
 
 #include <memory>
+#include <ctime>
 
 class UsbDeviceImpl;
 
@@ -74,6 +75,28 @@ void registerCallbackUsbHotplugImpl(
     , void *
 );
 
+void lockEventsImpl(
+    UsbContextImpl *
+);
+
+void unlockEventsImpl(
+    UsbContextImpl *
+);
+
+void lockEventWaitersImpl(
+    UsbContextImpl *
+);
+
+void unlockEventWaitersImpl(
+    UsbContextImpl *
+);
+
+void handleUsbEventsLockedImpl(
+    UsbContextImpl *
+    , std::time_t
+);
+
+//REMOVEME
 void handleUsbEventsImpl(
     UsbContextImpl *
 );

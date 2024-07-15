@@ -8,7 +8,6 @@ module.DEPENDS = [
     'tktusbrepeater_commandlineoptions_initializetest',
     'tktusbrepeater_usbdevicemanager_newtest',
     'tktusbrepeater_usbdevicemanager_callbackusbhotplugtest',
-    'tktusbrepeater_usbdevicemanager_handleeventstest',
     'tktusbrepeater_usbdevicemanager_bulktransfertest',
     'tktusbrepeater_serversocket_newtest',
     'tktusbrepeater_serversocket_accepttest',

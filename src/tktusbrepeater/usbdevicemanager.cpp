@@ -5,6 +5,7 @@
 #include <thread>
 #include <chrono>
 #include <stdexcept>
+#include <ctime>
 
 enum {
     INTERVAL_MILLISECONDS = 10,
@@ -71,6 +72,41 @@ UsbDeviceManager::UsbDeviceManager(
 {
 }
 
+void UsbDeviceManager::lockEventWaiters(
+)
+{
+    lockEventWaitersImpl( this->usbContextUnique.get() );
+}
+
+void UsbDeviceManager::unlockEventWaiters(
+)
+{
+    unlockEventWaitersImpl( this->usbContextUnique.get() );
+}
+
+void UsbDeviceManager::lockEvents(
+)
+{
+    lockEventsImpl( this->usbContextUnique.get() );
+}
+
+void UsbDeviceManager::unlockEvents(
+)
+{
+    unlockEventsImpl( this->usbContextUnique.get() );
+}
+
+void UsbDeviceManager::handleEvents(
+    std::time_t _WAITING_SECONDS
+)
+{
+    handleUsbEventsLockedImpl(
+        this->usbContextUnique.get()
+        , _WAITING_SECONDS
+    );
+}
+
+//REMOVEME
 void UsbDeviceManager::handleEvents(
 )
 {
