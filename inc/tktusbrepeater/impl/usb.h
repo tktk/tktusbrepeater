@@ -75,6 +75,12 @@ void registerCallbackUsbHotplugImpl(
     , void *
 );
 
+void handleUsbEventsTimeoutCompletedImpl(
+    UsbContextImpl *
+    , std::time_t
+    , int *
+);
+
 //REMOVEME
 void handleUsbEventsLockedImpl(
     UsbContextImpl *

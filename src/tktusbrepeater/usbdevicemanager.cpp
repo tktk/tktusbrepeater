@@ -76,9 +76,10 @@ void UsbDeviceManager::handleEvents(
     std::time_t _WAITING_SECONDS
 )
 {
-    handleUsbEventsLockedImpl(
+    handleUsbEventsTimeoutCompletedImpl(
         this->usbContextUnique.get()
         , _WAITING_SECONDS
+        , nullptr
     );
 }
 

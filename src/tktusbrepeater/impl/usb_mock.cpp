@@ -60,11 +60,24 @@ void registerCallbackUsbHotplugImpl(
     argsRegisterCallbackUsbHotplugImpl.userData = _userData;
 }
 
+int calledCountHandleUsbEventsTimeoutCompletedImpl;
+
+ArgsHandleUsbEventsTimeoutCompletedImpl argsHandleUsbEventsTimeoutCompletedImpl;
+
+void handleUsbEventsTimeoutCompletedImpl(
+    UsbContextImpl *    _context
+    , std::time_t       _WAITING_SECONDS
+    , int *             _completed
+)
+{
+    calledCountHandleUsbEventsTimeoutCompletedImpl++;
+
+    argsHandleUsbEventsTimeoutCompletedImpl.context = _context;
+    argsHandleUsbEventsTimeoutCompletedImpl.waitingSeconds = _WAITING_SECONDS;
+    argsHandleUsbEventsTimeoutCompletedImpl.completed = _completed;
+}
+
 //REMOVEME
-int calledCountHandleUsbEventsLockedImpl;
-
-ArgsHandleUsbEventsLockedImpl   argsHandleUsbEventsLockedImpl;
-
 void handleUsbEventsLockedImpl(
     UsbContextImpl *    _context
     , std::time_t       _WAITING_SECONDS
@@ -127,11 +140,11 @@ namespace {
         argsRegisterCallbackUsbHotplugImpl = ArgsRegisterCallbackUsbHotplugImpl();
     }
 
-    void initializeMockHandleUsbEventsLockedImpl(
+    void initializeMockHandleUsbEventsTimeoutCompletedImpl(
     )
     {
-        calledCountHandleUsbEventsLockedImpl = 0;
-        argsHandleUsbEventsLockedImpl = ArgsHandleUsbEventsLockedImpl();
+        calledCountHandleUsbEventsTimeoutCompletedImpl = 0;
+        argsHandleUsbEventsTimeoutCompletedImpl = ArgsHandleUsbEventsTimeoutCompletedImpl();
     }
 
     void initializeMockBulkTransferUsbImpl(
@@ -149,6 +162,6 @@ void initializeUsbMock(
     initializeMockOpenUsbDeviceImpl();
     initializeMockInitializeUsbContextImpl();
     initializeMockRegisterCallbackUsbHotplugImpl();
-    initializeMockHandleUsbEventsLockedImpl();
+    initializeMockHandleUsbEventsTimeoutCompletedImpl();
     initializeMockBulkTransferUsbImpl();
 }

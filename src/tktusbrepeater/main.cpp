@@ -9,7 +9,6 @@
 #include <array>
 #include <thread>
 #include <memory>
-#include <iostream>
 
 namespace {
     enum {

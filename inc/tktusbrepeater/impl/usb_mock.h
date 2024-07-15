@@ -33,16 +33,17 @@ extern int  calledCountRegisterCallbackUsbHotplugImpl;
 
 extern ArgsRegisterCallbackUsbHotplugImpl   argsRegisterCallbackUsbHotplugImpl;
 
-// handleUsbEventsLockedImpl()
-struct ArgsHandleUsbEventsLockedImpl
+// handleUsbEventsTimeoutCompletedImpl()
+struct ArgsHandleUsbEventsTimeoutCompletedImpl
 {
     UsbContextImpl *    context = nullptr;
     std::time_t         waitingSeconds = 0;
+    int *               completed = nullptr;
 };
 
-extern int  calledCountHandleUsbEventsLockedImpl;
+extern int  calledCountHandleUsbEventsTimeoutCompletedImpl;
 
-extern ArgsHandleUsbEventsLockedImpl    argsHandleUsbEventsLockedImpl;
+extern ArgsHandleUsbEventsTimeoutCompletedImpl  argsHandleUsbEventsTimeoutCompletedImpl;
 
 // bulkTrandferUsbImpl()
 struct ArgsBulkTransferUsbImpl

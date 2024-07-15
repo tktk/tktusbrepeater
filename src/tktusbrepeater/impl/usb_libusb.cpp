@@ -79,6 +79,24 @@ void registerCallbackUsbHotplugImpl(
     );
 }
 
+void handleUsbEventsTimeoutCompletedImpl(
+    UsbContextImpl *    _contextImpl
+    , std::time_t       _WAITING_SECONDS
+    , int *             _completed
+)
+{
+    auto    MAXIMUM_WAITING = timeval{
+        _WAITING_SECONDS,
+        0,
+    };
+
+    libusb_handle_events_timeout_completed(
+        reinterpret_cast< libusb_context * >( _contextImpl )
+        , &MAXIMUM_WAITING
+        , _completed
+    );
+}
+
 //REMOVEME
 void handleUsbEventsLockedImpl(
     UsbContextImpl *    _contextImpl
