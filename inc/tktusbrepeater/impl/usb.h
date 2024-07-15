@@ -75,30 +75,10 @@ void registerCallbackUsbHotplugImpl(
     , void *
 );
 
-void lockEventsImpl(
-    UsbContextImpl *
-);
-
-void unlockEventsImpl(
-    UsbContextImpl *
-);
-
-void lockEventWaitersImpl(
-    UsbContextImpl *
-);
-
-void unlockEventWaitersImpl(
-    UsbContextImpl *
-);
-
+//REMOVEME
 void handleUsbEventsLockedImpl(
     UsbContextImpl *
     , std::time_t
-);
-
-//REMOVEME
-void handleUsbEventsImpl(
-    UsbContextImpl *
 );
 
 int bulkTransferUsbImpl(

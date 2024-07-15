@@ -79,34 +79,7 @@ void registerCallbackUsbHotplugImpl(
     );
 }
 
-void lockEventsImpl(
-    UsbContextImpl *    _contextImpl
-)
-{
-    libusb_lock_events( reinterpret_cast< libusb_context * >( _contextImpl ) );
-}
-
-void unlockEventsImpl(
-    UsbContextImpl *    _contextImpl
-)
-{
-    libusb_unlock_events( reinterpret_cast< libusb_context * >( _contextImpl ) );
-}
-
-void lockEventWaitersImpl(
-    UsbContextImpl *    _contextImpl
-)
-{
-    libusb_lock_event_waiters( reinterpret_cast< libusb_context * >( _contextImpl ) );
-}
-
-void unlockEventWaitersImpl(
-    UsbContextImpl *    _contextImpl
-)
-{
-    libusb_unlock_event_waiters( reinterpret_cast< libusb_context * >( _contextImpl ) );
-}
-
+//REMOVEME
 void handleUsbEventsLockedImpl(
     UsbContextImpl *    _contextImpl
     , std::time_t       _WAITING_SECONDS
@@ -121,14 +94,6 @@ void handleUsbEventsLockedImpl(
         reinterpret_cast< libusb_context * >( _contextImpl )
         , &MAXIMUM_WAITING
     );
-}
-
-//REMOVEME
-void handleUsbEventsImpl(
-    UsbContextImpl *    _contextImpl
-)
-{
-    libusb_handle_events( reinterpret_cast< libusb_context * >( _contextImpl ) );
 }
 
 int bulkTransferUsbImpl(

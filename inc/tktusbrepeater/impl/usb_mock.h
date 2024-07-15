@@ -33,46 +33,6 @@ extern int  calledCountRegisterCallbackUsbHotplugImpl;
 
 extern ArgsRegisterCallbackUsbHotplugImpl   argsRegisterCallbackUsbHotplugImpl;
 
-// lockEventWaitersImpl()
-struct ArgsLockEventWaitersImpl
-{
-    UsbContextImpl *    context = nullptr;
-};
-
-extern int  calledCountLockEventWaitersImpl;
-
-extern ArgsLockEventWaitersImpl argsLockEventWaitersImpl;
-
-// unlockEventWaitersImpl()
-struct ArgsUnlockEventWaitersImpl
-{
-    UsbContextImpl *    context = nullptr;
-};
-
-extern int  calledCountUnlockEventWaitersImpl;
-
-extern ArgsUnlockEventWaitersImpl   argsUnlockEventWaitersImpl;
-
-// lockEventsImpl()
-struct ArgsLockEventsImpl
-{
-    UsbContextImpl *    context = nullptr;
-};
-
-extern int  calledCountLockEventsImpl;
-
-extern ArgsLockEventsImpl   argsLockEventsImpl;
-
-// unlockEventsImpl()
-struct ArgsUnlockEventsImpl
-{
-    UsbContextImpl *    context = nullptr;
-};
-
-extern int  calledCountUnlockEventsImpl;
-
-extern ArgsUnlockEventsImpl argsUnlockEventsImpl;
-
 // handleUsbEventsLockedImpl()
 struct ArgsHandleUsbEventsLockedImpl
 {
