@@ -1,5 +1,4 @@
 #include "tktusbrepeater/impl/usb_mock.h"
-
 #include <ctime>
 #include <stdexcept>
 

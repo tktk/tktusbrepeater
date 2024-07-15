@@ -2,7 +2,6 @@
 #define TKTUSBREPEATER_IMPL_USB_MOCK_H
 
 #include "tktusbrepeater/impl/usb.h"
-
 #include <ctime>
 
 // openUsbDeviceImpl()

@@ -42,6 +42,7 @@ module.SOURCE = [
             'socket_unixsocket.cpp',
         ],
         'thread' : [
+            'usbeventhandlingthread.cpp',
             'joiner.cpp',
         ],
     },
