@@ -43,6 +43,7 @@ module.SOURCE = [
         ],
         'thread' : [
             'usbeventhandlingthread.cpp',
+            'endmanager.cpp',
             'joiner.cpp',
         ],
     },
