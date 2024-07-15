@@ -1,3 +1,4 @@
+#include "tktusbrepeater/thread/usbeventhandlingthread.h"
 #include "tktusbrepeater/commandlineoptions.h"
 #include "tktusbrepeater/usbendpointmanager.h"
 #include "tktusbrepeater/usbdevicemanager.h"
@@ -7,39 +8,19 @@
 #include "tktusbrepeater/repeat.h"
 #include <array>
 #include <thread>
+#include <memory>
+#include <iostream>
 
 namespace {
     enum {
         BUFFER_SIZE = 1024,
+        WAITING_SECONDS = 1,
     };
 
     using Buffer = std::array<
         char
         , BUFFER_SIZE
     >;
-
-    void usbDeviceManagerThreadProc(
-        UsbDeviceManager &  _usbDeviceManager
-    )
-    {
-        while( 1 ) {
-            _usbDeviceManager.handleEvents();
-        }
-    }
-
-    void startUsbDeviceManagerThread(
-        UsbDeviceManager &  _usbDeviceManager
-    )
-    {
-        std::thread(
-            [
-                &_usbDeviceManager
-            ]
-            {
-                usbDeviceManagerThreadProc( _usbDeviceManager );
-            }
-        ).detach();
-    }
 
     void repeatThreadProc(
         UsbEndpointManager &    _usbEndpointManager
@@ -145,7 +126,12 @@ int main(
     );
     auto &  usbDeviceManager = *usbDeviceManagerUnique;
 
-    startUsbDeviceManagerThread( usbDeviceManager );
+    auto    usbEventHandlingThreadUnique = std::unique_ptr< UsbEventHandlingThread >(
+        new UsbEventHandlingThread(
+            usbDeviceManager
+            , WAITING_SECONDS
+        )
+    );
 
     auto    serverSocketUnique = newServerSocket( options.socketName );
     auto &  serverSocket = *serverSocketUnique;
