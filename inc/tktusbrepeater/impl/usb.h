@@ -81,12 +81,6 @@ void handleUsbEventsTimeoutCompletedImpl(
     , int *
 );
 
-//REMOVEME
-void handleUsbEventsLockedImpl(
-    UsbContextImpl *
-    , std::time_t
-);
-
 int bulkTransferUsbImpl(
     UsbDeviceHandleImpl *
     , unsigned char

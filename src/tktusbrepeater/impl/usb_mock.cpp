@@ -77,24 +77,6 @@ void handleUsbEventsTimeoutCompletedImpl(
     argsHandleUsbEventsTimeoutCompletedImpl.completed = _completed;
 }
 
-//REMOVEME
-void handleUsbEventsLockedImpl(
-    UsbContextImpl *    _context
-    , std::time_t       _WAITING_SECONDS
-)
-{
-/*
-    if( locked == false ) {
-        throw std::runtime_error( "アンロック中にhandleUsbEventsLockedImpl()" );
-    }
-
-    calledCountHandleUsbEventsLockedImpl++;
-
-    argsHandleUsbEventsLockedImpl.context = _context;
-    argsHandleUsbEventsLockedImpl.waitingSeconds = _WAITING_SECONDS;
-*/
-}
-
 int calledCountBulkTransferUsbImpl;
 
 ArgsBulkTransferUsbImpl argsBulkTransferUsbImpl;

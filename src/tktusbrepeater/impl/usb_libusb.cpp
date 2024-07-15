@@ -97,23 +97,6 @@ void handleUsbEventsTimeoutCompletedImpl(
     );
 }
 
-//REMOVEME
-void handleUsbEventsLockedImpl(
-    UsbContextImpl *    _contextImpl
-    , std::time_t       _WAITING_SECONDS
-)
-{
-    auto    MAXIMUM_WAITING = timeval{
-        _WAITING_SECONDS,
-        0,
-    };
-
-    libusb_handle_events_locked(
-        reinterpret_cast< libusb_context * >( _contextImpl )
-        , &MAXIMUM_WAITING
-    );
-}
-
 int bulkTransferUsbImpl(
     UsbDeviceHandleImpl *   _deviceHandleImpl
     , unsigned char         _ENDPOINT
