@@ -17,6 +17,10 @@ public:
 
     int accept(
     );
+
+    bool pollIn(
+        int
+    );
 };
 
 using ServerSocketUnique = std::unique_ptr< ServerSocket >;

@@ -9,6 +9,26 @@
 #include <sstream>
 #include <stdexcept>
 
+namespace {
+    bool poll_(
+        int     _SOCKET
+        , int   _TIMEOUT
+        , short _EVENTS
+    )
+    {
+        auto    fd = pollfd{
+            .fd = _SOCKET,
+            .events = _EVENTS,
+        };
+
+        return poll(
+            &fd
+            , 1
+            , _TIMEOUT
+        ) <= 0;
+    }
+}
+
 void closeSocketImpl(
     int _socket
 )
@@ -125,14 +145,21 @@ bool isConnectedSocketImpl(
     int _socket
 )
 {
-    auto    fd = pollfd{
-        .fd = _socket,
-        .events = 0,
-    };
-
-    return poll(
-        &fd
-        , 1
+    return poll_(
+        _socket
         , 0
+        , 0
+    ) <= 0;
+}
+
+bool pollInSocketImpl(
+    int     _socket
+    , int   _timeout
+)
+{
+    return poll_(
+        _socket
+        , _timeout
+        , POLLIN
     ) <= 0;
 }

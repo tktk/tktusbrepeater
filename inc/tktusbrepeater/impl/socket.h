@@ -55,4 +55,9 @@ bool isConnectedSocketImpl(
     int
 );
 
+bool pollInSocketImpl(
+    int
+    , int
+);
+
 #endif  // TKTUSBREPEATER_IMPL_SOCKET_H

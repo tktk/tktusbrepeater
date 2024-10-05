@@ -79,6 +79,19 @@ extern ArgsIsConnectedSocketImpl    argsIsConnectedSocketImpl;
 
 extern bool returnsIsConnectedSocketImpl;
 
+// pollInSocketImpl()
+struct ArgsPollInSocketImpl
+{
+    int socket = 0;
+    int timeout = 0;
+};
+
+extern int  calledCountPollInSocketImpl;
+
+extern ArgsPollInSocketImpl argsPollInSocketImpl;
+
+extern bool returnsPollInSocketImpl;
+
 
 void initializeSocketMock(
 );

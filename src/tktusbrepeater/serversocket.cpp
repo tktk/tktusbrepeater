@@ -21,6 +21,14 @@ int ServerSocket::accept(
     return acceptSocketImpl( this->socket );
 }
 
+bool ServerSocket::pollIn(
+    int _TIMEOUT
+)
+{
+    //TODO
+    return false;
+}
+
 ServerSocketUnique newServerSocket(
     const std::string & _PATH
 )

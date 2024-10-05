@@ -11,6 +11,7 @@ module.DEPENDS = [
     'tktusbrepeater_usbdevicemanager_bulktransfertest',
     'tktusbrepeater_serversocket_newtest',
     'tktusbrepeater_serversocket_accepttest',
+    'tktusbrepeater_serversocket_pollintest',
     'tktusbrepeater_socket_newtest',
     'tktusbrepeater_socket_readtest',
     'tktusbrepeater_socket_writetest',
