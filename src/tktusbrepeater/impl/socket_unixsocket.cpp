@@ -10,7 +10,7 @@
 #include <stdexcept>
 
 namespace {
-    bool poll_(
+    int poll_(
         int     _SOCKET
         , int   _TIMEOUT
         , short _EVENTS
@@ -25,7 +25,7 @@ namespace {
             &fd
             , 1
             , _TIMEOUT
-        ) <= 0;
+        );
     }
 }
 
@@ -161,5 +161,5 @@ bool pollInSocketImpl(
         _socket
         , _timeout
         , POLLIN
-    ) <= 0;
+    ) > 0;
 }

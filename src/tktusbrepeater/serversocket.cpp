@@ -25,8 +25,10 @@ bool ServerSocket::pollIn(
     int _TIMEOUT
 )
 {
-    //TODO
-    return false;
+    return pollInSocketImpl(
+        this->socket
+        , _TIMEOUT
+    );
 }
 
 ServerSocketUnique newServerSocket(
