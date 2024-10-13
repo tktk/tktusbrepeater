@@ -74,6 +74,12 @@ RepeatThread::RepeatThread(
 {
 }
 
+bool RepeatThread::isEnd(
+)
+{
+    return this->endManager.isEnd();
+}
+
 void RepeatThread::end(
 )
 {

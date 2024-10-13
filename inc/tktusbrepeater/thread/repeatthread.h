@@ -22,6 +22,9 @@ public:
         , int
     );
 
+    bool isEnd(
+    );
+
     void end(
     );
 };
