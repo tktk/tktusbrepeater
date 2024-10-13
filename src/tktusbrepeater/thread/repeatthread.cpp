@@ -28,7 +28,7 @@ RepeatThread::RepeatThread(
             this
             , &_usbEndpointManager
             , &_usbDeviceManager
-            , &_SOCKET
+            , _SOCKET
             , &_WAITING_MILLISECONDS
         ]
         {

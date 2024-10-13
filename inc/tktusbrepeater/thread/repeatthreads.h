@@ -12,9 +12,6 @@ class RepeatThreads
     std::vector< std::unique_ptr< RepeatThread > >  threadUniques;
 
 public:
-    RepeatThreads(
-    );
-
     void addThread(
         UsbEndpointManager &
         , UsbDeviceManager &

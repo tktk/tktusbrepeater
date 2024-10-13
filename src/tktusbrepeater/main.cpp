@@ -1,5 +1,6 @@
 #include "tktusbrepeater/thread/usbeventhandlingthread.h"
 #include "tktusbrepeater/thread/serversocketthread.h"
+#include "tktusbrepeater/thread/repeatthreads.h"
 #include "tktusbrepeater/commandlineoptions.h"
 #include "tktusbrepeater/usbendpointmanager.h"
 #include "tktusbrepeater/usbdevicemanager.h"
@@ -45,11 +46,14 @@ int main(
     auto    serverSocketUnique = newServerSocket( options.socketName );
     auto &  serverSocket = *serverSocketUnique;
 
+    auto    repeatThreads = RepeatThreads();
+
     auto    serverSocketThreadUnique = std::unique_ptr< ServerSocketThread >(
         new ServerSocketThread(
             usbEndpointManager
             , usbDeviceManager
             , serverSocket
+            , repeatThreads
             , WAITING_MILLISECONDS
         )
     );
