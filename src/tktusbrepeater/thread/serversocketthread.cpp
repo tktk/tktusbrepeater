@@ -19,7 +19,7 @@ ServerSocketThread::ServerSocketThread(
             , &_usbDeviceManager
             , &_serverSocket
             , &_repeatThreads
-            , &_WAITING_MILLISECONDS
+            , _WAITING_MILLISECONDS
         ]
         {
             while( this->endManager.isEnd() == false ) {
