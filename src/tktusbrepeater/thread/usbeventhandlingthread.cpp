@@ -10,7 +10,7 @@ UsbEventHandlingThread::UsbEventHandlingThread(
         [
             this
             , &_usbDeviceManager
-            , &_WAITING_SECONDS
+            , _WAITING_SECONDS
         ]
         {
             while( this->endManager.isEnd() == false ) {
