@@ -1,4 +1,5 @@
 #include "tktusbrepeater/thread/repeatthread.h"
+#include "tktusbrepeater/thread/endmanager.h"
 #include "tktusbrepeater/usbdevicemanager.h"
 #include "tktusbrepeater/usbendpointmanager.h"
 #include "tktusbrepeater/repeat.h"
@@ -15,6 +16,60 @@ namespace {
         char
         , BUFFER_SIZE
     >;
+
+    bool repeatFromUsbDeviceWithEndCheck(
+        unsigned char           _ENDPOINT
+        , UsbDeviceManager &    _usbDeviceManager
+        , Socket &              _socket
+        , void *                _buffer
+        , int                   _BUFFER_SIZE
+        , EndManager &          _endManager
+        , int                   _WAITING_MILLISECONDS
+    )
+    {
+        while( 1 ) {
+            if( _endManager.isEnd() == true ) {
+                return false;
+            } else if( _socket.pollOut( _WAITING_MILLISECONDS ) == true ) {
+                break;
+            }
+        }
+
+        return repeatFromUsbDevice(
+            _ENDPOINT
+            , _usbDeviceManager
+            , _socket
+            , _buffer
+            , _BUFFER_SIZE
+        );
+    }
+
+    bool repeatToUsbDeviceWithEndCheck(
+        unsigned char           _ENDPOINT
+        , UsbDeviceManager &    _usbDeviceManager
+        , Socket &              _socket
+        , void *                _buffer
+        , int                   _BUFFER_SIZE
+        , EndManager &          _endManager
+        , int                   _WAITING_MILLISECONDS
+    )
+    {
+        while( 1 ) {
+            if( _endManager.isEnd() == true ) {
+                return false;
+            } else if( _socket.pollIn( _WAITING_MILLISECONDS ) == true ) {
+                break;
+            }
+        }
+
+        return repeatToUsbDevice(
+            _ENDPOINT
+            , _usbDeviceManager
+            , _socket
+            , _buffer
+            , _BUFFER_SIZE
+        );
+    }
 }
 
 RepeatThread::RepeatThread(
@@ -35,7 +90,14 @@ RepeatThread::RepeatThread(
             auto    socketUnique = newSocket( _SOCKET );
             auto &  socket = *socketUnique;
 
-            //TODO ポーリング
+            while( 1 ) {
+                if( this->endManager.isEnd() == true ) {
+                    return;
+                } else if( socket.pollIn( _WAITING_MILLISECONDS ) == true ) {
+                    break;
+                }
+            }
+
             auto    endpoint = static_cast< unsigned char >( 0 );
             if( readEndpoint(
                 endpoint
@@ -50,20 +112,21 @@ RepeatThread::RepeatThread(
             }
 
             const auto  REPEAT_PROC = isUsbEndpointOut( endpoint ) == true
-                ? repeatToUsbDevice
-                : repeatFromUsbDevice
+                ? repeatToUsbDeviceWithEndCheck
+                : repeatFromUsbDeviceWithEndCheck
             ;
 
             auto    buffer = Buffer();
 
-            while( this->endManager.isEnd() == false ) {
-                //TODO ポーリング
+            while( 1 ) {
                 if( REPEAT_PROC(
                     endpoint
                     , _usbDeviceManager
                     , socket
                     , buffer.data()
                     , BUFFER_SIZE
+                    , this->endManager
+                    , _WAITING_MILLISECONDS
                 ) != true ) {
                     break;
                 }
