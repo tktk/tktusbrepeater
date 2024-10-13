@@ -46,6 +46,7 @@ module.SOURCE = [
             'usbeventhandlingthread.cpp',
             'serversocketthread.cpp',
             'repeatthread.cpp',
+            'repeatthreads.cpp',
             'endmanager.cpp',
             'joiner.cpp',
         ],
