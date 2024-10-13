@@ -4,7 +4,7 @@
 #include "tktusbrepeater/impl/socket_mock.h"
 
 namespace {
-    class Socket_pollInTest : public ::testing::Test
+    class Socket_pollOutTest : public ::testing::Test
     {
     protected:
         virtual void SetUp(
@@ -15,7 +15,7 @@ namespace {
 
     public:
         void test(
-            bool    _RETURNS_POLL_IN_SOCKET_IMPL
+            bool    _RETURNS_POLL_OUT_SOCKET_IMPL
             , bool  _EXPECTED
         ) const
         {
@@ -26,20 +26,20 @@ namespace {
                 .socket = SOCKET,
             };
 
-            returnsPollInSocketImpl = _RETURNS_POLL_IN_SOCKET_IMPL;
+            returnsPollOutSocketImpl = _RETURNS_POLL_OUT_SOCKET_IMPL;
 
-            EXPECT_EQ( _EXPECTED, reinterpret_cast< Socket & >( socketImpl ).pollIn( TIMEOUT ) );
+            EXPECT_EQ( _EXPECTED, reinterpret_cast< Socket & >( socketImpl ).pollOut( TIMEOUT ) );
 
-            EXPECT_EQ( 1, calledCountPollInSocketImpl );
-            EXPECT_EQ( SOCKET, argsPollInSocketImpl.socket );
-            EXPECT_EQ( TIMEOUT, argsPollInSocketImpl.timeout );
+            EXPECT_EQ( 1, calledCountPollOutSocketImpl );
+            EXPECT_EQ( SOCKET, argsPollOutSocketImpl.socket );
+            EXPECT_EQ( TIMEOUT, argsPollOutSocketImpl.timeout );
         }
     };
 }
 
 TEST_F(
-    Socket_pollInTest
-    , PollIn_availableRead
+    Socket_pollOutTest
+    , PollOut_availableWrite
 )
 {
     this->test(
@@ -49,8 +49,8 @@ TEST_F(
 }
 
 TEST_F(
-    Socket_pollInTest
-    , PollIn_unavailableRead
+    Socket_pollOutTest
+    , PollOut_unavailableWrite
 )
 {
     this->test(

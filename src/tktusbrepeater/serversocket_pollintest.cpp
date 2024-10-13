@@ -39,7 +39,7 @@ namespace {
 
 TEST_F(
     ServerSocket_pollInTest
-    , PollIn_existsReadData
+    , PollIn_availableRead
 )
 {
     this->test(
@@ -50,7 +50,7 @@ TEST_F(
 
 TEST_F(
     ServerSocket_pollInTest
-    , PollIn_notExistsReadData
+    , PollIn_unavailableRead
 )
 {
     this->test(
