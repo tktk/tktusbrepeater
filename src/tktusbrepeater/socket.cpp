@@ -49,8 +49,10 @@ bool Socket::pollIn(
     int _TIMEOUT_MILLISECONDS
 )
 {
-    //TODO
-    return false;
+    return pollInSocketImpl(
+        this->socket
+        , _TIMEOUT_MILLISECONDS
+    );
 }
 
 bool Socket::pollOut(
