@@ -84,7 +84,7 @@ RepeatThread::RepeatThread(
             , &_usbEndpointManager
             , &_usbDeviceManager
             , _SOCKET
-            , &_WAITING_MILLISECONDS
+            , _WAITING_MILLISECONDS
         ]
         {
             auto    socketUnique = newSocket( _SOCKET );
