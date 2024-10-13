@@ -26,6 +26,14 @@ public:
 
     bool isConnected(
     );
+
+    bool pollIn(
+        int
+    );
+
+    bool pollOut(
+        int
+    );
 };
 
 using SocketUnique = std::unique_ptr< Socket >;

@@ -22,12 +22,12 @@ int ServerSocket::accept(
 }
 
 bool ServerSocket::pollIn(
-    int _TIMEOUT
+    int _TIMEOUT_MILLISECONDS
 )
 {
     return pollInSocketImpl(
         this->socket
-        , _TIMEOUT
+        , _TIMEOUT_MILLISECONDS
     );
 }
 

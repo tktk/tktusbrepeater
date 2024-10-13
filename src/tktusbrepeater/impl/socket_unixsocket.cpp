@@ -163,3 +163,15 @@ bool pollInSocketImpl(
         , POLLIN
     ) > 0;
 }
+
+bool pollOutSocketImpl(
+    int     _socket
+    , int   _timeout
+)
+{
+    return poll_(
+        _socket
+        , _timeout
+        , POLLOUT
+    ) > 0;
+}

@@ -137,6 +137,25 @@ bool pollInSocketImpl(
     return returnsPollInSocketImpl;
 }
 
+int calledCountPollOutSocketImpl;
+
+ArgsPollOutSocketImpl   argsPollOutSocketImpl;
+
+bool    returnsPollOutSocketImpl;
+
+bool pollOutSocketImpl(
+    int     _socket
+    , int   _timeout
+)
+{
+    calledCountPollOutSocketImpl++;
+
+    argsPollOutSocketImpl.socket = _socket;
+    argsPollOutSocketImpl.timeout = _timeout;
+
+    return returnsPollOutSocketImpl;
+}
+
 namespace {
     void initializeMockInitializeSocketImpl(
     )
@@ -197,6 +216,14 @@ namespace {
         argsPollInSocketImpl = ArgsPollInSocketImpl();
         returnsPollInSocketImpl = false;
     }
+
+    void initializeMockPollOutSocketImpl(
+    )
+    {
+        calledCountPollOutSocketImpl = 0;
+        argsPollOutSocketImpl = ArgsPollOutSocketImpl();
+        returnsPollOutSocketImpl = false;
+    }
 }
 
 void initializeSocketMock(
@@ -210,4 +237,5 @@ void initializeSocketMock(
     initializeMockWriteSocketImpl();
     initializeMockIsConnectedSocketImpl();
     initializeMockPollInSocketImpl();
+    initializeMockPollOutSocketImpl();
 }

@@ -60,4 +60,9 @@ bool pollInSocketImpl(
     , int
 );
 
+bool pollOutSocketImpl(
+    int
+    , int
+);
+
 #endif  // TKTUSBREPEATER_IMPL_SOCKET_H

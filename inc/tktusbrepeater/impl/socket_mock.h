@@ -92,6 +92,19 @@ extern ArgsPollInSocketImpl argsPollInSocketImpl;
 
 extern bool returnsPollInSocketImpl;
 
+// pollOutSocketImpl()
+struct ArgsPollOutSocketImpl
+{
+    int socket = 0;
+    int timeout = 0;
+};
+
+extern int  calledCountPollOutSocketImpl;
+
+extern ArgsPollOutSocketImpl    argsPollOutSocketImpl;
+
+extern bool returnsPollOutSocketImpl;
+
 
 void initializeSocketMock(
 );

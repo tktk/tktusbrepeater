@@ -44,3 +44,19 @@ SocketUnique newSocket(
 {
     return SocketUnique( new Socket( _socket ) );
 }
+
+bool Socket::pollIn(
+    int _TIMEOUT_MILLISECONDS
+)
+{
+    //TODO
+    return false;
+}
+
+bool Socket::pollOut(
+    int _TIMEOUT_MILLISECONDS
+)
+{
+    //TODO
+    return false;
+}
