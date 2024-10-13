@@ -17,14 +17,6 @@ class ServerSocketThread
     ThreadJoiner    threadJoiner;
 
 public:
-    //REMOVEME
-    ServerSocketThread(
-        UsbEndpointManager &
-        , UsbDeviceManager &
-        , ServerSocket &
-        , int
-    );
-
     ServerSocketThread(
         UsbEndpointManager &
         , UsbDeviceManager &
